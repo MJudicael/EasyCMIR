@@ -305,3 +305,8 @@
 2025-06-08 00:17:36;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
 2025-06-08 00:34:36;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-08 00:34:36;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-08 01:49:52;Debit de dose 1 m;Isotope: Étain-117m;Activite: 23.0 GBq;Debit de dose: 46.81 mSv/h;46810.0 uSv/h
+2025-06-08 01:59:06;Distance;Debit de dose connu: 50.0 µSv/h à 10.0 mètres;Debit de dose calcule: 1.92 µSv/h à 51.0 mètres
+2025-06-08 01:59:23;Distance;Debit de dose connu: 50.0 µSv/h à 10.0 mètres;Debit de dose calcule: 12.5 µSv/h à 20.0 mètres
+2025-06-08 02:01:20;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-08 02:01:20;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq

@@ -60,8 +60,8 @@ QSpinBox::up-button, QSpinBox::down-button {
 
 /* Boutons sur l'ensemble du logiciel */
 QPushButton {
-    background-color: #f57803;
-    color: #000000;
+    background-color: #272727;
+    color: #e2e2e2;
     border: none;
     border-radius: 4px;
     padding: 1px 1px;
@@ -70,11 +70,11 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background-color: hsl(17, 92%, 68%);
+    background-color: hsl(29, 98%, 54%);
 }
 
 QPushButton:pressed {
-    background-color: #fafafa;
+    background-color: #272626;
 }
 
 /* Menus */
@@ -179,3 +179,21 @@ QTextBrowser:focus {
     border: 1px solid #001951;  /* Bleu ORANO */
 }
 
+QToolButton {
+    background-color: #f5b732;
+    border: 2px solid #080000;
+    border-radius: 5px;
+    padding: 5px;
+    min-width: 100px;
+    min-height: 80px;
+}
+
+QToolButton:hover {
+    background-color: #f8741c;
+    border-color: #000000;
+}
+
+QToolButton:pressed {
+    background-color: #494949;
+    border-color: #808080;
+}

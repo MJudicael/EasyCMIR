@@ -1,8 +1,9 @@
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QGridLayout,
-    QPushButton, QLabel, QMenu, QMenuBar
+    QPushButton, QLabel, QMenu, QMenuBar, QToolButton
 )
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QSize
+from src.utils.icon_manager import IconManager  # Assurez-vous que ce chemin est correct
 
 from src.fonctions.decroissance import DecroissanceDialog  # Import absolu au lieu de relatif
 from ..fonctions.ded1m import Ded1mDialog
@@ -17,26 +18,19 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("EasyCMIR")
-        self.setFixedSize(350, 100)
-
-        # Widget central
+        
+        # Initialisation du gestionnaire d'icônes
+        self.icon_manager = IconManager()
+        
+        # Création du widget central
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         
-        # Layout principal
-        layout = QVBoxLayout(central_widget)
-        
-        # Layout pour les boutons
-        button_grid = QGridLayout()
-        
-        # Création des boutons
+        # Création du layout principal
+        button_grid = QGridLayout(central_widget)
         self.create_buttons(button_grid)
-        
-        layout.addLayout(button_grid)
-        
-        # Création du menu
         self.create_menu()
-
+        
     def create_buttons(self, layout):
         buttons = [
             ("Décroissance", self.run_decroissance, 0, 0),
@@ -48,7 +42,18 @@ class MainWindow(QMainWindow):
         ]
         
         for text, slot, row, col in buttons:
-            btn = QPushButton(text)
+            btn = QToolButton()
+            btn.setText(text)
+            btn.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+            
+            # Ajout de l'icône
+            icon = self.icon_manager.get_icon(text)
+            if icon:
+                btn.setIcon(icon)
+                btn.setIconSize(QSize(32, 32))
+            
+            # Style et taille
+            btn.setMinimumSize(QSize(100, 80))
             btn.clicked.connect(slot)
             layout.addWidget(btn, row, col)
 

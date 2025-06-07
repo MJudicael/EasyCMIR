@@ -30,7 +30,7 @@ def main():
         print(f"Erreur lors du chargement du style: {e}")
     
     # Création du splash screen
-    splash_path = os.path.join(os.path.dirname(__file__), "resources", "images", "easycmir_icon.png")
+    splash_path = os.path.join(os.path.dirname(__file__), "resources", "images", "splash_screen.png")
     splash_pix = QPixmap(splash_path)
     splash_pix = splash_pix.scaled(400, 300, Qt.KeepAspectRatio, Qt.SmoothTransformation)
     splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
