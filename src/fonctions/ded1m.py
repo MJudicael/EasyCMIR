@@ -2,15 +2,53 @@ from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QGridLayout, QFormLayout,
     QLabel, QPushButton, QComboBox, QMessageBox
 )
-from ..utils.widgets import ClearingDoubleSpinBox
-from ..utils.database import save_to_history
+import os
+from src.utils.widgets import ClearingDoubleSpinBox
+from src.utils.database import save_to_history
 
-# Import des isotopes avec gestion d'erreur
+def load_isotopes():
+    """Charge les isotopes depuis le fichier texte."""
+    isotopes = {}
+    try:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        root_dir = os.path.dirname(os.path.dirname(current_dir))
+        isotopes_path = os.path.join(root_dir, "data", "isotopes.txt")
+        
+        with open(isotopes_path, 'r', encoding='utf-8') as file:
+            for line in file:
+                if line.startswith("//") or not line.strip():
+                    continue
+                data = line.strip().split(';')
+                if len(data) >= 9:
+                    name = data[0]
+                    # Sépare le type d'usage des valeurs numériques
+                    numeric_values = data[1:9]
+                    usage_type = data[8].split(',')[1] if ',' in data[8] else "N/A"
+                    
+                    # Conversion des valeurs numériques uniquement
+                    try:
+                        values = [float(x.split(',')[0] if ',' in x else x) 
+                                for x in numeric_values]
+                        values.append(usage_type)  # Ajoute le type d'usage comme chaîne
+                        isotopes[name] = values
+                    except ValueError as e:
+                        print(f"Erreur de conversion pour {name}: {e}")
+                        continue
+                    
+    except FileNotFoundError:
+        QMessageBox.critical(None, "Fichier Non Trouvé", 
+            f"Fichier isotopes.txt non trouvé à {isotopes_path}")
+    except Exception as e:
+        QMessageBox.critical(None, "Erreur", 
+            f"Erreur lors du chargement des isotopes: {e}")
+    
+    return isotopes
+
+# Chargement des isotopes 
 try:
-    from ..data.isotopes import ISOTOPES, ISOTOPE_NAMES
-    if not ISOTOPES:
-        raise ImportError("Aucun isotope chargé")
-except ImportError as e:
+    ISOTOPES = load_isotopes()
+    ISOTOPE_NAMES = list(ISOTOPES.keys())
+except Exception as e:
     QMessageBox.critical(None, "Erreur de chargement", 
                         f"Impossible de charger les isotopes: {e}\n"
                         "Vérifiez que le fichier isotopes.txt existe dans le dossier data/")
@@ -23,7 +61,7 @@ class Ded1mDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("DED 1m")
-        self.setFixedSize(300, 200)
+        self.setFixedSize(300, 220)
 
         self.layout = QVBoxLayout(self)
 
@@ -69,6 +107,27 @@ class Ded1mDialog(QDialog):
         self.layout.addWidget(self.manual_mode_button)
 
         self.layout.addStretch(1)
+
+        # Ajout du label pour le type d'usage après la combobox
+        self.usage_type_label = QLabel("")
+        self.usage_type_label.setObjectName("infoLabel")
+        input_form.addRow("Type d'usage :", self.usage_type_label)
+        
+        # Connexion du changement de sélection à la mise à jour du type
+        self.isotope_selection_combo.currentTextChanged.connect(self.update_usage_type)
+
+    def update_usage_type(self, isotope_name):
+        """Met à jour l'affichage du type d'usage quand un isotope est sélectionné."""
+        if isotope_name in ISOTOPES:
+            usage = ISOTOPES[isotope_name][-1]  # Le type est la dernière valeur
+            usage_text = {
+                "Med": "Médical",
+                "Ind": "Industriel",
+                "Mil": "Militaire"
+            }.get(usage, "Non spécifié")
+            self.usage_type_label.setText(usage_text)
+        else:
+            self.usage_type_label.setText("")
 
     def calculate_ded1m(self):
         """Calcule le débit de dose à 1m pour l'isotope sélectionné."""
@@ -118,7 +177,7 @@ class Ded1mManualDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("DED en Manuel")
-        self.setFixedSize(450, 200)
+        self.setFixedSize(400, 300)
 
         self.layout = QGridLayout(self)
 

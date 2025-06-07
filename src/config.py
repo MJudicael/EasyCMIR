@@ -1,6 +1,6 @@
 import os
 
-# Chemins
+# Chemins absolus
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 RESOURCES_DIR = os.path.join(BASE_DIR, "resources")
 DATA_DIR = os.path.join(BASE_DIR, "data")

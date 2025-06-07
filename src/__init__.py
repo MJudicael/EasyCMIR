@@ -10,7 +10,6 @@ from .utils.widgets import (
     ClearingLineEdit
 )
 
-__version__ = "1.4"
 __author__ = "Judicaël Mougin - SDIS 71"
 __license__ = "GPL 3 or Later"
 __email__ = "jmougin@sdis71.fr"

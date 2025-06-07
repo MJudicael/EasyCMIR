@@ -1,0 +1,24 @@
+Licence d'utilisation du logiciel EasyCMIR
+
+Article 1 — Objet
+Le logiciel EasyCMIR est un outil d’aide à la décision destiné exclusivement aux chefs de CMIR (Cellules Mobiles d'Intervention Radiologique) des services d'incendie et de secours (SDIS) en France.
+Le logiciel est mis à disposition gratuitement par son auteur.
+
+Article 2 — Conditions d'utilisation
+L’utilisation du logiciel est autorisée uniquement dans le cadre d’une activité non commerciale au sein des SDIS ou d’organismes partenaires agréés.
+
+Toute utilisation commerciale, directe ou indirecte, est strictement interdite sans autorisation écrite préalable de l’auteur.
+
+Le logiciel ne peut être ni loué, ni vendu, ni intégré à un produit ou service commercial.
+
+Article 3 — Propriété intellectuelle
+Le logiciel reste la propriété exclusive de son auteur.
+
+Il est interdit de modifier, altérer, décompiler, désassembler, traduire ou adapter tout ou partie du logiciel.
+
+La diffusion du logiciel en dehors du cercle professionnel visé par l’article 1 est interdite sans accord écrit de l’auteur.
+
+Article 4 — Absence de garantie
+Le logiciel est fourni "en l’état", sans garantie d'aucune sorte.
+L’auteur ne saurait être tenu responsable de tout dommage direct ou indirect résultant de l'utilisation du logiciel.
+

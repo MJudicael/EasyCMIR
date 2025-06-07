@@ -1,0 +1,51 @@
+import sys
+import os
+from time import sleep
+
+# Ajout du chemin racine au PYTHONPATH
+root_dir = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(root_dir)
+
+from PySide6.QtWidgets import QApplication, QSplashScreen
+from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtCore import Qt
+
+def main():
+    """Point d'entrée principal de l'application"""
+    # QApplication DOIT être créée avant tout import de widgets
+    app = QApplication(sys.argv)
+    
+    # Import après QApplication
+    from src.widgets.main_window import MainWindow
+    from src.config import STYLE_FILE, ICON_FILE
+
+    # Configuration de l'icône
+    app.setWindowIcon(QIcon(ICON_FILE))
+    
+    # Application du style
+    try:
+        with open(STYLE_FILE, 'r', encoding='utf-8') as f:
+            app.setStyleSheet(f.read())
+    except Exception as e:
+        print(f"Erreur lors du chargement du style: {e}")
+    
+    # Création du splash screen
+    splash_path = os.path.join(os.path.dirname(__file__), "resources", "images", "easycmir_icon.png")
+    splash_pix = QPixmap(splash_path)
+    splash_pix = splash_pix.scaled(400, 300, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+    splash.show()
+    
+    # Pause pour le splash screen
+    app.processEvents()
+    sleep(2)
+    
+    # Création de la fenêtre principale
+    window = MainWindow()
+    window.show()
+    
+    splash.finish(window)
+    return app.exec()
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -4,19 +4,19 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 
-from ..dialogs.decroissance import DecroissanceDialog
-from ..dialogs.ded1m import Ded1mDialog
-from ..dialogs.distance import DistanceDialog
-from ..dialogs.news import NewsDialog
-from ..dialogs.p_public import PerimetrePublicDialog  # Correction ici
-from ..dialogs.tmr import TMRDialog
-from ..dialogs.unites_rad import UnitesRadDialog
-from ..dialogs.about import AboutDialog
+from src.fonctions.decroissance import DecroissanceDialog  # Import absolu au lieu de relatif
+from ..fonctions.ded1m import Ded1mDialog
+from ..fonctions.distance import DistanceDialog
+from ..fonctions.news import NewsDialog
+from ..fonctions.p_public import PerimetrePublicDialog  # Correction ici
+from ..fonctions.tmr import TMRDialog
+from ..fonctions.unites_rad import UnitesRadDialog
+from ..fonctions.about import AboutDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("EasyCMIR 1.4")
+        self.setWindowTitle("EasyCMIR")
         self.setFixedSize(350, 100)
 
         # Widget central

@@ -259,3 +259,10 @@
 2025-06-07 13:08:42;Debit de dose 1 m;Isotope: Fluor18;Activite: 0.0 GBq;Debit de dose: 0.0 mSv/h;0.0 uSv/h
 2025-06-07 13:08:45;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-07 13:08:45;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 14:16:13;Debit de dose 1 m;Isotope: Fluor18;Activite: 23.0 GBq;Debit de dose: 2.96 mSv/h;2960.0 uSv/h
+2025-06-07 14:37:37;Debit de dose 1 m;Isotope: Thallium-201;Activite: 0.0 GBq;Debit de dose: 0.0 mSv/h;0.0 uSv/h
+2025-06-07 14:42:23;Debit de dose 1 m;Isotope: Prométhium-147;Activite: 26.0 GBq;Debit de dose: 0.0 mSv/h;0.0 uSv/h
+2025-06-07 14:42:56;Décroissance;Activité initiale: 26.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.00 GBq
+2025-06-07 14:43:05;Décroissance;Activité initiale: 26.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 262800.0 heures;Activité actuelle: 19.23 GBq
+2025-06-07 15:02:57;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 15:02:57;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
