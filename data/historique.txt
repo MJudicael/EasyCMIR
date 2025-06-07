@@ -296,3 +296,8 @@
 2025-06-07 18:25:32;Distance;Debit de dose connu: 59.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.59 µSv/h à 10.0 mètres
 2025-06-07 18:27:32;Distance;Debit de dose connu: 56.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.25 µSv/h à 15.0 mètres
 2025-06-07 18:28:26;Distance;Debit de dose connu: 56.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.25 µSv/h à 15.0 mètres
+2025-06-07 22:41:12;Distance;Debit de dose connu: 2500.0 µSv/h à 10.0 mètres;Debit de dose calcule: 16.0 µSv/h à 125.0 mètres
+2025-06-07 23:04:45;Distance;Debit de dose connu: 56.0 µSv/h à 10.0 mètres;Debit de dose calcule: 0.36 µSv/h à 125.0 mètres
+2025-06-07 23:09:21;Distance;Debit de dose connu: 50.0 µSv/h à 2.0 mètres;Debit de dose calcule: 0.89 µSv/h à 15.0 mètres
+2025-06-07 23:12:21;Distance;Debit de dose connu: 50.0 µSv/h à 2.0 mètres;Debit de dose calcule: 0.89 µSv/h à 15.0 mètres
+2025-06-07 23:17:48;Distance;Debit de dose connu: 50.0 µSv/h à 12.0 mètres;Debit de dose calcule: 0.31 µSv/h à 152.0 mètres
