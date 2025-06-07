@@ -266,3 +266,33 @@
 2025-06-07 14:43:05;Décroissance;Activité initiale: 26.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 262800.0 heures;Activité actuelle: 19.23 GBq
 2025-06-07 15:02:57;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-07 15:02:57;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 18:03:12;Distance;Debit de dose connu: 26.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.01 mSv/h à 50.0 mètres
+2025-06-07 18:06:03;Distance;Debit de dose connu: 50.0 mSv/h à 3.0 mètres;Debit de dose calcule: 0.72 mSv/h à 25.0 mètres
+2025-06-07 18:09:31;Distance;Debit de dose connu: 55.0 mSv/h à 10.0 mètres;Debit de dose calcule: 1.53 mSv/h à 60.0 mètres
+2025-06-07 18:09:41;Distance;Debit de dose connu: 55.0 mSv/h à 10.0 mètres;Debit de dose calcule: 0.06 mSv/h à 300.0 mètres
+2025-06-07 18:10:01;Distance;Debit de dose connu: 55.0 mSv/h à 10.0 mètres;Debit de dose calcule: 0.0 mSv/h à 1200.0 mètres
+2025-06-07 18:10:24;Distance;Debit de dose connu: 55000.0 µSv/h à 10.0 mètres;Debit de dose calcule: 3.82 µSv/h à 1200.0 mètres
+2025-06-07 18:10:31;Distance;Debit de dose connu: 55000.0 µSv/h à 10.0 mètres;Debit de dose calcule: 2.44 µSv/h à 1500.0 mètres
+2025-06-07 18:10:37;Distance;Debit de dose connu: 55000.0 µSv/h à 10.0 mètres;Debit de dose calcule: 1.38 µSv/h à 2000.0 mètres
+2025-06-07 18:14:20;Distance;Debit de dose connu: 59.0 mSv/h à 10.0 mètres;Debit de dose calcule: 0.0 mSv/h à 1500.0 mètres
+2025-06-07 18:14:37;Distance;Debit de dose connu: 59000.0 mSv/h à 10.0 mètres;Debit de dose calcule: 0.37 mSv/h à 4000.0 mètres
+2025-06-07 18:14:44;Distance;Debit de dose connu: 59000.0 µSv/h à 10.0 mètres;Debit de dose calcule: 0.37 µSv/h à 4000.0 mètres
+2025-06-07 18:18:05;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 2.12 µSv/h à 2000.0 mètres
+2025-06-07 18:18:11;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:18:38;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:18:38;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:18:38;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:18:39;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:18:39;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:18:39;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:18:39;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:18:39;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:18:40;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.76 µSv/h à 2200.0 mètres
+2025-06-07 18:21:40;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 1.61 µSv/h à 2300.0 mètres
+2025-06-07 18:23:48;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 0.42 µSv/h à 4500.0 mètres
+2025-06-07 18:24:38;Distance;Debit de dose connu: 59000.0 µSv/h à 12.0 mètres;Debit de dose calcule: 0.69 µSv/h à 3500.0 mètres
+2025-06-07 18:24:46;Distance;Debit de dose connu: 10.0 µSv/h à 1.0 mètres;Debit de dose calcule: 1.11 µSv/h à 3.0 mètres
+2025-06-07 18:25:19;Distance;Debit de dose connu: 10.0 µSv/h à 1.0 mètres;Debit de dose calcule: 1.11 µSv/h à 3.0 mètres
+2025-06-07 18:25:32;Distance;Debit de dose connu: 59.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.59 µSv/h à 10.0 mètres
+2025-06-07 18:27:32;Distance;Debit de dose connu: 56.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.25 µSv/h à 15.0 mètres
+2025-06-07 18:28:26;Distance;Debit de dose connu: 56.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.25 µSv/h à 15.0 mètres

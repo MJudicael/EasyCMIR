@@ -2,6 +2,8 @@ from PySide6.QtWidgets import (
     QDialog, QGridLayout, QLabel, QPushButton, 
     QComboBox, QMessageBox
 )
+import matplotlib.pyplot as plt
+import numpy as np
 from ..utils.widgets import ClearingDoubleSpinBox
 from ..utils.database import save_to_history
 
@@ -70,6 +72,12 @@ class DistanceDialog(QDialog):
         self.actual_distance_result_label.setObjectName("subResultLabel")
         self.layout.addWidget(self.actual_distance_result_label, 3, 0, 1, 5)
 
+        # Ajout du bouton pour le graphique après le bouton calculer
+        self.plot_button = QPushButton("Afficher le graphique")
+        self.plot_button.setEnabled(False)  # Désactivé par défaut
+        self.layout.addWidget(self.plot_button, 2, 4)
+        self.plot_button.clicked.connect(self.show_plot)
+        
     def calculate_distance(self):
         """Calcule le débit de dose à une distance donnée."""
         try:
@@ -100,6 +108,12 @@ class DistanceDialog(QDialog):
             # Calcul selon la loi inverse du carré de la distance
             result = round((ded1 * d1 ** 2) / (d2 ** 2), 2)
             self.actual_distance_result_label.setText(f"{result} {chosen_unit} à {d2} m")
+            
+            # Activation du bouton du graphique
+            self.plot_button.setEnabled(True)
+            # Stockage des valeurs pour le graphique
+            self._last_calculation = (d1, d2, ded1, result)
+            
 
             # Sauvegarde dans l'historique
             save_to_history([
@@ -113,3 +127,12 @@ class DistanceDialog(QDialog):
                                "Veuillez entrer des valeurs numériques valides.")
         except Exception as e:
             QMessageBox.critical(self, "Erreur", f"Une erreur est survenue: {e}")
+
+    def show_plot(self):
+        """Affiche la fenêtre du graphique."""
+        from .plot_window import PlotDialog
+        if hasattr(self, '_last_calculation'):
+            d1, d2, ded1, result = self._last_calculation
+            unit = self.unit_choice_combo.currentText()
+            dialog = PlotDialog(d1, d2, ded1, result, unit, self)
+            dialog.exec()
