@@ -63,24 +63,44 @@ class PlotDialog(QDialog):
         
         # Points de mesure
         ax.scatter([0, 0], [d1, d2], color='blue', s=100, label='Points de mesure')
-        ax.scatter(0, d_threshold, color='red', marker='s', s=100, label='Seuil 2.5 µSv/h')
+        ax.scatter(0, d_threshold, color='red', marker='s', s=100, label='Périmètre public')
         
-        # Annotations
-        ax.annotate(f"Initial: {ded1} {unit}", (0, d1), 
-                   xytext=(0.2, d1), textcoords='data')
-        ax.annotate(f"Calculé: {ded2} {unit}", (0, d2), 
-                   xytext=(0.2, d2), textcoords='data')
-        ax.annotate(f"Seuil: 2.5 µSv/h", (0, d_threshold), 
-                   xytext=(0.2, d_threshold), textcoords='data')
+        # Annotations avec les valeurs séparées
+        # Point initial
+        ax.annotate(f"{ded1} {unit}", (0, d1), 
+                   xytext=(0.2, d1), textcoords='data', fontsize=9,
+                   va='bottom')  # Débit au-dessus
+        ax.annotate(f"{d1} m", (0, d1), 
+                   xytext=(0.2, d1), textcoords='data', fontsize=9,
+                   va='top')    # Distance en-dessous
+        
+        # Point calculé
+        ax.annotate(f"{ded2} {unit}", (0, d2), 
+                   xytext=(0.2, d2), textcoords='data', fontsize=9,
+                   va='bottom')  # Débit au-dessus
+        ax.annotate(f"{d2} m", (0, d2), 
+                   xytext=(0.2, d2), textcoords='data', fontsize=9,
+                   va='top')    # Distance en-dessous
+        
+        # Point seuil
+        ax.annotate("2.5 µSv/h", (0, d_threshold), 
+                   xytext=(0.2, d_threshold), textcoords='data', fontsize=9,
+                   va='bottom')  # Débit au-dessus
+        ax.annotate(f"{d_threshold:.2f} m", (0, d_threshold), 
+                   xytext=(0.2, d_threshold), textcoords='data', fontsize=9,
+                   va='top')    # Distance en-dessous
         
         # Configuration du graphique
         ax.set_theta_zero_location('N')  # 0° au Nord
         ax.set_theta_direction(-1)       # Sens horaire
-        ax.set_rticks([d for d in distances])  # Marques de distance
+        ax.set_rticks([])  # Supprime les marques de distance automatiques
         ax.grid(True)
         
-        # Légende
-        ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1))
+        # Supprime les graduations angulaires
+        ax.set_xticks([])
         
-        # Titre
-        ax.set_title("Représentation circulaire des distances et débits de dose")
+        # Ajustement de la taille des labels des axes
+        ax.tick_params(axis='both', which='major', labelsize=9)
+        
+        # Légende avec taille de police réduite
+        ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1), fontsize=9)
