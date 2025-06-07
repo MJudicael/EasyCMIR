@@ -1,0 +1,261 @@
+..2025-06-06 21:11:20;Décroissance;Activité initiale: 23.0 GBq;Temps: 23.0 minutes
+2025-06-06 21:11:26;Décroissance;Activité initiale: 23.0 GBq;Temps: 12.0 minutes
+2025-06-06 21:18:35;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2025-06-06 21:18:05;Période: 172800 sec;Activité actuelle: 22.99720453399494 GBq
+2025-06-06 21:19:51;Décroissance;Activité initiale: 1.0 GBq;Date initiale: 2025-06-06 21:19:44;Période: 31536000 sec;Activité actuelle: 0.9999998453403824 GBq
+2025-06-06 21:22:18;Décroissance;Activité initiale: 1.0 GBq;Date initiale: 2025-06-06 21:22:04;Période: 63072000 sec;Activité actuelle: 0.9999998413645238 GBq
+2025-06-06 21:22:21;Décroissance;Activité initiale: 1.0 GBq;Date initiale: 2025-06-06 21:22:04;Période: 94608000 sec;Activité actuelle: 0.9999998725287925 GBq
+2025-06-06 21:22:23;Décroissance;Activité initiale: 1.0 GBq;Date initiale: 2025-06-06 21:22:04;Période: 126144000 sec;Activité actuelle: 0.999999894813679 GBq
+2025-06-06 21:27:24;Décroissance;Activité initiale: 4.0 GBq;Date initiale: 2025-06-06 21:27:16;Période: 17520.0 heures;Activité actuelle: 4.00 GBq
+2025-06-06 21:27:28;Décroissance;Activité initiale: 5.0 GBq;Date initiale: 2025-06-06 21:27:16;Période: 17520.0 heures;Activité actuelle: 5.00 GBq
+2025-06-06 21:28:20;Décroissance;Activité initiale: 5.0 GBq;Date initiale: 2025-06-06 21:27:16;Période: 17568.0 heures;Activité actuelle: 5.00 GBq
+2025-06-06 21:36:45;Décroissance;Activité initiale: 1200.0 GBq;Date initiale: 2021-06-06 21:36:30;Période: 52560.0 heures;Activité actuelle: 755.71 GBq
+2025-06-06 21:36:48;Décroissance;Activité initiale: 1200.0 GBq;Date initiale: 2022-06-06 21:36:30;Période: 52560.0 heures;Activité actuelle: 848.26 GBq
+2025-06-06 21:36:58;Décroissance;Activité initiale: 1200.0 GBq;Date initiale: 2022-06-06 21:36:30;Période: 52560.0 heures;Activité actuelle: 848.26 GBq
+2025-06-06 21:36:59;Décroissance;Activité initiale: 1200.0 GBq;Date initiale: 2022-06-06 21:36:30;Période: 52560.0 heures;Activité actuelle: 848.26 GBq
+2025-06-06 21:36:59;Décroissance;Activité initiale: 1200.0 GBq;Date initiale: 2022-06-06 21:36:30;Période: 52560.0 heures;Activité actuelle: 848.26 GBq
+2025-06-06 21:37:00;Décroissance;Activité initiale: 1200.0 GBq;Date initiale: 2022-06-06 21:36:30;Période: 52560.0 heures;Activité actuelle: 848.26 GBq
+2025-06-06 21:37:00;Décroissance;Activité initiale: 1200.0 GBq;Date initiale: 2022-06-06 21:36:30;Période: 52560.0 heures;Activité actuelle: 848.26 GBq
+2025-06-06 23:45:08;Décroissance;Activité initiale: 20.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 8784.0 heures;Activité actuelle: 0.00 GBq
+2025-06-06 23:47:04;TMR;Contact: 5.0;DED 1m: 4.0;IT: 0.4
+2025-06-06 23:47:08;TMR;Contact: 5.0;DED 1m: 1.0;IT: 0.1
+2025-06-06 23:47:11;TMR;Contact: 10.0;DED 1m: 1.0;IT: 0.1
+2025-06-06 23:47:34;Décroissance;Activité initiale: 20.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 120.0 heures;Activité actuelle: 0.00 GBq
+2025-06-06 23:47:43;Décroissance;Activité initiale: 20.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 17640.0 heures;Activité actuelle: 0.22 GBq
+2025-06-06 23:47:45;Décroissance;Activité initiale: 20.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 35160.0 heures;Activité actuelle: 2.10 GBq
+2025-06-06 23:52:51;Décroissance;Activité initiale: 2.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 26280.0 heures;Activité actuelle: 98.04 GBq
+2025-06-06 23:54:08;Décroissance;Activité initiale: 5.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 26280.0 heures;Activité actuelle: 0.25 GBq
+2025-06-06 23:57:39;TMR;Ded contact: 8.0 µSv/h;Ded 1m: 4.0 µSv/h;IT: 0.4;Etiquette: II
+2025-06-07 00:07:18;TMR;Ded contact: 10.0 µSv/h;Ded 1m: 1.0 µSv/h;IT: 0.1;Etiquette: II
+2025-06-07 00:09:42;TMR;Ded contact: 20.0 µSv/h;Ded 1m: 1.0 µSv/h;IT: 0.1;Etiquette: II
+2025-06-07 00:10:04;TMR;Ded contact: 20.0 µSv/h;Ded 1m: 3.0 µSv/h;IT: 0.3;Etiquette: II
+2025-06-07 00:10:07;TMR;Ded contact: 20.0 µSv/h;Ded 1m: 5.0 µSv/h;IT: 0.5;Etiquette: II
+2025-06-07 00:10:09;TMR;Ded contact: 20.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: II
+2025-06-07 00:10:14;TMR;Ded contact: 25.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: II
+2025-06-07 00:10:18;TMR;Ded contact: 30.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: II
+2025-06-07 00:10:20;TMR;Ded contact: 50.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: II
+2025-06-07 00:10:24;TMR;Ded contact: 125.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: II
+2025-06-07 00:10:26;TMR;Ded contact: 125.0 µSv/h;Ded 1m: 50.0 µSv/h;IT: 5.0;Etiquette: N/A
+2025-06-07 00:10:29;TMR;Ded contact: 125.0 µSv/h;Ded 1m: 45.0 µSv/h;IT: 4.5;Etiquette: N/A
+2025-06-07 00:10:31;TMR;Ded contact: 125.0 µSv/h;Ded 1m: 40.0 µSv/h;IT: 4.0;Etiquette: N/A
+2025-06-07 00:10:33;TMR;Ded contact: 125.0 µSv/h;Ded 1m: 13.0 µSv/h;IT: 1.3;Etiquette: N/A
+2025-06-07 00:10:38;TMR;Ded contact: 100.0 µSv/h;Ded 1m: 13.0 µSv/h;IT: 1.3;Etiquette: N/A
+2025-06-07 00:10:40;TMR;Ded contact: 10.0 µSv/h;Ded 1m: 13.0 µSv/h;IT: 1.3;Etiquette: N/A
+2025-06-07 00:10:42;TMR;Ded contact: 10.0 µSv/h;Ded 1m: 4.0 µSv/h;IT: 0.4;Etiquette: II
+2025-06-07 00:10:49;TMR;Ded contact: 10.0 µSv/h;Ded 1m: 5.0 µSv/h;IT: 0.5;Etiquette: II
+2025-06-07 00:10:56;TMR;Ded contact: 10.0 µSv/h;Ded 1m: 5.0 µSv/h;IT: 0.5;Etiquette: II
+2025-06-07 00:16:17;TMR;Ded contact: 20.0 µSv/h;Ded 1m: 1.0 µSv/h;IT: 0.1;Etiquette: II
+2025-06-07 00:17:22;TMR;Ded contact: 20.0 µSv/h;Ded 1m: 1.0 µSv/h;IT: 0.1;Etiquette: II
+2025-06-07 00:17:26;TMR;Ded contact: 20.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: II
+2025-06-07 00:17:29;TMR;Ded contact: 20.0 µSv/h;Ded 1m: 100.0 µSv/h;IT: 10.0;Etiquette: N/A
+2025-06-07 00:18:57;TMR;Ded contact: 0.0 µSv/h;Ded 1m: 0.0 µSv/h;IT: 0.0;Etiquette: I
+2025-06-07 00:18:58;TMR;Ded contact: 0.0 µSv/h;Ded 1m: 0.0 µSv/h;IT: 0.0;Etiquette: I
+2025-06-07 00:18:59;TMR;Ded contact: 0.0 µSv/h;Ded 1m: 0.0 µSv/h;IT: 0.0;Etiquette: I
+2025-06-07 00:31:56;TMR;Ded contact: 3000.0 µSv/h;Ded 1m: 120.0 µSv/h;IT: 12.0;Etiquette: IV
+2025-06-07 00:32:53;TMR;Ded contact: 3000.0 µSv/h;Ded 1m: 120.0 µSv/h;IT: 12.0;Etiquette: EXCLU
+2025-06-07 00:41:22;TMR;Ded contact: 2000.0 µSv/h;Ded 1m: 12.0 µSv/h;IT: 1.2;Etiquette: III
+2025-06-07 00:42:27;TMR;Ded contact: 1000.0 µSv/h;Ded 1m: 90.0 µSv/h;IT: 9.0;Etiquette: III
+2025-06-07 00:44:04;TMR;Ded contact: 2000.0 µSv/h;Ded 1m: 100.0 µSv/h;IT: 10.0;Etiquette: III
+2025-06-07 00:44:08;TMR;Ded contact: 2000.0 µSv/h;Ded 1m: 1000.0 µSv/h;IT: 100.0;Etiquette: N/A
+2025-06-07 00:44:13;TMR;Ded contact: 11000.0 µSv/h;Ded 1m: 1000.0 µSv/h;IT: 100.0;Etiquette: N/A
+2025-06-07 00:44:19;TMR;Ded contact: 11000.0 µSv/h;Ded 1m: 0.0 µSv/h;IT: 0.0;Etiquette: N/A
+2025-06-07 00:44:21;TMR;Ded contact: 11000.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: N/A
+2025-06-07 00:44:43;TMR;Ded contact: 9000.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: EX
+2025-06-07 00:44:50;TMR;Ded contact: 1900.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: N/A
+2025-06-07 00:44:57;TMR;Ded contact: 1900.0 µSv/h;Ded 1m: 11.0 µSv/h;IT: 1.1;Etiquette: III
+2025-06-07 00:48:54;Distance;Debit de dose connu: 12.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.12 mSv/h à 10.0 mètres
+2025-06-07 00:50:27;Distance;Debit de dose connu: 12.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.48 mSv/h à 5.0 mètres
+2025-06-07 00:55:33;Distance;Debit de dose connu: 12.3 mSv/h à 2.3 mètres;Debit de dose calcule: 0.45 mSv/h à 12.0 mètres
+2025-06-07 01:03:23;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0.0 µSv/h
+2025-06-07 01:03:23;Conversion Activite;De: 0.0 GBq;Vers: 0.0 Bq
+2025-06-07 01:03:28;Conversion Debit de Dose;De: 2.0 mSv/h;Vers: 2000.0 µSv/h
+2025-06-07 01:03:28;Conversion Debit de Dose;De: 23.0 mSv/h;Vers: 23000.0 µSv/h
+2025-06-07 01:03:29;Conversion Debit de Dose;De: 23.3 mSv/h;Vers: 23300.0 µSv/h
+2025-06-07 01:03:35;Conversion Activite;De: 1.0 GBq;Vers: 1000000000.0 Bq
+2025-06-07 01:03:36;Conversion Activite;De: 2.0 GBq;Vers: 2000000000.0 Bq
+2025-06-07 01:03:36;Conversion Activite;De: 3.0 GBq;Vers: 3000000000.0 Bq
+2025-06-07 01:03:36;Conversion Activite;De: 4.0 GBq;Vers: 4000000000.0 Bq
+2025-06-07 01:03:37;Conversion Activite;De: 5.0 GBq;Vers: 5000000000.0 Bq
+2025-06-07 01:03:37;Conversion Activite;De: 6.0 GBq;Vers: 6000000000.0 Bq
+2025-06-07 01:03:37;Conversion Activite;De: 7.0 GBq;Vers: 7000000000.0 Bq
+2025-06-07 01:03:37;Conversion Activite;De: 8.0 GBq;Vers: 8000000000.0 Bq
+2025-06-07 01:03:37;Conversion Activite;De: 9.0 GBq;Vers: 9000000000.0 Bq
+2025-06-07 01:03:38;Conversion Activite;De: 10.0 GBq;Vers: 10000000000.0 Bq
+2025-06-07 01:03:40;Conversion Activite;De: 10.0 Ci;Vers: 370000000000.0 Bq
+2025-06-07 01:03:41;Conversion Activite;De: 10.0 Ci;Vers: 370000000.0 kBq
+2025-06-07 01:09:03;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0.0 µSv/h
+2025-06-07 01:09:03;Conversion Activite;De: 0.0 GBq;Vers: 0.0 Bq
+2025-06-07 01:09:06;Conversion Debit de Dose;De: 2.0 mSv/h;Vers: 2000.0 µSv/h
+2025-06-07 01:09:06;Conversion Debit de Dose;De: 23.0 mSv/h;Vers: 23000.0 µSv/h
+2025-06-07 01:09:10;Conversion Debit de Dose;De: 233.0 mSv/h;Vers: 233000.0 µSv/h
+2025-06-07 01:09:10;Conversion Debit de Dose;De: 2336.0 mSv/h;Vers: 2336000.0 µSv/h
+2025-06-07 01:09:11;Conversion Debit de Dose;De: 23365.0 mSv/h;Vers: 23365000.0 µSv/h
+2025-06-07 01:09:12;Conversion Debit de Dose;De: 23365.3 mSv/h;Vers: 23365300.0 µSv/h
+2025-06-07 01:10:21;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0.0 µSv/h
+2025-06-07 01:10:21;Conversion Activite;De: 0.0 GBq;Vers: 0.0 Bq
+2025-06-07 01:10:24;Conversion Debit de Dose;De: 2.0 mSv/h;Vers: 2000.0 µSv/h
+2025-06-07 01:10:24;Conversion Debit de Dose;De: 23.0 mSv/h;Vers: 23000.0 µSv/h
+2025-06-07 01:10:24;Conversion Debit de Dose;De: 230.0 mSv/h;Vers: 230000.0 µSv/h
+2025-06-07 01:10:54;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 01:10:54;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 01:10:55;Conversion Debit de Dose;De: 2.0 mSv/h;Vers: 2000 µSv/h
+2025-06-07 01:10:56;Conversion Debit de Dose;De: 23.0 mSv/h;Vers: 23000 µSv/h
+2025-06-07 01:10:56;Conversion Debit de Dose;De: 230.0 mSv/h;Vers: 230000 µSv/h
+2025-06-07 01:13:52;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 01:13:52;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 01:15:18;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 01:15:18;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 01:48:59;Debit de dose 1 m;Isotope: Iridium 192;Activite: 23.3 GBq;Debit de dose: 1.62 mSv/h;1620.0 uSv/h
+2025-06-07 01:50:23;Debit de dose 1 m;Isotope: Lutétium 177m;Activite: 23.3 GBq;Debit de dose: 0.75 mSv/h;750.0 uSv/h
+2025-06-07 01:50:32;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 01:50:32;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 01:50:55;Décroissance;Activité initiale: 23.0 MBq;Date initiale: 2012-05-22 06:00:00;Période: 1440.0 heures;Activité actuelle: 0.00 GBq
+2025-06-07 01:50:59;Décroissance;Activité initiale: 23.0 MBq;Date initiale: 2012-05-22 06:00:00;Période: 89040.0 heures;Activité actuelle: 0.01 GBq
+2025-06-07 01:51:02;Décroissance;Activité initiale: 23.0 MBq;Date initiale: 2012-05-22 06:00:00;Période: 132840.0 heures;Activité actuelle: 0.01 GBq
+2025-06-07 01:51:07;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 176640.0 heures;Activité actuelle: 14.69 GBq
+2025-06-07 01:52:33;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 01:52:33;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 01:55:01;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 01:58:52;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 01:58:52;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 01:59:00;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 01:59:00;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 01:59:01;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 02:00:57;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:01:45;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:02:04;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:02:07;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:02:10;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:02:15;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:04:03;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:04:16;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:04:22;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:04:24;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:04:42;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:04:59;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:05:18;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:06:09;Perimetre public;DED 1m: 120.0 uSv/h;Perimetre: 6.93 m
+2025-06-07 02:06:09;Perimetre public;DED 1m: 120.0 uSv/h;Perimetre: 6.93 m
+2025-06-07 02:06:10;Perimetre public;DED 1m: 120.0 uSv/h;Perimetre: 6.93 m
+2025-06-07 02:06:10;Perimetre public;DED 1m: 120.0 uSv/h;Perimetre: 6.93 m
+2025-06-07 02:06:11;Perimetre public;DED 1m: 120.0 uSv/h;Perimetre: 6.93 m
+2025-06-07 02:06:11;Perimetre public;DED 1m: 120.0 uSv/h;Perimetre: 6.93 m
+2025-06-07 02:06:11;Perimetre public;DED 1m: 120.0 uSv/h;Perimetre: 6.93 m
+2025-06-07 02:06:11;Perimetre public;DED 1m: 120.0 uSv/h;Perimetre: 6.93 m
+2025-06-07 02:06:11;Perimetre public;DED 1m: 120.0 uSv/h;Perimetre: 6.93 m
+2025-06-07 02:07:45;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.89 m
+2025-06-07 02:07:46;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 02:07:46;Perimetre public;DED 1m: 230.0 uSv/h;Perimetre: 9.59 m
+2025-06-07 02:07:47;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 02:07:47;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.89 m
+2025-06-07 02:07:53;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.89 m
+2025-06-07 02:08:24;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:08:48;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:08:58;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:11:27;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:12:01;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:12:33;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:14:27;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:14:50;Perimetre public;DED 1m: 3.0 uSv/h;Perimetre: 1.1 m
+2025-06-07 02:14:50;Perimetre public;DED 1m: 30.0 uSv/h;Perimetre: 3.46 m
+2025-06-07 02:14:50;Perimetre public;DED 1m: 300.0 uSv/h;Perimetre: 10.95 m
+2025-06-07 02:14:50;Perimetre public;DED 1m: 300.0 uSv/h;Perimetre: 10.95 m
+2025-06-07 02:14:50;Perimetre public;DED 1m: 300.0 uSv/h;Perimetre: 10.95 m
+2025-06-07 02:14:54;Perimetre public;DED 1m: 300.0 uSv/h;Perimetre: 10.95 m
+2025-06-07 02:15:16;Perimetre public;DED 1m: 300.0 uSv/h;Perimetre: 10.95 m
+2025-06-07 02:15:32;Perimetre public;DED 1m: 4.0 uSv/h;Perimetre: 1.26 m
+2025-06-07 02:15:33;Perimetre public;DED 1m: 40.0 uSv/h;Perimetre: 4.0 m
+2025-06-07 02:15:35;Perimetre public;DED 1m: 40.0 uSv/h;Perimetre: 4.0 m
+2025-06-07 02:21:51;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:25:46;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.89 m
+2025-06-07 02:25:46;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 02:25:46;Perimetre public;DED 1m: 230.0 uSv/h;Perimetre: 9.59 m
+2025-06-07 02:25:48;Perimetre public;DED 1m: 230.0 uSv/h;Perimetre: 9.59 m
+2025-06-07 02:27:40;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.89 m
+2025-06-07 02:27:40;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 02:27:40;Perimetre public;DED 1m: 230.0 uSv/h;Perimetre: 9.59 m
+2025-06-07 02:27:40;Perimetre public;DED 1m: 230.0 uSv/h;Perimetre: 9.59 m
+2025-06-07 02:27:40;Perimetre public;DED 1m: 230.0 uSv/h;Perimetre: 9.59 m
+2025-06-07 02:27:47;Perimetre public;DED 1m: 230.0 uSv/h;Perimetre: 9.59 m
+2025-06-07 02:27:55;Perimetre public;DED 1m: 230.0 uSv/h;Perimetre: 9.59 m
+2025-06-07 02:28:59;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.89 m
+2025-06-07 02:28:59;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03 m
+2025-06-07 02:28:59;Perimetre public;DED 1m: 235.0 uSv/h;Perimetre: 9.7 m
+2025-06-07 02:29:05;Perimetre public;DED 1m: 235.0 uSv/h;Perimetre: 9.7 m
+2025-06-07 02:29:28;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:29:35;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 02:29:35;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 02:29:37;Conversion Debit de Dose;De: 1.0 mSv/h;Vers: 1000 µSv/h
+2025-06-07 02:29:37;Conversion Debit de Dose;De: 2.0 mSv/h;Vers: 2000 µSv/h
+2025-06-07 02:29:37;Conversion Debit de Dose;De: 3.0 mSv/h;Vers: 3000 µSv/h
+2025-06-07 02:29:38;Conversion Debit de Dose;De: 4.0 mSv/h;Vers: 4000 µSv/h
+2025-06-07 02:29:39;Conversion Debit de Dose;De: 5.0 mSv/h;Vers: 5000 µSv/h
+2025-06-07 02:29:39;Conversion Debit de Dose;De: 6.0 mSv/h;Vers: 6000 µSv/h
+2025-06-07 02:29:39;Conversion Debit de Dose;De: 7.0 mSv/h;Vers: 7000 µSv/h
+2025-06-07 02:29:40;Conversion Debit de Dose;De: 8.0 mSv/h;Vers: 8000 µSv/h
+2025-06-07 02:29:40;Conversion Debit de Dose;De: 7.0 mSv/h;Vers: 7000 µSv/h
+2025-06-07 02:29:40;Conversion Debit de Dose;De: 6.0 mSv/h;Vers: 6000 µSv/h
+2025-06-07 02:29:41;Conversion Debit de Dose;De: 5.0 mSv/h;Vers: 5000 µSv/h
+2025-06-07 02:29:42;Conversion Debit de Dose;De: 4.0 mSv/h;Vers: 4000 µSv/h
+2025-06-07 02:29:42;Conversion Debit de Dose;De: 3.0 mSv/h;Vers: 3000 µSv/h
+2025-06-07 02:29:42;Conversion Debit de Dose;De: 4.0 mSv/h;Vers: 4000 µSv/h
+2025-06-07 02:29:42;Conversion Debit de Dose;De: 5.0 mSv/h;Vers: 5000 µSv/h
+2025-06-07 02:29:43;Conversion Debit de Dose;De: 6.0 mSv/h;Vers: 6000 µSv/h
+2025-06-07 02:29:49;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:32:46;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:33:18;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:37:18;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:37:18;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:37:18;Perimetre public;DED 1m: 3.0 uSv/h;Perimetre: 1.1 m
+2025-06-07 02:37:18;Perimetre public;DED 1m: 30.0 uSv/h;Perimetre: 3.46 m
+2025-06-07 02:37:29;Perimetre public;DED 1m: 30.0 uSv/h;Perimetre: 3.46 m
+2025-06-07 02:46:06;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:46:52;Perimetre public;DED 1m: 3.0 uSv/h;Perimetre: 1.0954451150103321 m
+2025-06-07 02:46:52;Perimetre public;DED 1m: 30.0 uSv/h;Perimetre: 3.4641016151377544 m
+2025-06-07 02:46:55;Perimetre public;DED 1m: 30.0 uSv/h;Perimetre: 3.4641016151377544 m
+2025-06-07 02:48:13;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 02:48:33;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 11:45:00;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.8944271909999159 m
+2025-06-07 11:45:00;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03315017762062 m
+2025-06-07 11:45:01;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.8944271909999159 m
+2025-06-07 11:45:01;Perimetre public;DED 1m: 0.0 uSv/h;Perimetre: 0.0 m
+2025-06-07 11:45:02;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.8944271909999159 m
+2025-06-07 11:45:03;Perimetre public;DED 1m: 2.3 uSv/h;Perimetre: 0.9591663046625438 m
+2025-06-07 11:45:03;Perimetre public;DED 1m: 2.3 uSv/h;Perimetre: 0.9591663046625438 m
+2025-06-07 11:45:07;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.8944271909999159 m
+2025-06-07 11:45:07;Perimetre public;DED 1m: 26.0 uSv/h;Perimetre: 3.22490309931942 m
+2025-06-07 11:45:07;Perimetre public;DED 1m: 265.0 uSv/h;Perimetre: 10.295630140987 m
+2025-06-07 11:49:19;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 11:49:19;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 11:55:09;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 11:55:09;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 12:29:31;Debit de dose 1 m;Isotope: Fluor18;Activite: 236.0 GBq;Debit de dose: 30.41 mSv/h;30410.0 uSv/h
+2025-06-07 12:29:44;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.8944271909999159 m
+2025-06-07 12:29:44;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03315017762062 m
+2025-06-07 12:29:44;Perimetre public;DED 1m: 236.0 uSv/h;Perimetre: 9.715966241192895 m
+2025-06-07 12:29:44;Perimetre public;DED 1m: 2365.0 uSv/h;Perimetre: 30.757112998459398 m
+2025-06-07 12:32:58;Distance;Debit de dose connu: 230.0 mSv/h à 1.0 mètres;Debit de dose calcule: 25.56 mSv/h à 3.0 mètres
+2025-06-07 12:43:02;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 12:43:02;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 12:45:12;TMR;Ded contact: 1500.0 µSv/h;Ded 1m: 120.0 µSv/h;IT: 12.0;Etiquette: N/A
+2025-06-07 12:45:17;TMR;Ded contact: 1500.0 µSv/h;Ded 1m: 99.0 µSv/h;IT: 9.9;Etiquette: III
+2025-06-07 12:53:03;Debit de dose 1 m;Isotope: Fluor18;Activite: 0.0 GBq;Debit de dose: 0.0 mSv/h;0.0 uSv/h
+2025-06-07 13:03:45;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.00 GBq
+2025-06-07 13:03:58;Debit de dose 1 m;Isotope: Iridium 192;Activite: 23.0 GBq;Debit de dose: 1.6 mSv/h;1600.0 uSv/h
+2025-06-07 13:06:15;Debit de dose 1 m;Isotope: Fluor18;Activite: 0.0 GBq;Debit de dose: 0.0 mSv/h;0.0 uSv/h
+2025-06-07 13:06:18;Debit de dose 1 m;Isotope: Fluor18;Activite: 23.0 GBq;Debit de dose: 2.96 mSv/h;2960.0 uSv/h
+2025-06-07 13:06:22;Debit de dose 1 m (Manuel);E1:0.0, Q1:0.0;E2:0.0, Q2:0.0;E3:0.0, Q3:0.0;Activite: 0.0 GBq;Debit de dose: 0.0 mSv/h
+2025-06-07 13:06:43;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 13:06:43;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 13:07:23;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 13:07:23;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-07 13:08:16;Distance;Debit de dose connu: 25.0 mSv/h à 2.0 mètres;Debit de dose calcule: 1.0 mSv/h à 10.0 mètres
+2025-06-07 13:08:17;Distance;Debit de dose connu: 25.0 mSv/h à 2.0 mètres;Debit de dose calcule: 1.0 mSv/h à 10.0 mètres
+2025-06-07 13:08:17;Distance;Debit de dose connu: 25.0 mSv/h à 2.0 mètres;Debit de dose calcule: 1.0 mSv/h à 10.0 mètres
+2025-06-07 13:08:17;Distance;Debit de dose connu: 25.0 mSv/h à 2.0 mètres;Debit de dose calcule: 1.0 mSv/h à 10.0 mètres
+2025-06-07 13:08:24;Distance;Debit de dose connu: 25.0 mSv/h à 2.0 mètres;Debit de dose calcule: 0.83 mSv/h à 11.0 mètres
+2025-06-07 13:08:26;Distance;Debit de dose connu: 25.0 mSv/h à 2.0 mètres;Debit de dose calcule: 0.83 mSv/h à 11.0 mètres
+2025-06-07 13:08:33;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.8944271909999159 m
+2025-06-07 13:08:33;Perimetre public;DED 1m: 23.0 uSv/h;Perimetre: 3.03315017762062 m
+2025-06-07 13:08:42;Debit de dose 1 m;Isotope: Fluor18;Activite: 0.0 GBq;Debit de dose: 0.0 mSv/h;0.0 uSv/h
+2025-06-07 13:08:45;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-07 13:08:45;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
