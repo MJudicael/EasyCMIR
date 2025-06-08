@@ -323,6 +323,7 @@
 2025-06-08 02:24:04;Debit de dose 1 m;Isotope: Radium-226;Activite: 56.0 GBq;Debit de dose: 26.58 mSv/h;26580.0 uSv/h
 2025-06-08 02:24:13;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-08 02:24:13;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+<<<<<<< HEAD
 2025-06-08 11:35:37;Décroissance;Activité initiale: 323.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.04 GBq
 2025-06-08 11:36:05;Debit de dose 1 m;Isotope: Actinium-225;Activite: 65265.0 GBq;Debit de dose: 27459.07 mSv/h;27459070.0 uSv/h
 2025-06-08 11:36:12;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
@@ -331,3 +332,5 @@
 2025-06-08 11:36:54;Distance;Debit de dose connu: 26.0 µSv/h à 10.0 mètres;Debit de dose calcule: 2.89 µSv/h à 30.0 mètres
 2025-06-08 11:37:10;Distance;Debit de dose connu: 56.0 µSv/h à 10.0 mètres;Debit de dose calcule: 2.24 µSv/h à 50.0 mètres
 2025-06-08 11:37:16;Distance;Debit de dose connu: 56.0 µSv/h à 10.0 mètres;Debit de dose calcule: 0.56 µSv/h à 100.0 mètres
+=======
+>>>>>>> 2ca4bb72cd474315a3491c602c3643047b74d6d6
