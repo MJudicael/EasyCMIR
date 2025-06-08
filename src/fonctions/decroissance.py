@@ -1,6 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from math import log, exp  # Ajout des fonctions mathématiques nécessaires
 import numpy as np
+from matplotlib import pyplot as plt
+from matplotlib.dates import DateFormatter
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QGridLayout, QLabel,
     QPushButton, QComboBox, QGroupBox, QMessageBox
@@ -8,6 +10,87 @@ from PySide6.QtWidgets import (
 from ..utils.widgets import ClearingDoubleSpinBox, ClearingSpinBox
 from ..utils.database import save_to_history
 from .plot import PlotDisplayDialog
+
+class DecroissanceCalculator:
+    def __init__(self):
+        self.initial_activity = 0
+        self.half_life = 0
+        self.start_datetime = None
+        
+    def calculate_ten_periods(self, initial_activity, half_life, start_datetime=None):
+        """Calcule l'activité après 10 périodes."""
+        if start_datetime is None:
+            start_datetime = datetime.now()
+            
+        self.initial_activity = initial_activity
+        self.half_life = half_life
+        self.start_datetime = start_datetime
+        
+        # Calcul de la date après 10 périodes
+        ten_periods_hours = 10 * self.half_life
+        end_datetime = self.start_datetime + timedelta(hours=ten_periods_hours)
+        
+        # Calcul de l'activité restante après 10 périodes
+        remaining_activity = self.initial_activity * (0.5 ** 10)
+        
+        return end_datetime, remaining_activity
+        
+    def plot_decay(self):
+        """Génère le graphique de décroissance avec indication des 10 périodes."""
+        if not all([self.initial_activity, self.half_life, self.start_datetime]):
+            raise ValueError("Les paramètres initiaux doivent être définis")
+            
+        # Calcul pour 10 périodes
+        end_datetime, final_activity = self.calculate_ten_periods(
+            self.initial_activity, 
+            self.half_life, 
+            self.start_datetime
+        )
+        
+        # Création des points pour le graphique
+        time_points = np.linspace(0, 10 * self.half_life, 1000)
+        dates = [self.start_datetime + timedelta(hours=t) for t in time_points]
+        activities = [self.initial_activity * (0.5 ** (t/self.half_life)) for t in time_points]
+        
+        # Création du graphique
+        plt.figure(figsize=(12, 8))
+        plt.plot(dates, activities, 'b-', label='Décroissance')
+        
+        # Ajout du point à 10 périodes
+        plt.plot(end_datetime, final_activity, 'ro', label='10 périodes')
+        
+        # Annotation centrée au-dessus du point avec police plus petite
+        plt.annotate(
+            f'Après 10 périodes:\nDate: {end_datetime.strftime("%d/%m/%Y %H:%M")}\nActivité: {final_activity:.2e} Bq',
+            xy=(end_datetime, final_activity),
+            xytext=(0, 30),  # Décalage vertical uniquement
+            textcoords='offset points',
+            ha='center',  # Centrage horizontal
+            va='bottom',  # Alignement vertical en bas
+            fontsize=9,   # Taille de police à 9px
+            bbox=dict(
+                boxstyle='round,pad=0.5',
+                fc='yellow',
+                alpha=0.5,
+                ec='gray'
+            ),
+            arrowprops=dict(
+                arrowstyle='->', 
+                connectionstyle='arc3,rad=0',
+                color='gray'
+            )
+        )
+        
+        # Formatage du graphique
+        plt.gcf().autofmt_xdate()
+        plt.gca().xaxis.set_major_formatter(DateFormatter('%d/%m/%Y\n%H:%M'))
+        plt.xlabel('Date et Heure')
+        plt.ylabel('Activité (Bq)')
+        plt.title('Décroissance Radioactive')
+        plt.grid(True)
+        plt.legend()
+        
+        return plt.gcf()
 
 class DecroissanceDialog(QDialog):
     """Dialog pour le calcul de décroissance."""
@@ -226,14 +309,65 @@ class DecroissanceDialog(QDialog):
             QMessageBox.critical(self, "Erreur", str(e))
             
     def show_decay_plot(self):
-        """Affiche le graphique de décroissance."""
-        if (len(self._time_data_for_plot) > 0 and 
-            len(self._activity_data_for_plot) > 0):
+        """Affiche le graphique de décroissance avec les 10 périodes."""
+        try:
+            # Récupération des données initiales
+            initial_activity = self.activity_input.value()
+            unit_factors = {"Bq": 1, "kBq": 1e3, "MBq": 1e6, "GBq": 1e9, "TBq": 1e12}
+            initial_activity_bq = initial_activity * unit_factors[self.activity_unit.currentText()]
+            
+            # Calcul de la période en heures
+            period_hours = (
+                self.p_year_input.value() * 365 * 24 +
+                self.p_month_input.value() * 30 * 24 +
+                self.p_day_input.value() * 24 +
+                self.p_hour_input.value() +
+                self.p_minute_input.value() / 60 +
+                self.p_second_input.value() / 3600
+            )
+            
+            # Date initiale
+            start_datetime = datetime(
+                year=self.year_input.value(),
+                month=self.month_input.value(),
+                day=self.day_input.value(),
+                hour=self.hour_input.value(),
+                minute=self.minute_input.value(),
+                second=self.second_input.value()
+            )
+            
+            # Création du calculateur
+            calculator = DecroissanceCalculator()
+            calculator.initial_activity = initial_activity_bq
+            calculator.half_life = period_hours
+            calculator.start_datetime = start_datetime
+            
+            # Génération du graphique
+            figure = calculator.plot_decay()
+            
+            # Affichage dans une nouvelle fenêtre
             plot_dialog = PlotDisplayDialog(
-                self._time_data_for_plot,
-                self._activity_data_for_plot,
-                self
+                figure=figure,
+                parent=self
             )
             plot_dialog.exec()
-        else:
-            QMessageBox.warning(self, "Erreur", "Veuillez d'abord calculer la décroissance")
+            
+        except Exception as e:
+            QMessageBox.critical(self, "Erreur", f"Erreur lors de la création du graphique : {str(e)}")
+
+class PlotDisplayDialog(QDialog):
+    def __init__(self, figure=None, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Graphique de décroissance")
+        self.setMinimumSize(800, 600)
+        
+        layout = QVBoxLayout(self)
+        
+        from matplotlib.backends.backend_qt5agg import FigureCanvas
+        canvas = FigureCanvas(figure)
+        layout.addWidget(canvas)
+        
+        # Bouton Fermer
+        close_button = QPushButton("Fermer")
+        close_button.clicked.connect(self.close)
+        layout.addWidget(close_button)

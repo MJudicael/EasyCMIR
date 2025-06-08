@@ -1,18 +1,31 @@
 from PySide6.QtWidgets import (
-    QMainWindow, QWidget, QVBoxLayout, QGridLayout,
-    QPushButton, QLabel, QMenu, QMenuBar, QToolButton
+    QMainWindow, QWidget, QVBoxLayout, 
+    QLabel, QPushButton, QGridLayout, QToolButton, QGroupBox
 )
-from PySide6.QtCore import Qt, QSize
-from src.utils.icon_manager import IconManager  # Assurez-vous que ce chemin est correct
+from PySide6.QtGui import QAction
+from PySide6.QtCore import Qt, QSize  # Ajout de QSize
+from ..utils.icon_manager import IconManager
+from ..fonctions.codeonu import CodeONUDialog
 
-from src.fonctions.decroissance import DecroissanceDialog  # Import absolu au lieu de relatif
+# Import des dialogues RAD
+from ..fonctions.decroissance import DecroissanceDialog
 from ..fonctions.ded1m import Ded1mDialog
 from ..fonctions.distance import DistanceDialog
-from ..fonctions.news import NewsDialog
-from ..fonctions.p_public import PerimetrePublicDialog  # Correction ici
+from ..fonctions.p_public import PerimetrePublicDialog
 from ..fonctions.tmr import TMRDialog
 from ..fonctions.unites_rad import UnitesRadDialog
+
+# Import des dialogues RCH
+from ..fonctions.codeonu import CodeONUDialog
+from ..fonctions.identification import IdentificationDialog
+from ..fonctions.bio import BioDialog
+from ..fonctions.PID import PIDDialog
+from ..fonctions.tmd import TMDDialog
+from ..fonctions.intervention import InterventionDialog
+
+# Import des dialogues du menu Aide
 from ..fonctions.about import AboutDialog
+from ..fonctions.news import NewsDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -26,36 +39,85 @@ class MainWindow(QMainWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         
-        # Création du layout principal
-        button_grid = QGridLayout(central_widget)
-        self.create_buttons(button_grid)
+        # Layout principal vertical
+        main_layout = QVBoxLayout(central_widget)
+        
+        # Création des sections RAD et RCH
+        rad_section = self.create_rad_section()
+        rch_section = self.create_rch_section()
+        
+        # Utiliser addWidget au lieu de addLayout pour les QGroupBox
+        main_layout.addWidget(rad_section)
+        main_layout.addWidget(rch_section)
+        
         self.create_menu()
-        
-    def create_buttons(self, layout):
-        buttons = [
-            ("Décroissance", self.run_decroissance, 0, 0),
-            ("DED 1m", self.run_ded1m, 0, 1),
-            ("P Public", self.run_p_public, 0, 2),
-            ("TMR", self.run_tmr, 1, 0),
-            ("Distance", self.run_distance, 1, 1),
-            ("Unités RAD", self.run_unites_rad, 1, 2)
+
+    def create_rad_section(self):
+        """Crée la section RAD."""
+        group = QGroupBox("RAD")
+        layout = QGridLayout()
+
+        # Configuration des boutons RAD
+        rad_buttons = [
+            ("Décroissance", self.run_decroissance),
+            ("Distance", self.run_distance),
+            ("DED 1m", self.run_ded1m),
+            ("P Public", self.run_p_public),
+            ("TMR", self.run_tmr),
+            ("Unités RAD", self.run_unites_rad)
         ]
-        
-        for text, slot, row, col in buttons:
+
+        # Création des boutons dans une grille 2x3
+        for i, (text, callback) in enumerate(rad_buttons):
             btn = QToolButton()
+            icon = self.icon_manager.get_icon(text)
+            btn.setIcon(icon)
+            btn.setIconSize(QSize(32, 32))
             btn.setText(text)
             btn.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-            
-            # Ajout de l'icône
-            icon = self.icon_manager.get_icon(text)
-            if icon:
-                btn.setIcon(icon)
-                btn.setIconSize(QSize(32, 32))
-            
-            # Style et taille
             btn.setMinimumSize(QSize(100, 80))
-            btn.clicked.connect(slot)
+            btn.clicked.connect(callback)
+            
+            # Modification ici : changement du calcul de row et col
+            row = i // 3  # Division entière par 3 pour obtenir la ligne
+            col = i % 3   # Modulo 3 pour obtenir la colonne
             layout.addWidget(btn, row, col)
+
+        group.setLayout(layout)
+        return group
+
+    def create_rch_section(self):
+        """Crée la section RCH"""
+        group = QGroupBox("RCH")
+        layout = QGridLayout()
+
+        # Configuration des boutons RCH
+        rch_buttons = [
+            ("Identification", self.run_identification),
+            ("Code DANGER", self.run_code_danger),
+            ("Bio", self.run_bio),
+            ("PID", self.run_PID),
+            ("TMD", self.run_tmd),
+            ("Intervention", self.run_intervention)
+        ]
+
+        # Création des boutons dans une grille 3x2
+        for i, (text, callback) in enumerate(rch_buttons):
+            btn = QToolButton()
+            icon = self.icon_manager.get_icon(text)
+            btn.setIcon(icon)
+            btn.setIconSize(QSize(32, 32))
+            btn.setText(text)
+            btn.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+            btn.setMinimumSize(QSize(100, 80))
+            btn.clicked.connect(callback)
+            
+            row = i // 3
+            col = i % 3
+            layout.addWidget(btn, row, col)
+
+        group.setLayout(layout)
+        return group  # Retourne le QGroupBox au lieu du layout
 
     def create_menu(self):
         menubar = self.menuBar()
@@ -85,6 +147,13 @@ class MainWindow(QMainWindow):
         about_action.triggered.connect(self.run_about)
         news_action = help_menu.addAction("News ASNR")
         news_action.triggered.connect(self.run_news)
+        
+        # Menu Recherche
+        menu_rech = self.menuBar().addMenu("Recherche")
+        
+        action_codes = QAction("Recherche Codes", self)
+        action_codes.triggered.connect(self.run_code_search)
+        menu_rech.addAction(action_codes)
 
     def run_decroissance(self):
         dialog = DecroissanceDialog(self)
@@ -116,4 +185,54 @@ class MainWindow(QMainWindow):
 
     def run_news(self):
         dialog = NewsDialog(self)
+        dialog.exec()
+
+    def run_code_danger(self):
+        """Lance la fenêtre Code Danger."""
+        dialog = CodeONUDialog(self)  # Changement de CodeDangerDialog à CodeONUDialog
+        dialog.exec()
+
+    def run_identification(self):
+        dialog = IdentificationDialog(self)
+        dialog.exec()
+
+    def run_bio(self):
+        dialog = BioDialog(self)
+        dialog.exec()
+
+    def run_PID(self):
+        dialog = PIDDialog(self)
+        dialog.exec()
+
+    def run_tmd(self):
+        dialog = TMDDialog(self)
+        dialog.exec()
+
+    def run_intervention(self):
+        dialog = InterventionDialog(self)
+        dialog.exec()
+
+    def run_code_search(self):
+        """Ouvre la fenêtre de recherche de codes"""
+        dialog = CodeONUDialog(self)
+        dialog.exec()
+
+    def run_rad_identification(self):
+        """Lance la fenêtre d'Identification RAD."""
+        dialog = IdentificationDialog(self)
+        dialog.exec()
+
+    def run_rad_irradiation(self):
+        """Lance la fenêtre d'Irradiation RAD."""
+        dialog = BioDialog(self)
+        dialog.exec()
+
+    def run_rad_contamination(self):
+        """Lance la fenêtre de Contamination RAD."""
+        dialog = PIDDialog(self)
+        dialog.exec()
+
+    def run_rad_intervention(self):
+        """Lance la fenêtre d'Intervention RAD."""
+        dialog = InterventionDialog(self)
         dialog.exec()

@@ -12,6 +12,10 @@ from PySide6.QtCore import Qt
 
 def main():
     """Point d'entrée principal de l'application"""
+    # Vérifier/créer les dossiers nécessaires
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+    os.makedirs(data_dir, exist_ok=True)
+    
     # QApplication DOIT être créée avant tout import de widgets
     app = QApplication(sys.argv)
     
