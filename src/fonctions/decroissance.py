@@ -15,7 +15,7 @@ class DecroissanceDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Décroissance")
-        self.setFixedSize(300, 430)
+        self.setFixedSize(300, 500)
         
         self.main_layout = QVBoxLayout(self)
         
@@ -72,6 +72,10 @@ class DecroissanceDialog(QDialog):
         period_group = QGroupBox("Période")
         period_layout = QGridLayout()
         
+        # Ajout d'espacement
+        period_layout.setSpacing(10)  # Espacement entre les widgets
+        period_layout.setContentsMargins(10, 15, 10, 15)  # Marges intérieures
+        
         # Widgets pour la période
         self.p_year_input = ClearingSpinBox()
         self.p_month_input = ClearingSpinBox()
@@ -100,6 +104,10 @@ class DecroissanceDialog(QDialog):
     def create_date_widgets(self):
         date_group = QGroupBox("Date initiale")
         date_layout = QGridLayout()
+        
+        # Ajout d'espacement
+        date_layout.setSpacing(10)  # Espacement entre les widgets
+        date_layout.setContentsMargins(10, 15, 10, 15)  # Marges intérieures
         
         # Widgets pour la date
         self.year_input = ClearingSpinBox()
