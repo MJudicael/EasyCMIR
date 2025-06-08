@@ -310,3 +310,24 @@
 2025-06-08 01:59:23;Distance;Debit de dose connu: 50.0 µSv/h à 10.0 mètres;Debit de dose calcule: 12.5 µSv/h à 20.0 mètres
 2025-06-08 02:01:20;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-08 02:01:20;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-08 02:15:58;TMR;Ded contact: 200.0 µSv/h;Ded 1m: 12.0 µSv/h;IT: 1.2;Etiquette: N/A
+2025-06-08 02:16:06;TMR;Ded contact: 100.0 µSv/h;Ded 1m: 12.0 µSv/h;IT: 1.2;Etiquette: N/A
+2025-06-08 02:16:11;TMR;Ded contact: 100.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: II
+2025-06-08 02:16:23;TMR;Ded contact: 100.0 µSv/h;Ded 1m: 9.0 µSv/h;IT: 0.9;Etiquette: II
+2025-06-08 02:16:26;TMR;Ded contact: 1900.0 µSv/h;Ded 1m: 9.0 µSv/h;IT: 0.9;Etiquette: N/A
+2025-06-08 02:16:31;TMR;Ded contact: 1900.0 µSv/h;Ded 1m: 50.0 µSv/h;IT: 5.0;Etiquette: III
+2025-06-08 02:17:23;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-08 02:17:23;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-08 02:23:40;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-08 02:23:40;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-08 02:24:04;Debit de dose 1 m;Isotope: Radium-226;Activite: 56.0 GBq;Debit de dose: 26.58 mSv/h;26580.0 uSv/h
+2025-06-08 02:24:13;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-08 02:24:13;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-08 11:35:37;Décroissance;Activité initiale: 323.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.04 GBq
+2025-06-08 11:36:05;Debit de dose 1 m;Isotope: Actinium-225;Activite: 65265.0 GBq;Debit de dose: 27459.07 mSv/h;27459070.0 uSv/h
+2025-06-08 11:36:12;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-08 11:36:12;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-08 11:36:25;Distance;Debit de dose connu: 26.0 mSv/h à 10.0 mètres;Debit de dose calcule: 2.89 mSv/h à 30.0 mètres
+2025-06-08 11:36:54;Distance;Debit de dose connu: 26.0 µSv/h à 10.0 mètres;Debit de dose calcule: 2.89 µSv/h à 30.0 mètres
+2025-06-08 11:37:10;Distance;Debit de dose connu: 56.0 µSv/h à 10.0 mètres;Debit de dose calcule: 2.24 µSv/h à 50.0 mètres
+2025-06-08 11:37:16;Distance;Debit de dose connu: 56.0 µSv/h à 10.0 mètres;Debit de dose calcule: 0.56 µSv/h à 100.0 mètres
