@@ -20,6 +20,18 @@ QLabel#resultLabel {
     min-height: 20px;          /* Augmentation de la hauteur minimale */
 }
 
+QLabel[pictogram="true"] {
+    background-color: white;
+    border: 2px solid #cccccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 2px;
+}
+
+QLabel[pictogram="true"]:hover {
+    border-color: #666666;
+}
+
 /* Groupes */
 QGroupBox {
     margin-top: 15px;
@@ -198,4 +210,13 @@ QToolButton:hover {
 QToolButton:pressed {
     background-color: #494949;
     border-color: #808080;
+}
+
+QScrollArea {
+    border: none;
+    background: transparent;
+}
+
+QWidget#picto_widget {
+    background: transparent;
 }

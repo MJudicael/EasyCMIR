@@ -3,16 +3,27 @@ from PySide6.QtWidgets import (
     QPushButton, QLabel, QMenu, QMenuBar, QToolButton
 )
 from PySide6.QtCore import Qt, QSize
-from src.utils.icon_manager import IconManager  # Assurez-vous que ce chemin est correct
+from ..utils.icon_manager import IconManager
 
-from src.fonctions.decroissance import DecroissanceDialog  # Import absolu au lieu de relatif
+# Import des dialogues RAD
+from ..fonctions.decroissance import DecroissanceDialog
 from ..fonctions.ded1m import Ded1mDialog
 from ..fonctions.distance import DistanceDialog
-from ..fonctions.news import NewsDialog
-from ..fonctions.p_public import PerimetrePublicDialog  # Correction ici
+from ..fonctions.p_public import PerimetrePublicDialog
 from ..fonctions.tmr import TMRDialog
 from ..fonctions.unites_rad import UnitesRadDialog
+
+# Import des dialogues RCH
+from ..fonctions.codedanger import CodeDangerDialog
+from ..fonctions.identification import IdentificationDialog
+from ..fonctions.bio import BioDialog
+from ..fonctions.divers import DiversDialog
+from ..fonctions.tmd import TMDDialog
+from ..fonctions.intervention import InterventionDialog
+
+# Import des dialogues du menu Aide
 from ..fonctions.about import AboutDialog
+from ..fonctions.news import NewsDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -26,12 +37,33 @@ class MainWindow(QMainWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         
-        # Création du layout principal
-        button_grid = QGridLayout(central_widget)
-        self.create_buttons(button_grid)
-        self.create_menu()
+        # Layout principal vertical
+        main_layout = QVBoxLayout(central_widget)
         
-    def create_buttons(self, layout):
+        # Création des sections RAD et RCH
+        rad_section = self.create_rad_section()
+        rch_section = self.create_rch_section()
+        
+        # Ajout des sections au layout principal
+        main_layout.addLayout(rad_section)
+        main_layout.addLayout(rch_section)
+        
+        self.create_menu()
+
+    def create_rad_section(self):
+        # Création du conteneur pour la section RAD
+        rad_layout = QVBoxLayout()
+        
+        # Titre RAD
+        rad_title = QLabel("RAD")
+        rad_title.setAlignment(Qt.AlignCenter)
+        rad_title.setStyleSheet("font-size: 18px; font-weight: bold; margin: 10px;")
+        rad_layout.addWidget(rad_title)
+        
+        # Grid pour les boutons RAD
+        rad_grid = QGridLayout()
+        
+        # Boutons RAD existants
         buttons = [
             ("Décroissance", self.run_decroissance, 0, 0),
             ("DED 1m", self.run_ded1m, 0, 1),
@@ -46,16 +78,69 @@ class MainWindow(QMainWindow):
             btn.setText(text)
             btn.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
             
-            # Ajout de l'icône
             icon = self.icon_manager.get_icon(text)
             if icon:
                 btn.setIcon(icon)
                 btn.setIconSize(QSize(32, 32))
             
-            # Style et taille
             btn.setMinimumSize(QSize(100, 80))
             btn.clicked.connect(slot)
-            layout.addWidget(btn, row, col)
+            rad_grid.addWidget(btn, row, col)
+        
+        rad_layout.addLayout(rad_grid)
+        return rad_layout
+
+    def create_rch_section(self):
+        # Création du conteneur pour la section RCH
+        rch_layout = QVBoxLayout()
+        
+        # Titre RCH
+        rch_title = QLabel("RCH")
+        rch_title.setAlignment(Qt.AlignCenter)
+        rch_title.setStyleSheet("font-size: 18px; font-weight: bold; margin: 10px;")
+        rch_layout.addWidget(rch_title)
+        
+        # Grid pour les boutons RCH
+        rch_grid = QGridLayout()
+        
+        # Configuration des boutons RCH
+        rch_buttons = [
+            ("Identification", self.run_identification),
+            ("Code DANGER", self.run_code_danger),
+            ("Bio", self.run_bio),
+            ("Divers", self.run_divers),
+            ("TMD", self.run_tmd),
+            ("Intervention", self.run_intervention)
+        ]
+        
+        # Création des boutons
+        row = col = 0
+        
+        for text, slot in rch_buttons:
+            btn = QToolButton()
+            btn.setText(text)
+            btn.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+            
+            # Obtenir l'icône
+            icon = self.icon_manager.get_icon(text)
+            if icon:
+                btn.setIcon(icon)
+                btn.setIconSize(QSize(32, 32))
+            
+            # Important : Connecter le signal clicked au slot
+            if slot is not None:
+                btn.clicked.connect(slot)
+            
+            btn.setMinimumSize(QSize(100, 80))
+            rch_grid.addWidget(btn, row, col)
+            
+            col += 1
+            if col > 2:  # 3 boutons par ligne
+                col = 0
+                row += 1
+                
+        rch_layout.addLayout(rch_grid)
+        return rch_layout
 
     def create_menu(self):
         menubar = self.menuBar()
@@ -116,4 +201,29 @@ class MainWindow(QMainWindow):
 
     def run_news(self):
         dialog = NewsDialog(self)
+        dialog.exec()
+
+    def run_code_danger(self):
+        """Lance la fenêtre Code Danger."""
+        dialog = CodeDangerDialog(self)
+        dialog.exec()
+
+    def run_identification(self):
+        dialog = IdentificationDialog(self)
+        dialog.exec()
+
+    def run_bio(self):
+        dialog = BioDialog(self)
+        dialog.exec()
+
+    def run_divers(self):
+        dialog = DiversDialog(self)
+        dialog.exec()
+
+    def run_tmd(self):
+        dialog = TMDDialog(self)
+        dialog.exec()
+
+    def run_intervention(self):
+        dialog = InterventionDialog(self)
         dialog.exec()

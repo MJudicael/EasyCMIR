@@ -1,0 +1,117 @@
+#CODES_DANGER
+20:Gaz asphyxiant ou qui ne présente pas de risque subsidiaire
+22:Gaz liquéfié réfrigéré, asphyxiant
+223:Gaz liquéfié réfrigéré, inflammable
+225:Gaz liquéfié réfrigéré, comburant
+23:Gaz inflammable
+238:Gaz inflammable, corrosif
+239:Gaz inflammable, pouvant produire spontanément une réaction violente
+25:Gaz comburant
+26:Gaz toxique
+263:Gaz toxique, inflammable
+265:Gaz toxique et comburant
+268:Gaz toxique et corrosif
+28:Gaz corrosif
+30:Matière liquide inflammable (point d'éclair de 23°C à 60°C)
+323:Matière liquide inflammable réagissant avec l'eau en dégageant des gaz inflammables
+X323:Matière liquide inflammable réagissant dangereusement avec l'eau en dégageant des gaz inflammables
+33:Matière liquide très inflammable (point d'éclair inférieur à 23°C)
+333:Matière liquide pyrophorique
+X333:Matière liquide pyrophorique réagissant dangereusement avec l'eau
+336:Matière liquide très inflammable et toxique
+338:Matière liquide très inflammable et corrosive
+X338:Matière liquide très inflammable et corrosive, réagissant dangereusement avec l'eau
+339:Matière liquide très inflammable, pouvant produire spontanément une réaction violente
+36:Matière liquide inflammable présentant un degré mineur de toxicité
+362:Matière liquide inflammable, toxique, réagissant avec l'eau en émettant des gaz inflammables
+X362:Matière liquide inflammable, toxique, réagissant dangereusement avec l'eau en dégageant des gaz inflammables
+368:Matière liquide inflammable, toxique et corrosive
+38:Matière liquide inflammable présentant un degré mineur de corrosivité
+382:Matière liquide inflammable, corrosive, réagissant avec l'eau en dégageant des gaz inflammables
+X382:Matière liquide inflammable, corrosive, réagissant dangereusement avec l'eau en dégageant des gaz inflammables
+39:Liquide inflammable, pouvant produire spontanément une réaction violente
+40:Matière solide inflammable ou matière auto réactive ou matière auto-échauffante
+423:Matière solide réagissant avec l'eau en dégageant des gaz inflammables
+X423:Matière solide réagissant dangereusement avec l'eau en dégageant des gaz inflammables
+43:Matière solide spontanément inflammable (pyrophorique)
+X432:Matière solide spontanément inflammable, réagissant dangereusement avec l'eau en dégageant des gaz inflammables
+44:Matière solide inflammable qui, à une température élevée, se trouve à l'état fondu
+446:Matière solide inflammable et toxique qui, à une température élevée, se trouve à l'état fondu
+46:Matière solide inflammable ou auto-échauffante, toxique
+462:Matière solide toxique, réagissant avec l'eau en dégageant des gaz inflammables
+X462:Matière solide, réagissant dangereusement avec l'eau, en dégageant des gaz toxiques
+48:Matière solide inflammable ou auto-échauffante, corrosive
+482:Matière solide corrosive, réagissant avec l'eau en dégageant des gaz inflammables
+X482:Matière solide, réagissant dangereusement avec l'eau, en dégageant des gaz corrosifs
+50:Matière comburante
+539:Peroxyde organique inflammable
+55:Matière très comburante
+556:Matière très comburante, toxique
+558:Matière très comburante et corrosive
+559:Matière très comburante pouvant produire spontanément une réaction violente
+56:Matière comburante, toxique
+568:Matière comburante, toxique, corrosive
+58:Matière comburante, corrosive
+59:Matière comburante pouvant produire spontanément une réaction violente
+60:Matière toxique ou présentant un degré mineur de toxicité
+606:Matière infectieuse
+623:Matière toxique liquide, réagissant avec l'eau, en dégageant des gaz inflammables
+63:Matière toxique et inflammable
+638:Matière toxique et inflammable et corrosive
+639:Matière toxique et inflammable, pouvant produire spontanément une réaction violente
+64:Matière toxique solide, inflammable ou auto-échauffante
+642:Matière toxique solide, réagissant avec l'eau en dégageant des gaz inflammables
+65:Matière toxique et comburante
+66:Matière très toxique
+663:Matière très toxique et inflammable
+664:Matière très toxique solide, inflammable ou auto-échauffante
+665:Matière très toxique et comburante
+668:Matière très toxique et corrosive
+X668:Matière très toxique et corrosive, réagissant dangereusement avec l'eau
+669:Matière très toxique, pouvant produire spontanément une réaction violente
+68:Matière toxique et corrosive
+69:Matière toxique pouvant produire spontanément une réaction violente
+70:Matière radioactive
+78:Matière radioactive, corrosive
+80:Matière corrosive ou présentant un degré mineur de corrosivité
+X80:Matière corrosive réagissant dangereusement avec l'eau
+823:Matière corrosive liquide, réagissant avec l'eau en dégageant des gaz inflammables
+83:Matière corrosive et inflammable
+X83:Matière corrosive et inflammable réagissant dangereusement avec l'eau
+839:Matière corrosive et inflammable pouvant produire spontanément une réaction violente
+X839:Matière corrosive et inflammable pouvant produire spontanément une réaction violente et réagissant avec l'eau
+84:Matière corrosive solide, inflammable ou auto-échauffante
+842:Matière corrosive solide, réagissant avec l'eau en dégageant des gaz inflammables
+85:Matière corrosive et comburante
+856:Matière corrosive, comburante et toxique
+86:Matière corrosive et toxique
+88:Matière très corrosive
+X88:Matière très corrosive réagissant dangereusement avec l'eau
+883:Matière très corrosive et inflammable
+884:Matière très corrosive solide, inflammable ou auto-échauffante
+885:Matière très corrosive et comburante
+886:Matière très corrosive et toxique
+X886:Matière très corrosive et toxique, réagissant dangereusement avec l'eau
+89:Matière corrosive pouvant produire spontanément une réaction violente
+90:Matière dangereuse du point de vue de l'environnement
+99:Matières dangereuses diverses transportées à chaud
+#PROTECTION_RECOMMENDATIONS
+2:ARI obligatoire:Protection respiratoire type filtre ABEK conseillée:Zone d'exclusion 50m
+23:Tenue de feu avec ARI obligatoire:Zone d'exclusion 100m:Explosimètre obligatoire
+233:Tenue de feu avec ARI obligatoire:Zone d'exclusion 100m:Explosimètre obligatoire
+239:Tenue de feu avec ARI obligatoire:Zone d'exclusion 100m:Explosimètre obligatoire
+3:Tenue de feu avec ARI obligatoire:Gants résistants aux produits chimiques:Protection thermique
+30:Tenue de feu avec ARI obligatoire:Protection thermique:Gants résistants aux produits chimiques
+33:Tenue de feu avec ARI obligatoire:Protection thermique renforcée:Zone d'exclusion 100m
+333:Tenue de feu avec ARI obligatoire:Protection thermique renforcée:Zone d'exclusion 100m
+4:Tenue de feu avec ARI obligatoire:Protection thermique:Zone d'exclusion 50m
+40:Tenue de feu avec ARI obligatoire:Protection thermique:Zone d'exclusion 50m
+44:Tenue de feu avec ARI obligatoire:Protection thermique renforcée:Zone d'exclusion 50m
+5:Type 1 avec ARI obligatoire:Gants résistants aux produits chimiques:Distance de sécurité
+539:Tenue de feu avec ARI obligatoire:Type 1:Zone d'exclusion 100m
+6:Type 1 avec ARI obligatoire:Protection chimique totale:Détection toxique
+63:Tenue de feu avec ARI obligatoire:Type 1:Zone d'exclusion 100m:Détection toxique
+639:Tenue de feu avec ARI obligatoire:Type 1:Zone d'exclusion 100m:Détection toxique
+8:Type 1 avec ARI obligatoire:Gants chimiques:Protection contre les projections
+83:Tenue de feu avec ARI obligatoire:Type 1:Gants chimiques:Protection contre les projections
+X:INTERDIT UTILISATION D'EAU:Type 1 avec ARI obligatoire:Gants chimiques
