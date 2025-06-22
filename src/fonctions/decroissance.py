@@ -70,13 +70,21 @@ class DecroissanceCalculator:
         plt.figure(figsize=(12, 8))
         plt.plot(dates, activities, 'b-', label='Décroissance')
         
+        # Formatage du débit de dose avec l'unité adaptée
+        if final_ded > 1:
+            ded_str = f"{final_ded:.1f} mSv/h"
+        elif final_ded > 0.001:
+            ded_str = f"{final_ded * 1000:.1f} µSv/h"
+        else:
+            ded_str = f"{final_ded * 1000000:.1f} nSv/h"
+
         # Ajout du point à 10 périodes avec bulle d'information
         plt.plot(end_datetime, final_activity, 'ro', label='10 périodes')
         plt.annotate(
             f'Après 10 périodes:\n'
             f'Date: {end_datetime.strftime("%d/%m/%Y %H:%M")}\n'
             f'Activité: {final_activity:.2e} Bq\n'
-            f'DED à 1m: {final_ded:.2e} mSv/h',
+            f'DED à 1m: {ded_str}',
             xy=(end_datetime, final_activity),
             xytext=(0, 30),
             textcoords='offset points',

@@ -419,3 +419,7 @@
 2025-06-23 00:01:59;Distance;Debit de dose connu: 47.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.12 µSv/h à 20.0 mètres
 2025-06-23 00:02:17;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 192.5 heures;Activité actuelle: 0.00 GBq
 2025-06-23 00:02:58;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46179.4 heures;Activité actuelle: 5.36 GBq
+2025-06-23 00:06:50;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2024-05-22 00:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-23 00:06:53;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2025-05-22 00:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-23 00:09:41;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 192.5 heures;Activité actuelle: 0.00 GBq
+2025-06-23 00:09:55;Décroissance;Activité initiale: 1.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 192.5 heures;Activité actuelle: 0.00 GBq
