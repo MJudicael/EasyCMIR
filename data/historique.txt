@@ -344,3 +344,78 @@
 2025-06-22 18:18:26;Debit de dose 1 m;Isotope: Carbone-14;Activite: 0.18 GBq;Debit de dose: 0.0 mSv/h;0.0 uSv/h
 2025-06-22 18:18:31;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 0.18 GBq;Debit de dose: 5.86 mSv/h;5860.0 uSv/h
 2025-06-22 18:20:16;Distance;Debit de dose connu: 2.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.01 mSv/h à 20.0 mètres
+2025-06-22 23:00:17;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:23:21;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:23:43;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 201480.0 heures;Activité actuelle: 15.50 GBq
+2025-06-22 23:24:35;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 201480.0 heures;Activité actuelle: 15.50 GBq
+2025-06-22 23:24:36;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 201480.0 heures;Activité actuelle: 15.50 GBq
+2025-06-22 23:24:36;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 201480.0 heures;Activité actuelle: 15.50 GBq
+2025-06-22 23:24:37;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 201480.0 heures;Activité actuelle: 15.50 GBq
+2025-06-22 23:24:37;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 201480.0 heures;Activité actuelle: 15.50 GBq
+2025-06-22 23:26:06;Debit de dose 1 m;Isotope: Potassium-40;Activite: 12.0 GBq;Debit de dose: 24.3 mSv/h;24300.0 uSv/h
+2025-06-22 23:31:36;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 10957600000000.0 heures;Activité actuelle: 23.00 GBq
+2025-06-22 23:31:50;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:31:53;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:31:54;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:31:54;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:31:54;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:31:55;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:31:55;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:07;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 1990-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:08;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 1990-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:08;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 1990-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:13;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:13;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:14;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:14;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:14;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:21;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:21;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:21;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:22;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:22;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:22;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:22;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:22;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2020-05-22 06:00:00;Période: 13.2 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:36;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:37;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:37;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:38;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:32:51;Décroissance;Activité initiale: 1.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 1.8 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:33:30;Décroissance;Activité initiale: 1.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.11 GBq
+2025-06-22 23:33:35;Décroissance;Activité initiale: 1.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.11 GBq
+2025-06-22 23:33:38;Décroissance;Activité initiale: 2.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.23 GBq
+2025-06-22 23:33:44;Décroissance;Activité initiale: 2.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.23 GBq
+2025-06-22 23:33:45;Décroissance;Activité initiale: 2.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.23 GBq
+2025-06-22 23:33:45;Décroissance;Activité initiale: 2.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.23 GBq
+2025-06-22 23:33:45;Décroissance;Activité initiale: 2.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.23 GBq
+2025-06-22 23:33:50;Décroissance;Activité initiale: 2.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 17520.0 heures;Activité actuelle: 21.38 GBq
+2025-06-22 23:34:14;Décroissance;Activité initiale: 2.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 357.48 GBq
+2025-06-22 23:34:15;Décroissance;Activité initiale: 2.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 357.48 GBq
+2025-06-22 23:36:49;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 4.11 GBq
+2025-06-22 23:39:58;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 4110.96 GBq
+2025-06-22 23:40:11;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 4.11 GBq
+2025-06-22 23:40:28;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 4110.96 GBq
+2025-06-22 23:40:55;Décroissance;Activité initiale: 23.0 MBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:41:11;Décroissance;Activité initiale: 23.0 MBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:41:12;Décroissance;Activité initiale: 23.0 MBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:41:12;Décroissance;Activité initiale: 23.0 MBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:45:53;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 4.11 GBq
+2025-06-22 23:46:10;Décroissance;Activité initiale: 45.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 46179.4 heures;Activité actuelle: 8.04 GBq
+2025-06-22 23:46:44;Décroissance;Activité initiale: 150.0 MBq;Date initiale: 2023-05-22 06:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:46:48;Décroissance;Activité initiale: 150.0 MBq;Date initiale: 2025-05-22 06:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:47:28;Décroissance;Activité initiale: 150.0 MBq;Date initiale: 2025-06-12 06:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:47:34;Décroissance;Activité initiale: 150.0 MBq;Date initiale: 2025-06-20 06:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
+2025-06-22 23:51:31;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2025-06-22 00:00:00;Période: 6.0 heures;Activité actuelle: 1.47 GBq
+2025-06-22 23:55:26;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2025-06-22 00:00:00;Période: 66.0 heures;Activité actuelle: 17.89 GBq
+2025-06-22 23:55:50;Décroissance;Activité initiale: 50.0 GBq;Date initiale: 2025-06-22 00:00:00;Période: 66.0 heures;Activité actuelle: 38.89 GBq
+2025-06-22 23:56:10;Debit de dose 1 m;Isotope: Deutérium (H-2);Activite: 0.0 GBq;Debit de dose: 0.0 mSv/h;0.0 uSv/h
+2025-06-23 00:00:00;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2025-06-21 00:00:00;Période: 6.0 heures;Activité actuelle: 0.12 GBq
+2025-06-23 00:01:26;Debit de dose 1 m;Isotope: Technétium-99m;Activite: 30.0 GBq;Debit de dose: 48.59 mSv/h;48590.0 uSv/h
+2025-06-23 00:01:33;Debit de dose 1 m;Isotope: Technétium-99m;Activite: 30.0 GBq;Debit de dose: 48.59 mSv/h;48590.0 uSv/h
+2025-06-23 00:01:34;Debit de dose 1 m;Isotope: Technétium-99m;Activite: 30.0 GBq;Debit de dose: 48.59 mSv/h;48590.0 uSv/h
+2025-06-23 00:01:40;Perimetre public;DED 1m: 4.0 uSv/h;Perimetre: 1.2649110640673518 m
+2025-06-23 00:01:40;Perimetre public;DED 1m: 47.0 uSv/h;Perimetre: 4.33589667773576 m
+2025-06-23 00:01:59;Distance;Debit de dose connu: 47.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.12 µSv/h à 20.0 mètres
+2025-06-23 00:02:17;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 192.5 heures;Activité actuelle: 0.00 GBq
+2025-06-23 00:02:58;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46179.4 heures;Activité actuelle: 5.36 GBq
