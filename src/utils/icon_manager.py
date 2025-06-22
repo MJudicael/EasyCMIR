@@ -2,31 +2,11 @@ from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtCore import Qt
 import os
 
-<<<<<<< HEAD
-# Définition des chemins
-PICTOGRAMS_DIR = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-    "resources",
-    "pictograms"
-)
-
-PICTOGRAM_MAPPING = {
-    "2": "danger_2.jpg",
-    "3": "danger_3.jpg",
-    "4": "danger_4.jpg",
-    "5": "danger_5.jpg",
-    "6": "danger_6.jpg",
-    "7": "danger_7.jpg",
-    "8": "danger_8.jpg",
-    "9": "danger_9.jpg",
-    "X": "danger_x.jpg"
-=======
 PICTOGRAM_MAPPING = {
     # Mapping des pictogrammes
     "code1": "explosion.png",
     "code2": "explosion.png",
     # Ajouter d'autres mappings si nécessaire
->>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 }
 
 class IconManager:
@@ -44,35 +24,21 @@ class IconManager:
             "Identification": "loupe.png",
             "Code DANGER": "danger.png",
             "Bio": "biohazard.png",
-<<<<<<< HEAD
-            "PID": "loupe.png",
-            "TMD": "tanker.png",
-            "Intervention": "loupe.png",
-          
-=======
             "Divers": "loupe.png",
             "TMD": "tanker.png",
             "Intervention": "loupe.png"
             #Ne pas oublire de modiffier le main_window pour ajouter les icônes correspondantes """
->>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
         }
         
         self.icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 
                                      "resources", "icons")
-        self.pictogram_cache = {}
-
+    
     def get_icon(self, button_text):
-        """Récupère une icône par son nom."""
         if button_text in self.icon_mapping:
             icon_file = os.path.join(self.icon_path, self.icon_mapping[button_text])
             if os.path.exists(icon_file):
                 return QIcon(icon_file)
-<<<<<<< HEAD
-        # Au lieu de retourner None, on retourne une icône vide
-        return QIcon()
-=======
         return None
->>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 
     def get_pictogram_path(self, code):
         """Retourne le chemin complet du pictogramme pour un code donné."""
@@ -106,31 +72,4 @@ class IconManager:
             for filename in missing:
                 print(f"- {filename}")
             return False
-<<<<<<< HEAD
         return True
-
-    def get_danger_icon(self, code_char):
-        """Récupère l'icône pour un code danger."""
-        try:
-            if code_char in self.pictogram_cache:
-                return self.pictogram_cache[code_char]
-
-            # Utiliser le mapping pour obtenir le nom du fichier
-            if code_char in PICTOGRAM_MAPPING:
-                icon_path = os.path.join(PICTOGRAMS_DIR, PICTOGRAM_MAPPING[code_char])
-                
-                if os.path.exists(icon_path):
-                    icon = QIcon(icon_path)
-                    self.pictogram_cache[code_char] = icon
-                    return icon
-                else:
-                    print(f"Pictogramme non trouvé: {icon_path}")
-            else:
-                print(f"Code non trouvé dans le mapping: {code_char}")
-            return None
-        except Exception as e:
-            print(f"Erreur lors du chargement du pictogramme {code_char}: {e}")
-            return None
-=======
-        return True
->>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
