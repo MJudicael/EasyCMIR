@@ -336,23 +336,4 @@
 >>>>>>> 2ca4bb72cd474315a3491c602c3643047b74d6d6
 2025-06-08 14:16:27;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-08 14:16:27;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
-<<<<<<< HEAD
-2025-06-08 19:59:01;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
-2025-06-08 19:59:01;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
-2025-06-10 09:53:04;Distance;Debit de dose connu: 23.0 µSv/h à 2.0 mètres;Debit de dose calcule: 0.01 µSv/h à 120.0 mètres
-2025-06-10 09:53:17;Distance;Debit de dose connu: 23.0 µSv/h à 30.0 mètres;Debit de dose calcule: 1.44 µSv/h à 120.0 mètres
-2025-06-10 09:53:25;Distance;Debit de dose connu: 23.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.92 µSv/h à 5.0 mètres
-2025-06-16 12:09:14;Debit de dose 1 m;Isotope: Iode-131;Activite: 23.0 GBq;Debit de dose: 107.72 mSv/h;107720.0 uSv/h
-2025-06-16 12:09:22;Debit de dose 1 m;Isotope: Iode-131;Activite: 1.0 GBq;Debit de dose: 4.68 mSv/h;4680.0 uSv/h
-2025-06-22 17:07:08;Décroissance;Activité initiale: 23.0 Bq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.00 GBq
-2025-06-22 17:07:19;Décroissance;Activité initiale: 23.0 Bq;Date initiale: 2012-05-22 06:00:00;Période: 22.0 heures;Activité actuelle: 0.00 GBq
-2025-06-22 17:07:23;Décroissance;Activité initiale: 23.0 Bq;Date initiale: 2012-05-22 06:00:00;Période: 192742.0 heures;Activité actuelle: 0.00 GBq
-2025-06-22 17:07:31;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 192742.0 heures;Activité actuelle: 15.23 GBq
-2025-06-22 17:12:35;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 87600.0 heures;Activité actuelle: 9.28 GBq
-2025-06-22 17:13:28;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 8760.0 heures;Activité actuelle: 0.00 GBq
-2025-06-22 17:13:34;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 26280.0 heures;Activité actuelle: 1.12 GBq
-2025-06-22 17:15:52;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 17520.0 heures;Activité actuelle: 0.25 GBq
-2025-06-22 17:18:20;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 17520.0 heures;Activité actuelle: 245.93 GBq
-2025-06-22 17:19:00;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 17520.0 heures;Activité actuelle: 245.93 GBq
-=======
->>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
+2025-06-22 18:08:49;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 105120.0 heures;Activité actuelle: 10.80 GBq
