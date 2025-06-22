@@ -1,89 +1,93 @@
-from datetime import datetime, timedelta
-from math import log, exp  # Ajout des fonctions mathématiques nécessaires
-import numpy as np
-from matplotlib import pyplot as plt
-from matplotlib.dates import DateFormatter
 from PySide6.QtWidgets import (
-    QDialog, QVBoxLayout, QGridLayout, QLabel,
-    QPushButton, QComboBox, QGroupBox, QMessageBox
+    QDialog, QVBoxLayout, QHBoxLayout, QLabel,
+    QPushButton, QGroupBox, QDoubleSpinBox, QComboBox,
+    QDateEdit, QMessageBox, QGridLayout
 )
-from ..utils.widgets import ClearingDoubleSpinBox, ClearingSpinBox
+from PySide6.QtCore import Qt, QDate
+from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import os
+from math import log, exp
+import numpy as np
 from ..utils.database import save_to_history
-from .plot import PlotDisplayDialog
+from ..utils.widgets import ClearingSpinBox
 
 class DecroissanceCalculator:
+    """Classe pour calculer la décroissance radioactive."""
+    
     def __init__(self):
         self.initial_activity = 0
         self.half_life = 0
         self.start_datetime = None
-        
-    def calculate_ten_periods(self, initial_activity, half_life, start_datetime=None):
-        """Calcule l'activité après 10 périodes."""
-        if start_datetime is None:
-            start_datetime = datetime.now()
-            
-        self.initial_activity = initial_activity
-        self.half_life = half_life
-        self.start_datetime = start_datetime
-        
-        # Calcul de la date après 10 périodes
-        ten_periods_hours = 10 * self.half_life
-        end_datetime = self.start_datetime + timedelta(hours=ten_periods_hours)
-        
-        # Calcul de l'activité restante après 10 périodes
-        remaining_activity = self.initial_activity * (0.5 ** 10)
-        
-        return end_datetime, remaining_activity
+        self.isotope_name = None  # Ajout du nom de l'isotope
         
     def plot_decay(self):
-        """Génère le graphique de décroissance avec indication des 10 périodes."""
+        """Génère le graphique de décroissance avec indication des 10 périodes et DED."""
         if not all([self.initial_activity, self.half_life, self.start_datetime]):
             raise ValueError("Les paramètres initiaux doivent être définis")
             
-        # Calcul pour 10 périodes
-        end_datetime, final_activity = self.calculate_ten_periods(
-            self.initial_activity, 
-            self.half_life, 
-            self.start_datetime
-        )
+        # Calcul de lambda
+        lambda_const = log(2) / (self.half_life * 3600)  # conversion half_life en secondes
         
-        # Création des points pour le graphique
-        time_points = np.linspace(0, 10 * self.half_life, 1000)
-        dates = [self.start_datetime + timedelta(hours=t) for t in time_points]
-        activities = [self.initial_activity * (0.5 ** (t/self.half_life)) for t in time_points]
+        # Calcul pour 10 périodes
+        end_datetime = self.start_datetime + timedelta(hours=self.half_life * 10)
+        final_activity = self.initial_activity * exp(-lambda_const * (self.half_life * 10 * 3600))
+        
+        # Calcul du DED 1m pour l'activité finale (en GBq)
+        final_activity_gbq = final_activity * 1e-9
+        selected_isotope = self.isotope_name  # Nouveau paramètre à ajouter
+        
+        # Récupération des données de l'isotope depuis le fichier
+        try:
+            isotopes_file = os.path.join(
+                os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+                "data",
+                "isotopes.txt"
+            )
+            with open(isotopes_file, "r", encoding='utf-8') as f:
+                for line in f:
+                    if line.strip() and not line.startswith('#'):
+                        values = line.strip().split(';')
+                        name = values[0]
+                        if name == selected_isotope:
+                            e1, e2, e3 = float(values[3]), float(values[4]), float(values[5])
+                            q1, q2, q3 = float(values[6]), float(values[7]), float(values[8].split(',')[0])
+                            final_ded = 1.3e-10 * final_activity * (e1 * q1 + e2 * q2 + e3 * q3)
+                            break
+        except Exception:
+            final_ded = 0
+    
+        # Points pour le graphique
+        total_hours = self.half_life * 10
+        time_points = np.linspace(0, total_hours * 3600, 1000)  # en secondes
+        dates = [self.start_datetime + timedelta(seconds=t) for t in time_points]
+        
+        # Calcul des activités selon la loi de décroissance A(t) = A0 * e^(-λt)
+        activities = [self.initial_activity * exp(-lambda_const * t) for t in time_points]
         
         # Création du graphique
         plt.figure(figsize=(12, 8))
         plt.plot(dates, activities, 'b-', label='Décroissance')
         
-        # Ajout du point à 10 périodes
+        # Ajout du point à 10 périodes avec bulle d'information
         plt.plot(end_datetime, final_activity, 'ro', label='10 périodes')
-        
-        # Annotation centrée au-dessus du point avec police plus petite
         plt.annotate(
-            f'Après 10 périodes:\nDate: {end_datetime.strftime("%d/%m/%Y %H:%M")}\nActivité: {final_activity:.2e} Bq',
+            f'Après 10 périodes:\n'
+            f'Date: {end_datetime.strftime("%d/%m/%Y %H:%M")}\n'
+            f'Activité: {final_activity:.2e} Bq\n'
+            f'DED à 1m: {final_ded:.2e} mSv/h',
             xy=(end_datetime, final_activity),
-            xytext=(0, 30),  # Décalage vertical uniquement
+            xytext=(0, 30),
             textcoords='offset points',
-            ha='center',  # Centrage horizontal
-            va='bottom',  # Alignement vertical en bas
-            fontsize=9,   # Taille de police à 9px
-            bbox=dict(
-                boxstyle='round,pad=0.5',
-                fc='yellow',
-                alpha=0.5,
-                ec='gray'
-            ),
-            arrowprops=dict(
-                arrowstyle='->', 
-                connectionstyle='arc3,rad=0',
-                color='gray'
-            )
+            ha='center',
+            va='bottom',
+            bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
+            arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0')
         )
         
         # Formatage du graphique
         plt.gcf().autofmt_xdate()
-        plt.gca().xaxis.set_major_formatter(DateFormatter('%d/%m/%Y\n%H:%M'))
         plt.xlabel('Date et Heure')
         plt.ylabel('Activité (Bq)')
         plt.title('Décroissance Radioactive')
@@ -93,14 +97,18 @@ class DecroissanceCalculator:
         return plt.gcf()
 
 class DecroissanceDialog(QDialog):
-    """Dialog pour le calcul de décroissance."""
-    
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Décroissance")
-        self.setFixedSize(300, 500)
+        self.setWindowTitle("Calcul de décroissance")
+        self.setMinimumWidth(400)
         
+        # Layout principal
         self.main_layout = QVBoxLayout(self)
+        
+        # Initialisation des variables
+        self.period_seconds = 0
+        self._time_data_for_plot = []
+        self._activity_data_for_plot = []
         
         # Création des widgets
         self.create_input_widgets()
@@ -112,13 +120,7 @@ class DecroissanceDialog(QDialog):
         calc_button.clicked.connect(self.calculate_decay)
         self.main_layout.addWidget(calc_button)
         
-        # Bouton pour le graphique
-        self.plot_button = QPushButton("Afficher le graphique")
-        self.plot_button.clicked.connect(self.show_decay_plot)
-        self.plot_button.setEnabled(False)
-        self.main_layout.addWidget(self.plot_button)
-        
-        # Labels pour les résultats
+        # Groupe résultats
         result_group = QGroupBox("Résultats")
         result_layout = QVBoxLayout()
         self.result_gbq_label = QLabel()
@@ -127,116 +129,129 @@ class DecroissanceDialog(QDialog):
         result_layout.addWidget(self.result_bq_label)
         result_group.setLayout(result_layout)
         self.main_layout.addWidget(result_group)
-
-        # Variables pour le graphique
-        self._time_data_for_plot = []
-        self._activity_data_for_plot = []
+        
+        # Bouton graphique
+        self.plot_button = QPushButton("Afficher le graphique")
+        self.plot_button.clicked.connect(self.show_decay_plot)
+        self.plot_button.setEnabled(False)
+        self.main_layout.addWidget(self.plot_button)
 
     def create_input_widgets(self):
-        """Crée les widgets de saisie pour le calcul de décroissance."""
-        input_layout = QGridLayout()
+        input_group = QGroupBox("Activité initiale")
+        layout = QHBoxLayout()
         
-        # Activité initiale
-        self.activity_label = QLabel("Activité initiale :")
-        self.activity_input = ClearingDoubleSpinBox()
-        self.activity_input.setRange(0, 1000000)
-        input_layout.addWidget(self.activity_label, 0, 0)
-        input_layout.addWidget(self.activity_input, 0, 1)
+        self.activity_input = QDoubleSpinBox()
+        self.activity_input.setRange(0, 1e20)
+        self.activity_input.setDecimals(3)
         
-        # Unité d'activité
+        # Menu déroulant des unités
         self.activity_unit = QComboBox()
         self.activity_unit.addItems(["Bq", "kBq", "MBq", "GBq", "TBq"])
-        input_layout.addWidget(self.activity_unit, 0, 2)
+        self.activity_unit.setCurrentText("Bq")
         
-        # Utilisez l'attribut main_layout au lieu de layout()
-        self.main_layout.addLayout(input_layout)
+        layout.addWidget(QLabel("Activité:"))
+        layout.addWidget(self.activity_input)
+        layout.addWidget(self.activity_unit)
         
+        input_group.setLayout(layout)
+        self.main_layout.addWidget(input_group)
+
     def create_period_widgets(self):
+        """Crée les widgets pour la sélection de la période."""
         period_group = QGroupBox("Période")
-        period_layout = QGridLayout()
+        layout = QVBoxLayout()
         
-        # Ajout d'espacement
-        period_layout.setSpacing(10)  # Espacement entre les widgets
-        period_layout.setContentsMargins(10, 15, 10, 15)  # Marges intérieures
+        # ComboBox pour les isotopes
+        self.isotope_combo = QComboBox()
+        self.isotope_combo.addItem("Sélectionner un isotope")
         
-        # Widgets pour la période
-        self.p_year_input = ClearingSpinBox()
-        self.p_month_input = ClearingSpinBox()
-        self.p_day_input = ClearingSpinBox()
-        self.p_hour_input = ClearingSpinBox()
-        self.p_minute_input = ClearingSpinBox()
-        self.p_second_input = ClearingSpinBox()
+        # Chargement des isotopes depuis le fichier
+        isotopes_file = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+            "data",
+            "isotopes.txt"
+        )
         
-        # Layout
-        period_layout.addWidget(QLabel("Années:"), 0, 0)
-        period_layout.addWidget(self.p_year_input, 0, 1)
-        period_layout.addWidget(QLabel("Mois:"), 0, 2)
-        period_layout.addWidget(self.p_month_input, 0, 3)
-        period_layout.addWidget(QLabel("Jours:"), 1, 0)
-        period_layout.addWidget(self.p_day_input, 1, 1)
-        period_layout.addWidget(QLabel("Heures:"), 1, 2)
-        period_layout.addWidget(self.p_hour_input, 1, 3)
-        period_layout.addWidget(QLabel("Minutes:"), 2, 0)
-        period_layout.addWidget(self.p_minute_input, 2, 1)
-        period_layout.addWidget(QLabel("Secondes:"), 2, 2)
-        period_layout.addWidget(self.p_second_input, 2, 3)
+        try:
+            with open(isotopes_file, "r", encoding='utf-8') as f:
+                for line in f:
+                    if line.strip() and not line.startswith('#'):
+                        isotope, _, period, *_ = line.strip().split(';')
+                        self.isotope_combo.addItem(isotope)
+        except Exception as e:
+            QMessageBox.warning(self, "Erreur", f"Impossible de charger la liste des isotopes: {str(e)}")
+    
+        layout.addWidget(self.isotope_combo)
         
-        period_group.setLayout(period_layout)
+        # Bouton période personnalisée
+        self.custom_period_btn = QPushButton("Personnalisé")
+        self.custom_period_btn.clicked.connect(self.show_custom_period)
+        layout.addWidget(self.custom_period_btn)
+        
+        period_group.setLayout(layout)
         self.main_layout.addWidget(period_group)
+        
+        # Connexion du signal
+        self.isotope_combo.currentIndexChanged.connect(self.update_period)
 
     def create_date_widgets(self):
+        """Crée les widgets pour la sélection de la date."""
         date_group = QGroupBox("Date initiale")
-        date_layout = QGridLayout()
+        layout = QHBoxLayout()
         
-        # Ajout d'espacement
-        date_layout.setSpacing(10)  # Espacement entre les widgets
-        date_layout.setContentsMargins(10, 15, 10, 15)  # Marges intérieures
+        # Création du sélecteur de date
+        self.date_input = QDateEdit()
+        self.date_input.setDisplayFormat("dd/MM/yyyy")
+        self.date_input.setCalendarPopup(True)  # Active le popup calendrier
         
-        # Widgets pour la date
-        self.year_input = ClearingSpinBox()
-        self.month_input = ClearingSpinBox()
-        self.day_input = ClearingSpinBox()
-        self.hour_input = ClearingSpinBox()
-        self.minute_input = ClearingSpinBox()
-        self.second_input = ClearingSpinBox()
+        # Date par défaut : 22/05/2012
+        default_date = QDate(2012, 5, 22)
+        self.date_input.setDate(default_date)
         
-        # Configuration des ranges
-        now = datetime.now()
-        self.year_input.setRange(1900, 2100)
-        self.month_input.setRange(1, 12)
-        self.day_input.setRange(1, 31)
-        self.hour_input.setRange(0, 23)
-        self.minute_input.setRange(0, 59)
-        self.second_input.setRange(0, 59)
+        layout.addWidget(QLabel("Date:"))
+        layout.addWidget(self.date_input)
         
-        # Valeurs par défaut
-        self.year_input.setValue(2012)
-        self.month_input.setValue(5)
-        self.day_input.setValue(22)
-        self.hour_input.setValue(6)
-        self.minute_input.setValue(0)
-        self.second_input.setValue(0)
-        
-        # Layout
-        date_layout.addWidget(QLabel("Année:"), 0, 0)
-        date_layout.addWidget(self.year_input, 0, 1)
-        date_layout.addWidget(QLabel("Mois:"), 0, 2)
-        date_layout.addWidget(self.month_input, 0, 3)
-        date_layout.addWidget(QLabel("Jour:"), 1, 0)
-        date_layout.addWidget(self.day_input, 1, 1)
-        date_layout.addWidget(QLabel("Heure:"), 1, 2)
-        date_layout.addWidget(self.hour_input, 1, 3)
-        date_layout.addWidget(QLabel("Minute:"), 2, 0)
-        date_layout.addWidget(self.minute_input, 2, 1)
-        date_layout.addWidget(QLabel("Seconde:"), 2, 2)
-        date_layout.addWidget(self.second_input, 2, 3)
-        
-        date_group.setLayout(date_layout)
+        date_group.setLayout(layout)
         self.main_layout.addWidget(date_group)
+
+    def show_custom_period(self):
+        """Affiche le dialog de période personnalisée."""
+        dialog = CustomPeriodDialog(self)
+        if dialog.exec() == QDialog.Accepted:
+            self.period_seconds = dialog.get_period_seconds()
+            self.isotope_combo.setCurrentIndex(0)
+            
+    def update_period(self, index):
+        """Met à jour la période selon l'isotope sélectionné."""
+        if index == 0:  # "Sélectionner un isotope"
+            return
+        
+        isotope = self.isotope_combo.currentText()
+        isotopes_file = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+            "data",
+            "isotopes.txt"
+        )
+        
+        try:
+            with open(isotopes_file, "r", encoding='utf-8') as f:
+                for line in f:
+                    if line.strip() and not line.startswith('#'):
+                        values = line.strip().split(';')
+                        name = values[0]
+                        if name == isotope:
+                            self.period_seconds = float(values[2])  # La période est en 3ème position
+                            break
+        except Exception as e:
+            QMessageBox.warning(self, "Erreur", f"Impossible de lire la période de l'isotope: {str(e)}")
 
     def calculate_decay(self):
         """Calcule la décroissance radioactive selon N(t) = N0 e^(-λt)"""
         try:
+            if not self.period_seconds:
+                QMessageBox.warning(self, "Erreur", "Veuillez sélectionner un isotope ou définir une période personnalisée")
+                return
+            
             # Récupération de l'activité initiale
             initial_activity = self.activity_input.value()
             
@@ -244,32 +259,21 @@ class DecroissanceDialog(QDialog):
             unit_factors = {"Bq": 1, "kBq": 1e3, "MBq": 1e6, "GBq": 1e9, "TBq": 1e12}
             initial_activity_bq = initial_activity * unit_factors[self.activity_unit.currentText()]
             
-            # Calcul de la période en secondes
-            period_seconds = (
-                self.p_year_input.value() * 365 * 24 * 3600 +
-                self.p_month_input.value() * 30 * 24 * 3600 +
-                self.p_day_input.value() * 24 * 3600 +
-                self.p_hour_input.value() * 3600 +
-                self.p_minute_input.value() * 60 +
-                self.p_second_input.value()
-            )
-            
-            if period_seconds <= 0:
-                QMessageBox.warning(self, "Erreur", "La période doit être supérieure à zéro")
-                return
-            
             # Calcul de λ (lambda) = ln(2)/T
-            lambda_const = log(2) / period_seconds
+            lambda_const = log(2) / self.period_seconds
+            
+            # Récupération de la date
+            selected_date = self.date_input.date()
+            initial_date = datetime(
+                year=selected_date.year(),
+                month=selected_date.month(),
+                day=selected_date.day(),
+                hour=0,  # On fixe l'heure à minuit
+                minute=0,
+                second=0
+            )
             
             # Calcul du temps écoulé
-            initial_date = datetime(
-                year=self.year_input.value(),
-                month=self.month_input.value(),
-                day=self.day_input.value(),
-                hour=self.hour_input.value(),
-                minute=self.minute_input.value(),
-                second=self.second_input.value()
-            )
             current_datetime = datetime.now()
             delta_seconds = (current_datetime - initial_date).total_seconds()
             
@@ -287,7 +291,7 @@ class DecroissanceDialog(QDialog):
             conversion_factor = unit_factors[unit_text]
             
             # Préparation des données pour le graphique
-            max_plot_time = max(period_seconds * 3, delta_seconds * 1.5)
+            max_plot_time = max(self.period_seconds * 3, delta_seconds * 1.5)
             time_points = np.linspace(0, max_plot_time, 200)
             activity_points = initial_activity_bq * np.exp(-lambda_const * time_points) * conversion_factor
             
@@ -301,7 +305,7 @@ class DecroissanceDialog(QDialog):
                 "Décroissance",
                 f"Activité initiale: {initial_activity} {self.activity_unit.currentText()}",
                 f"Date initiale: {initial_date}",
-                f"Période: {period_seconds/3600:.1f} heures",
+                f"Période: {self.period_seconds/3600:.1f} heures",
                 f"Activité actuelle: {current_activity_gbq:.2f} GBq"
             ])
             
@@ -316,24 +320,18 @@ class DecroissanceDialog(QDialog):
             unit_factors = {"Bq": 1, "kBq": 1e3, "MBq": 1e6, "GBq": 1e9, "TBq": 1e12}
             initial_activity_bq = initial_activity * unit_factors[self.activity_unit.currentText()]
             
-            # Calcul de la période en heures
-            period_hours = (
-                self.p_year_input.value() * 365 * 24 +
-                self.p_month_input.value() * 30 * 24 +
-                self.p_day_input.value() * 24 +
-                self.p_hour_input.value() +
-                self.p_minute_input.value() / 60 +
-                self.p_second_input.value() / 3600
-            )
+            # Utilisation directe de period_seconds au lieu des widgets
+            period_hours = self.period_seconds / 3600  # Conversion secondes en heures
             
-            # Date initiale
+            # Date initiale avec le nouveau widget QDateEdit
+            selected_date = self.date_input.date()
             start_datetime = datetime(
-                year=self.year_input.value(),
-                month=self.month_input.value(),
-                day=self.day_input.value(),
-                hour=self.hour_input.value(),
-                minute=self.minute_input.value(),
-                second=self.second_input.value()
+                year=selected_date.year(),
+                month=selected_date.month(),
+                day=selected_date.day(),
+                hour=0,  # On fixe l'heure à minuit
+                minute=0,
+                second=0
             )
             
             # Création du calculateur
@@ -341,6 +339,7 @@ class DecroissanceDialog(QDialog):
             calculator.initial_activity = initial_activity_bq
             calculator.half_life = period_hours
             calculator.start_datetime = start_datetime
+            calculator.isotope_name = self.isotope_combo.currentText()  # Ajout du nom de l'isotope
             
             # Génération du graphique
             figure = calculator.plot_decay()
@@ -371,3 +370,57 @@ class PlotDisplayDialog(QDialog):
         close_button = QPushButton("Fermer")
         close_button.clicked.connect(self.close)
         layout.addWidget(close_button)
+
+class CustomPeriodDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Période personnalisée")
+        layout = QVBoxLayout(self)
+        
+        period_group = QGroupBox("Période")
+        period_layout = QGridLayout()
+        
+        # Widgets pour la période
+        self.p_year_input = ClearingSpinBox()
+        self.p_month_input = ClearingSpinBox()
+        self.p_day_input = ClearingSpinBox()
+        self.p_hour_input = ClearingSpinBox()
+        self.p_minute_input = ClearingSpinBox()
+        self.p_second_input = ClearingSpinBox()
+        
+        # Layout
+        period_layout.addWidget(QLabel("Années:"), 0, 0)
+        period_layout.addWidget(self.p_year_input, 0, 1)
+        period_layout.addWidget(QLabel("Mois:"), 0, 2)
+        period_layout.addWidget(self.p_month_input, 0, 3)
+        period_layout.addWidget(QLabel("Jours:"), 1, 0)
+        period_layout.addWidget(self.p_day_input, 1, 1)
+        period_layout.addWidget(QLabel("Heures:"), 1, 2)
+        period_layout.addWidget(self.p_hour_input, 1, 3)
+        period_layout.addWidget(QLabel("Minutes:"), 2, 0)
+        period_layout.addWidget(self.p_minute_input, 2, 1)
+        period_layout.addWidget(QLabel("Secondes:"), 2, 2)
+        period_layout.addWidget(self.p_second_input, 2, 3)
+        
+        period_group.setLayout(period_layout)
+        layout.addWidget(period_group)
+        
+        # Boutons
+        btn_layout = QHBoxLayout()
+        validate_btn = QPushButton("Valider")
+        validate_btn.clicked.connect(self.accept)
+        cancel_btn = QPushButton("Annuler")
+        cancel_btn.clicked.connect(self.reject)
+        btn_layout.addWidget(validate_btn)
+        btn_layout.addWidget(cancel_btn)
+        layout.addLayout(btn_layout)
+
+    def get_period_seconds(self):
+        return (
+            self.p_year_input.value() * 365 * 24 * 3600 +
+            self.p_month_input.value() * 30 * 24 * 3600 +
+            self.p_day_input.value() * 24 * 3600 +
+            self.p_hour_input.value() * 3600 +
+            self.p_minute_input.value() * 60 +
+            self.p_second_input.value()
+        )
