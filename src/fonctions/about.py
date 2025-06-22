@@ -12,7 +12,7 @@ class AboutDialog(QDialog):
         # Informations sur l'application
         info_text = """
         <h2>EasyCMIR</h2>
-        <p>Version 1.5</p>
+        <p>Version 1.7</p>
         <p>Développé par Judicaël Mougin - SDIS 71</p>
         <p>© 2024 - Logiciel sous licence.</p>
         <p>Gratuit à usage des SDIS</p>
