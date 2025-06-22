@@ -22,30 +22,14 @@ QLabel#resultLabel {
 
 QLabel[pictogram="true"] {
     background-color: white;
-<<<<<<< HEAD
-    border: none;  /* Supprimer la bordure */
-=======
     border: 2px solid #cccccc;
     border-radius: 5px;
->>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
     padding: 5px;
     margin: 2px;
 }
 
-<<<<<<< HEAD
-/* Supprimer le hover effect */
-QLabel[pictogram="true"]:hover {
-    border: none;
-}
-
-/* Ajouter une règle spécifique pour les pictogrammes de danger */
-QGroupBox[title="Pictogramme(s)"] QLabel {
-    border: none;
-    background: transparent;
-=======
 QLabel[pictogram="true"]:hover {
     border-color: #666666;
->>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 }
 
 /* Groupes */
@@ -56,7 +40,6 @@ QGroupBox {
     border-radius: 4px;
     padding: 15px;
     color: #333333;
-    font-weight: bold;
 }
 
 /*QGroupBox::title {
@@ -89,7 +72,7 @@ QSpinBox::up-button, QSpinBox::down-button {
 
 /* Boutons sur l'ensemble du logiciel */
 QPushButton {
-    background-color: #ff8800;
+    background-color: #272727;
     color: #e2e2e2;
     border: none;
     border-radius: 4px;
@@ -208,7 +191,6 @@ QTextBrowser:focus {
     border: 1px solid #001951;  /* Bleu ORANO */
 }
 
-/* Style unifié pour tous les boutons (RCH et RAD) */
 QToolButton {
     background-color: #f5b732;
     border: 2px solid #080000;
@@ -217,27 +199,17 @@ QToolButton {
     min-width: 100px;
     min-height: 80px;
     color: #000000;
-    font: bold 12px "Arial";
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-   
+    font: bold 12px "arial";
 }
 
-/* Effet de survol */
 QToolButton:hover {
     background-color: #f8741c;
     border-color: #000000;
 }
 
-/* Effet de clic */
 QToolButton:pressed {
     background-color: #494949;
     border-color: #808080;
-<<<<<<< HEAD
-    color: #ffffff;
-=======
->>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 }
 
 QScrollArea {
@@ -247,56 +219,4 @@ QScrollArea {
 
 QWidget#picto_widget {
     background: transparent;
-<<<<<<< HEAD
-}
-
-/* Ajuster le style du QGroupBox des pictogrammes */
-QGroupBox[title="Pictogramme(s)"] {
-    border: 1px solid rgba(200, 200, 200, 0.3); /* Bordure semi-transparente */
-    background: transparent;
-    margin-top: 1.5em; /* Espace pour le titre */
-    padding: 10px;
-    border-radius: 4px;
-}
-
-/* Style pour les pictogrammes eux-mêmes */
-QGroupBox[title="Pictogramme(s)"] QLabel {
-    background: transparent;
-    border: none;
-    padding: 2px;
-    margin: 2px;
-}
-
-/* Style pour la zone de défilement */
-QGroupBox[title="Pictogramme(s)"] QScrollArea {
-    background: transparent;
-    padding: 5px;
-    background-color: #ffffff;  /* Fond légèrement rosé */
-    border: 1px solid #ffeeee;
-    border-radius: 4px;
-}
-
-/* Style spécifique pour la description du danger */
-QLabel#danger_description {
-    color: #cc0000;  /* Rouge foncé pour le danger */
-    font-size: 10pt;
-    background-color: #ffffff;  /* Fond légèrement rosé */
-}
-
-/* Styles pour les différentes sections */
-QLabel#protection_tenue {
-    color: #005500;
-    background-color: #f8fff8;
-}
-
-QLabel#protection_zone {
-    color: #000055;
-    background-color: #f8f8ff;
-}
-
-QLabel#protection_other {
-    color: #555500;
-    background-color: #fffff8;
-=======
->>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 }
