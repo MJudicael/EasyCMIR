@@ -22,11 +22,17 @@ QLabel#resultLabel {
 
 QLabel[pictogram="true"] {
     background-color: white;
+<<<<<<< HEAD
     border: none;  /* Supprimer la bordure */
+=======
+    border: 2px solid #cccccc;
+    border-radius: 5px;
+>>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
     padding: 5px;
     margin: 2px;
 }
 
+<<<<<<< HEAD
 /* Supprimer le hover effect */
 QLabel[pictogram="true"]:hover {
     border: none;
@@ -36,6 +42,10 @@ QLabel[pictogram="true"]:hover {
 QGroupBox[title="Pictogramme(s)"] QLabel {
     border: none;
     background: transparent;
+=======
+QLabel[pictogram="true"]:hover {
+    border-color: #666666;
+>>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 }
 
 /* Groupes */
@@ -224,7 +234,10 @@ QToolButton:hover {
 QToolButton:pressed {
     background-color: #494949;
     border-color: #808080;
+<<<<<<< HEAD
     color: #ffffff;
+=======
+>>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 }
 
 QScrollArea {
@@ -234,6 +247,7 @@ QScrollArea {
 
 QWidget#picto_widget {
     background: transparent;
+<<<<<<< HEAD
 }
 
 /* Ajuster le style du QGroupBox des pictogrammes */
@@ -283,4 +297,6 @@ QLabel#protection_zone {
 QLabel#protection_other {
     color: #555500;
     background-color: #fffff8;
+=======
+>>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 }

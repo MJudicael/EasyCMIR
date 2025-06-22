@@ -336,6 +336,7 @@
 >>>>>>> 2ca4bb72cd474315a3491c602c3643047b74d6d6
 2025-06-08 14:16:27;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-08 14:16:27;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+<<<<<<< HEAD
 2025-06-08 19:59:01;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-08 19:59:01;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
 2025-06-10 09:53:04;Distance;Debit de dose connu: 23.0 µSv/h à 2.0 mètres;Debit de dose calcule: 0.01 µSv/h à 120.0 mètres
@@ -353,3 +354,5 @@
 2025-06-22 17:15:52;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 17520.0 heures;Activité actuelle: 0.25 GBq
 2025-06-22 17:18:20;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 17520.0 heures;Activité actuelle: 245.93 GBq
 2025-06-22 17:19:00;Décroissance;Activité initiale: 23.0 TBq;Date initiale: 2012-05-22 06:00:00;Période: 17520.0 heures;Activité actuelle: 245.93 GBq
+=======
+>>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8

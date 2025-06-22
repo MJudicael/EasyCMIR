@@ -2,6 +2,7 @@ from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtCore import Qt
 import os
 
+<<<<<<< HEAD
 # Définition des chemins
 PICTOGRAMS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
@@ -19,6 +20,13 @@ PICTOGRAM_MAPPING = {
     "8": "danger_8.jpg",
     "9": "danger_9.jpg",
     "X": "danger_x.jpg"
+=======
+PICTOGRAM_MAPPING = {
+    # Mapping des pictogrammes
+    "code1": "explosion.png",
+    "code2": "explosion.png",
+    # Ajouter d'autres mappings si nécessaire
+>>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 }
 
 class IconManager:
@@ -36,10 +44,17 @@ class IconManager:
             "Identification": "loupe.png",
             "Code DANGER": "danger.png",
             "Bio": "biohazard.png",
+<<<<<<< HEAD
             "PID": "loupe.png",
             "TMD": "tanker.png",
             "Intervention": "loupe.png",
           
+=======
+            "Divers": "loupe.png",
+            "TMD": "tanker.png",
+            "Intervention": "loupe.png"
+            #Ne pas oublire de modiffier le main_window pour ajouter les icônes correspondantes """
+>>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
         }
         
         self.icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 
@@ -52,8 +67,12 @@ class IconManager:
             icon_file = os.path.join(self.icon_path, self.icon_mapping[button_text])
             if os.path.exists(icon_file):
                 return QIcon(icon_file)
+<<<<<<< HEAD
         # Au lieu de retourner None, on retourne une icône vide
         return QIcon()
+=======
+        return None
+>>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
 
     def get_pictogram_path(self, code):
         """Retourne le chemin complet du pictogramme pour un code donné."""
@@ -87,6 +106,7 @@ class IconManager:
             for filename in missing:
                 print(f"- {filename}")
             return False
+<<<<<<< HEAD
         return True
 
     def get_danger_icon(self, code_char):
@@ -111,3 +131,6 @@ class IconManager:
         except Exception as e:
             print(f"Erreur lors du chargement du pictogramme {code_char}: {e}")
             return None
+=======
+        return True
+>>>>>>> 1910f35c16d38685cbb0fcdaf23be3b01fd424c8
