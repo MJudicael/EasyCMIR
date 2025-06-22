@@ -337,3 +337,9 @@
 2025-06-08 14:16:27;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-08 14:16:27;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
 2025-06-22 18:08:49;Décroissance;Activité initiale: 23.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 105120.0 heures;Activité actuelle: 10.80 GBq
+2025-06-22 18:15:38;Décroissance;Activité initiale: 123.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 105120.0 heures;Activité actuelle: 57.73 GBq
+2025-06-22 18:16:31;Décroissance;Activité initiale: 123.0 GBq;Date initiale: 2012-05-22 06:00:00;Période: 105288.0 heures;Activité actuelle: 57.80 GBq
+2025-06-22 18:16:43;Décroissance;Activité initiale: 123.0 GBq;Date initiale: 2025-05-22 06:00:00;Période: 105288.0 heures;Activité actuelle: 122.39 GBq
+2025-06-22 18:16:50;Décroissance;Activité initiale: 123.0 GBq;Date initiale: 2025-05-22 06:00:00;Période: 168.0 heures;Activité actuelle: 5.43 GBq
+2025-06-22 18:18:26;Debit de dose 1 m;Isotope: Carbone-14;Activite: 0.18 GBq;Debit de dose: 0.0 mSv/h;0.0 uSv/h
+2025-06-22 18:18:31;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 0.18 GBq;Debit de dose: 5.86 mSv/h;5860.0 uSv/h
