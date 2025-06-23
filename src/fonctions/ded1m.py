@@ -72,13 +72,25 @@ class Ded1mDialog(QDialog):
         self.isotope_selection_combo.setToolTip("Sélectionnez un isotope")
         input_form.addRow("Choix de l'isotope :", self.isotope_selection_combo)
 
+        # Layout horizontal pour l'activité et son unité
+        activity_layout = QHBoxLayout()
+        
         self.activity_ded1m_input = ClearingDoubleSpinBox()
         self.activity_ded1m_input.setDecimals(3)
         self.activity_ded1m_input.setRange(0.0, 1e12)
         self.activity_ded1m_input.setSingleStep(0.1)
         self.activity_ded1m_input.setValue(0.0)
-        self.activity_ded1m_input.setToolTip("Activité en GBq")
-        input_form.addRow("Activité (GBq) :", self.activity_ded1m_input)
+        self.activity_ded1m_input.setToolTip("Activité")
+        
+        # Ajout du menu déroulant pour les unités
+        self.activity_unit = QComboBox()
+        self.activity_unit.addItems(["Bq", "kBq", "MBq", "GBq", "TBq"])
+        self.activity_unit.setCurrentText("GBq")  # Unité par défaut
+        
+        activity_layout.addWidget(self.activity_ded1m_input)
+        activity_layout.addWidget(self.activity_unit)
+        
+        input_form.addRow("Activité :", activity_layout)
         self.layout.addLayout(input_form)
 
         calculate_layout = QHBoxLayout()
@@ -133,19 +145,31 @@ class Ded1mDialog(QDialog):
         """Calcule le débit de dose à 1m pour l'isotope sélectionné."""
         try:
             selected_isotope_name = self.isotope_selection_combo.currentText()
-            activity_gbq = self.activity_ded1m_input.value()
+            activity_value = self.activity_ded1m_input.value()
+            unit = self.activity_unit.currentText()
 
+            # Conversion en Bq selon l'unité sélectionnée
+            conversion = {
+                "Bq": 1,
+                "kBq": 1e3,
+                "MBq": 1e6,
+                "GBq": 1e9,
+                "TBq": 1e12
+            }
+            
+            activity_bq = activity_value * conversion[unit]
+            
             if not selected_isotope_name or selected_isotope_name not in ISOTOPES:
                 QMessageBox.warning(self, "Erreur Saisie", "Veuillez sélectionner un isotope valide.")
                 return
 
             isotope_data = ISOTOPES[selected_isotope_name]
             e1, e2, e3 = isotope_data[2:5]
-            q1, q2, q3 = isotope_data[5:8]
+            # Conversion des pourcentages en décimales (division par 100)
+            q1, q2, q3 = [x/100 for x in isotope_data[5:8]]
 
-            activity_bq = activity_gbq * 1e9
             ded1m_msvh = 1.3e-10 * activity_bq * (e1 * q1 + e2 * q2 + e3 * q3)
-            ded1m_msvh = round(ded1m_msvh, 2)
+            ded1m_msvh = round(ded1m_msvh, 4)  # Augmentation de la précision
             ded1m_usvh = round(ded1m_msvh * 1e3, 2)
 
             self.ded1m_result_msv_label.setText(f"{ded1m_msvh} mSv/h")
@@ -154,7 +178,7 @@ class Ded1mDialog(QDialog):
             save_to_history([
                 "Debit de dose 1 m",
                 f"Isotope: {selected_isotope_name}",
-                f"Activite: {activity_gbq} GBq",
+                f"Activite: {activity_value} {unit}",
                 f"Debit de dose: {ded1m_msvh} mSv/h",
                 f"{ded1m_usvh} uSv/h"
             ])

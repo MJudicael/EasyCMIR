@@ -34,10 +34,10 @@ class DecroissanceCalculator:
         end_datetime = self.start_datetime + timedelta(hours=self.half_life * 10)
         final_activity = self.initial_activity * exp(-lambda_const * (self.half_life * 10 * 3600))
         
-        # Calcul du DED 1m pour l'activité finale (en GBq)
-        final_activity_gbq = final_activity * 1e-9
-        selected_isotope = self.isotope_name  # Nouveau paramètre à ajouter
-        
+        # Conversion en MBq pour le calcul du DED
+        final_activity_mbq = final_activity * 1e-6  # Conversion de Bq en MBq
+        final_ded = 0  # Initialisation par défaut
+
         # Récupération des données de l'isotope depuis le fichier
         try:
             isotopes_file = os.path.join(
@@ -50,14 +50,15 @@ class DecroissanceCalculator:
                     if line.strip() and not line.startswith('#'):
                         values = line.strip().split(';')
                         name = values[0]
-                        if name == selected_isotope:
+                        if name == self.isotope_name:
                             e1, e2, e3 = float(values[3]), float(values[4]), float(values[5])
                             q1, q2, q3 = float(values[6]), float(values[7]), float(values[8].split(',')[0])
-                            final_ded = 1.3e-10 * final_activity * (e1 * q1 + e2 * q2 + e3 * q3)
+                            # Calcul du DED avec la formule générique
+                            final_ded = 1.3e-10 * final_activity_mbq * 1e6 * (e1 * q1/100 + e2 * q2/100 + e3 * q3/100)
                             break
         except Exception:
             final_ded = 0
-    
+
         # Points pour le graphique
         total_hours = self.half_life * 10
         time_points = np.linspace(0, total_hours * 3600, 1000)  # en secondes
@@ -70,20 +71,33 @@ class DecroissanceCalculator:
         plt.figure(figsize=(12, 8))
         plt.plot(dates, activities, 'b-', label='Décroissance')
         
+        # Formatage de l'activité finale avec l'unité adaptée
+        if final_activity >= 1e12:  # TBq
+            activity_str = f"{final_activity * 1e-12:.1f} TBq"
+        elif final_activity >= 1e9:  # GBq
+            activity_str = f"{final_activity * 1e-9:.1f} GBq"
+        elif final_activity >= 1e6:  # MBq
+            activity_str = f"{final_activity * 1e-6:.1f} MBq"
+        elif final_activity >= 1e3:  # kBq
+            activity_str = f"{final_activity * 1e-3:.1f} kBq"
+        else:  # Bq
+            activity_str = f"{final_activity:.1f} Bq"
+
         # Formatage du débit de dose avec l'unité adaptée
-        if final_ded > 1:
+        if final_ded >= 1:  # > 1 mSv/h
             ded_str = f"{final_ded:.1f} mSv/h"
-        elif final_ded > 0.001:
+        elif final_ded >= 0.001:  # > 1 µSv/h
             ded_str = f"{final_ded * 1000:.1f} µSv/h"
-        else:
+        else:  # < 1 µSv/h
             ded_str = f"{final_ded * 1000000:.1f} nSv/h"
 
         # Ajout du point à 10 périodes avec bulle d'information
-        plt.plot(end_datetime, final_activity, 'ro', label='10 périodes')
+        plt.plot(end_datetime, final_activity, 'yo', label='10 périodes',
+                markerfacecolor='yellow', markeredgecolor='black')
         plt.annotate(
             f'Après 10 périodes:\n'
             f'Date: {end_datetime.strftime("%d/%m/%Y %H:%M")}\n'
-            f'Activité: {final_activity:.2e} Bq\n'
+            f'Activité: {activity_str}\n'
             f'DED à 1m: {ded_str}',
             xy=(end_datetime, final_activity),
             xytext=(0, 30),
@@ -94,6 +108,92 @@ class DecroissanceCalculator:
             arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0')
         )
         
+        # Calcul de l'activité actuelle
+        current_datetime = datetime.now()
+        delta_seconds = (current_datetime - self.start_datetime).total_seconds()
+        current_activity = self.initial_activity * exp(-lambda_const * delta_seconds)
+        
+        # Calcul du DED actuel
+        current_activity_mbq = current_activity * 1e-6
+        current_ded = final_ded * (current_activity / final_activity)  # Utilise le même rapport que final_ded
+
+        # Formatage de l'activité actuelle
+        if current_activity >= 1e12:
+            current_activity_str = f"{current_activity * 1e-12:.1f} TBq"
+        elif current_activity >= 1e9:
+            current_activity_str = f"{current_activity * 1e-9:.1f} GBq"
+        elif current_activity >= 1e6:
+            current_activity_str = f"{current_activity * 1e-6:.1f} MBq"
+        elif current_activity >= 1e3:
+            current_activity_str = f"{current_activity * 1e-3:.1f} kBq"
+        else:
+            current_activity_str = f"{current_activity:.1f} Bq"
+
+        # Formatage du DED actuel
+        if current_ded >= 1:
+            current_ded_str = f"{current_ded:.1f} mSv/h"
+        elif current_ded >= 0.001:
+            current_ded_str = f"{current_ded * 1000:.1f} µSv/h"
+        else:
+            current_ded_str = f"{current_ded * 1000000:.1f} nSv/h"
+
+        # Ajout du point actuel avec bulle d'information
+        plt.plot(current_datetime, current_activity, 'mo', label='Actuel',
+                markerfacecolor='magenta', markeredgecolor='black')
+        plt.annotate(
+            f'Actuellement:\n'
+            f'Date: {current_datetime.strftime("%d/%m/%Y %H:%M")}\n'
+            f'Activité: {current_activity_str}\n'
+            f'DED à 1m: {current_ded_str}',
+            xy=(current_datetime, current_activity),
+            xytext=(30, 30),
+            textcoords='offset points',
+            ha='left',
+            va='bottom',
+            bbox=dict(boxstyle='round,pad=0.5', fc='magenta', alpha=0.5),
+            arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0')
+        )
+        
+        # Ajout d'une bulle pour DED = 2.5 µSv/h si le DED final > 2.5 µSv/h
+        if final_ded >= 0.0025:  # 2.5 µSv/h en mSv/h
+            # Calcul du temps nécessaire pour atteindre 2.5 µSv/h
+            target_ded = 0.0025  # 2.5 µSv/h en mSv/h
+            ratio = target_ded / final_ded
+            target_activity = final_activity * ratio
+            
+            # Calcul de la date correspondante
+            time_to_target = -log(target_activity / self.initial_activity) / lambda_const
+            target_datetime = self.start_datetime + timedelta(seconds=time_to_target)
+            
+            # Formatage de l'activité cible
+            if target_activity >= 1e12:
+                target_activity_str = f"{target_activity * 1e-12:.1f} TBq"
+            elif target_activity >= 1e9:
+                target_activity_str = f"{target_activity * 1e-9:.1f} GBq"
+            elif target_activity >= 1e6:
+                target_activity_str = f"{target_activity * 1e-6:.1f} MBq"
+            elif target_activity >= 1e3:
+                target_activity_str = f"{target_activity * 1e-3:.1f} kBq"
+            else:
+                target_activity_str = f"{target_activity:.1f} Bq"
+
+            # Ajout du point et de la bulle d'information
+            plt.plot(target_datetime, target_activity, 'go', label='Périmètre public',
+                    markerfacecolor='lightgreen', markeredgecolor='black')
+            plt.annotate(
+                f'Périmètre public\n'
+                f'Date: {target_datetime.strftime("%d/%m/%Y %H:%M")}\n'
+                f'Activité: {target_activity_str}\n'
+                f'DED à 1m: 2.5 µSv/h',
+                xy=(target_datetime, target_activity),
+                xytext=(60, 150),
+                textcoords='offset points',
+                ha='right',
+                va='top',
+                bbox=dict(boxstyle='round,pad=0.5', fc='lightgreen', alpha=0.5),
+                arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0')
+            )
+
         # Formatage du graphique
         plt.gcf().autofmt_xdate()
         plt.xlabel('Date et Heure')
@@ -285,13 +385,26 @@ class DecroissanceDialog(QDialog):
             current_datetime = datetime.now()
             delta_seconds = (current_datetime - initial_date).total_seconds()
             
-            # Calcul de l'activité finale selon N(t) = N0 e^(-λt)
-            current_activity_bq = initial_activity_bq * exp(-lambda_const * delta_seconds)
+            # Calcul du nombre de périodes écoulées
+            n_periodes = delta_seconds / self.period_seconds  # Nombre de périodes écoulées
+            current_activity_bq = initial_activity_bq * (0.5 ** n_periodes)  # Division par 2 pour chaque période
             current_activity_gbq = current_activity_bq * 1e-9
             
             # Mise à jour des résultats
-            self.result_gbq_label.setText(f"{current_activity_gbq:.2f} GBq")
-            self.result_bq_label.setText(f"{current_activity_bq:.2e} Bq")
+            # Formatage de l'activité avec l'unité adaptée
+            if current_activity_bq >= 1e12:  # TBq
+                formatted_activity = f"{current_activity_bq * 1e-12:.1f} TBq"
+            elif current_activity_bq >= 1e9:  # GBq
+                formatted_activity = f"{current_activity_bq * 1e-9:.1f} GBq"
+            elif current_activity_bq >= 1e6:  # MBq
+                formatted_activity = f"{current_activity_bq * 1e-6:.1f} MBq"
+            elif current_activity_bq >= 1e3:  # kBq
+                formatted_activity = f"{current_activity_bq * 1e-3:.1f} kBq"
+            else:  # Bq
+                formatted_activity = f"{current_activity_bq:.1f} Bq"
+            
+            self.result_gbq_label.setText(formatted_activity)
+            self.result_bq_label.setText(f"{current_activity_bq:.1e} Bq")
             
             # Conversion vers l'unité sélectionnée pour le graphique
             unit_text = self.activity_unit.currentText()

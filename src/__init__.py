@@ -1,8 +1,3 @@
-"""
-EasyCMIR - Application de calculs radiologiques
-Version 1.3
-"""
-
 from .utils.database import load_isotopes, save_to_history
 from .utils.widgets import (
     ClearingDoubleSpinBox,

@@ -423,3 +423,50 @@
 2025-06-23 00:06:53;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2025-05-22 00:00:00;Période: 6.0 heures;Activité actuelle: 0.00 GBq
 2025-06-23 00:09:41;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 192.5 heures;Activité actuelle: 0.00 GBq
 2025-06-23 00:09:55;Décroissance;Activité initiale: 1.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 192.5 heures;Activité actuelle: 0.00 GBq
+2025-06-23 07:46:29;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46179.4 heures;Activité actuelle: 5.50 GBq
+2025-06-23 07:59:51;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46179.4 heures;Activité actuelle: 5.50 GBq
+2025-06-23 08:00:36;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46179.4 heures;Activité actuelle: 5.50 GBq
+2025-06-23 08:00:36;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46179.4 heures;Activité actuelle: 5.50 GBq
+2025-06-23 08:00:36;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46179.4 heures;Activité actuelle: 5.50 GBq
+2025-06-23 08:09:48;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.50 GBq
+2025-06-23 08:46:16;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.50 GBq
+2025-06-23 09:04:25;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.50 GBq
+2025-06-23 09:10:42;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.50 GBq
+2025-06-23 09:13:29;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 30.0 GBq;Debit de dose: 976.49 mSv/h;976490.0 uSv/h
+2025-06-23 09:13:53;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 0.029 GBq;Debit de dose: 0.94 mSv/h;940.0 uSv/h
+2025-06-23 09:14:34;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 0.029 GBq;Debit de dose: 0.94 mSv/h;940.0 uSv/h
+2025-06-23 09:15:09;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.50 GBq
+2025-06-23 09:17:26;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.50 GBq
+2025-06-23 09:24:04;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-08-01 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.50 GBq
+2025-06-23 09:26:39;Décroissance;Activité initiale: 30.0 Bq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 0.00 GBq
+2025-06-23 09:26:55;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:32:08;Décroissance;Activité initiale: 30.0 MBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 0.01 GBq
+2025-06-23 09:32:19;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:34:58;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:36:30;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:37:19;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:38:58;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:45:59;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:48:19;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:52:24;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:54:40;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 09:58:25;Décroissance;Activité initiale: 30.0 Bq;Date initiale: 2012-05-22 00:00:00;Période: 1.8 heures;Activité actuelle: 0.00 GBq
+2025-06-23 09:58:32;Décroissance;Activité initiale: 30.0 TBq;Date initiale: 2012-05-22 00:00:00;Période: 343.3 heures;Activité actuelle: 0.00 GBq
+2025-06-23 09:58:35;Décroissance;Activité initiale: 30.0 TBq;Date initiale: 2012-05-22 00:00:00;Période: 1072.2 heures;Activité actuelle: 0.00 GBq
+2025-06-23 09:58:40;Décroissance;Activité initiale: 30.0 TBq;Date initiale: 2012-05-22 00:00:00;Période: 192.5 heures;Activité actuelle: 0.00 GBq
+2025-06-23 09:58:45;Décroissance;Activité initiale: 30.0 TBq;Date initiale: 2012-05-22 00:00:00;Période: 10519000000.0 heures;Activité actuelle: 29999.77 GBq
+2025-06-23 09:58:54;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 10519000000.0 heures;Activité actuelle: 30.00 GBq
+2025-06-23 09:59:02;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 10:00:02;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 10:08:24;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 30.0 GBq;Debit de dose: 976.49 mSv/h;976490.0 uSv/h
+2025-06-23 10:08:41;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 29.6 MBq;Debit de dose: 0.96 mSv/h;960.0 uSv/h
+2025-06-23 10:14:21;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 30.0 MBq;Debit de dose: 0.0098 mSv/h;9.8 uSv/h
+2025-06-23 10:14:35;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-23 10:14:35;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-23 10:14:39;Conversion Debit de Dose;De: 1.0 mSv/h;Vers: 1000 µSv/h
+2025-06-23 10:14:43;Conversion Activite;De: 2.0 GBq;Vers: 2 000 000 000.00 Bq
+2025-06-23 10:14:46;Conversion Activite;De: 2.0 Ci;Vers: 74 000 000 000.00 Bq
+2025-06-23 10:14:49;Conversion Activite;De: 1.0 Ci;Vers: 37 000 000 000.00 Bq
+2025-06-23 10:16:36;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-23 10:16:36;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-06-23 10:17:02;Distance;Debit de dose connu: 9.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.09 mSv/h à 10.0 mètres
