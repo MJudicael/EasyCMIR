@@ -45,20 +45,32 @@ class PerimetrePublicDialog(QDialog):
         input_group = QGroupBox("Paramètres")
         input_form = QFormLayout()
         input_form.setSpacing(10)
-        input_form.setContentsMargins(5, 5, 5, 5)  # Marges intérieures
-        input_form.setAlignment(Qt.AlignVCenter)  # Alignement vertical
+        input_form.setContentsMargins(5, 5, 5, 5)
+        input_form.setAlignment(Qt.AlignVCenter)
+
+        # Layout horizontal pour le débit de dose et son unité
+        ded_layout = QHBoxLayout()
 
         # Ajustement du QDoubleSpinBox
         self.ded1m_ppublic_input = ClearingDoubleSpinBox()
         self.ded1m_ppublic_input.setDecimals(3)
         self.ded1m_ppublic_input.setRange(0.0, 1e6)
         self.ded1m_ppublic_input.setValue(0.0)
-        self.ded1m_ppublic_input.setToolTip("Débit de dose équivalent à 1 mètre en µSv/h")
+        self.ded1m_ppublic_input.setToolTip("Débit de dose équivalent à 1 mètre")
         self.ded1m_ppublic_input.setSingleStep(0.1)
-        # Supprimer le setStyleSheet du QDoubleSpinBox
         self.ded1m_ppublic_input.setMinimumHeight(30)
-        input_form.addRow("DED 1 mètre (µSv/h) :", self.ded1m_ppublic_input)
 
+        # Ajout du menu déroulant pour les unités
+        self.ded_unit = QComboBox()
+        self.ded_unit.addItems(["nSv/h", "µSv/h", "mSv/h"])
+        self.ded_unit.setCurrentText("µSv/h")  # Unité par défaut
+        self.ded_unit.setMinimumHeight(30)
+
+        ded_layout.addWidget(self.ded1m_ppublic_input)
+        ded_layout.addWidget(self.ded_unit)
+
+        input_form.addRow("DED 1 mètre :", ded_layout)
+        
         input_group.setLayout(input_form)
         input_group.setMinimumHeight(70)
         self.layout.addWidget(input_group)
@@ -86,19 +98,28 @@ class PerimetrePublicDialog(QDialog):
         self.layout.addWidget(info_label)
         self.layout.addStretch(1)
 
-        # Ne garder qu'une seule connexion pour éviter les doublons
+        # Connexions des signaux
         self.ded1m_ppublic_input.valueChanged.connect(self.calculate_p_public)
+        self.ded_unit.currentTextChanged.connect(self.calculate_p_public)  # Ajout de cette ligne
 
     def calculate_p_public(self):
         """Calcule le périmètre public basé sur le DED à 1m."""
         try:
             ded1m_value = self.ded1m_ppublic_input.value()
+            unit = self.ded_unit.currentText()
+            
+            # Conversion en µSv/h
+            if unit == "nSv/h":
+                ded1m_value *= 0.001  # nSv/h -> µSv/h
+            elif unit == "mSv/h":
+                ded1m_value *= 1000  # mSv/h -> µSv/h
+
             if not self._validate_input(ded1m_value):
                 return
                 
             result = self._calculate_result(ded1m_value)
             self._update_display(result)
-            self._save_to_history(ded1m_value, result)
+            self._save_to_history(self.ded1m_ppublic_input.value(), unit, result)  # Garde la valeur originale
             
         except Exception as e:
             self._handle_error(e)
@@ -123,11 +144,11 @@ class PerimetrePublicDialog(QDialog):
         result = round(result, 2)
         self.p_public_result_label.setText(f"Périmètre public à : {result} m")
 
-    def _save_to_history(self, ded1m_value, result):
+    def _save_to_history(self, ded1m_value, unit, result):
         """Sauvegarde les données dans l'historique."""
         save_to_history([
             "Perimetre public",
-            f"DED 1m: {ded1m_value} uSv/h",
+            f"DED 1m: {ded1m_value} {unit}",
             f"Perimetre: {result} m"
         ])
 

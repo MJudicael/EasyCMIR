@@ -470,3 +470,25 @@
 2025-06-23 10:16:36;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-23 10:16:36;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
 2025-06-23 10:17:02;Distance;Debit de dose connu: 9.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.09 mSv/h à 10.0 mètres
+2025-06-23 10:25:11;Perimetre public;DED 1m: 2.0 uSv/h;Perimetre: 0.8944271909999159 m
+2025-06-23 10:25:17;Perimetre public;DED 1m: 3.0 uSv/h;Perimetre: 1.0954451150103321 m
+2025-06-23 10:25:17;Perimetre public;DED 1m: 30.0 uSv/h;Perimetre: 3.4641016151377544 m
+2025-06-23 10:25:18;Perimetre public;DED 1m: 3.0 uSv/h;Perimetre: 1.0954451150103321 m
+2025-06-23 10:25:19;Perimetre public;DED 1m: 30.0 uSv/h;Perimetre: 3.4641016151377544 m
+2025-06-23 10:25:19;Perimetre public;DED 1m: 300.0 uSv/h;Perimetre: 10.954451150103322 m
+2025-06-23 10:25:19;Perimetre public;DED 1m: 3000.0 uSv/h;Perimetre: 34.64101615137755 m
+2025-06-23 10:29:28;Perimetre public;DED 1m: 3.0 µSv/h;Perimetre: 1.0954451150103321 m
+2025-06-23 10:29:28;Perimetre public;DED 1m: 30.0 µSv/h;Perimetre: 3.4641016151377544 m
+2025-06-23 10:31:10;Perimetre public;DED 1m: 3.0 µSv/h;Perimetre: 1.0954451150103321 m
+2025-06-23 10:31:10;Perimetre public;DED 1m: 30.0 µSv/h;Perimetre: 3.4641016151377544 m
+2025-06-23 10:31:13;Perimetre public;DED 1m: 30.0 nSv/h;Perimetre: 0.10954451150103323 m
+2025-06-23 10:31:14;Perimetre public;DED 1m: 30.0 mSv/h;Perimetre: 109.54451150103323 m
+2025-06-23 10:31:21;Perimetre public;DED 1m: 2.0 mSv/h;Perimetre: 28.284271247461902 m
+2025-06-23 10:33:30;Perimetre public;DED 1m: 3.0 µSv/h;Perimetre: 1.0954451150103321 m
+2025-06-23 10:33:30;Perimetre public;DED 1m: 30.0 µSv/h;Perimetre: 3.4641016151377544 m
+2025-06-23 10:33:32;Perimetre public;DED 1m: 30.0 mSv/h;Perimetre: 109.54451150103323 m
+2025-06-23 10:33:39;Perimetre public;DED 1m: 30.0 µSv/h;Perimetre: 3.4641016151377544 m
+2025-06-23 10:33:41;Perimetre public;DED 1m: 30.0 nSv/h;Perimetre: 0.10954451150103323 m
+2025-06-23 10:36:55;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 30.0 GBq;Debit de dose: 9.7649 mSv/h;9764.9 uSv/h
+2025-06-23 10:37:56;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 30.0 GBq;Debit de dose: 9.7649 mSv/h;9764.9 uSv/h
+2025-06-23 10:38:03;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 30.0 MBq;Debit de dose: 0.0098 mSv/h;9.8 uSv/h
