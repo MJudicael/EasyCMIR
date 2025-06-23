@@ -493,3 +493,4 @@
 2025-06-23 10:37:56;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 30.0 GBq;Debit de dose: 9.7649 mSv/h;9764.9 uSv/h
 2025-06-23 10:38:03;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 30.0 MBq;Debit de dose: 0.0098 mSv/h;9.8 uSv/h
 2025-06-23 11:14:00;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
+2025-06-23 11:18:00;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.36 GBq
