@@ -95,17 +95,17 @@ class MainWindow(QMainWindow):
         rch_layout = QVBoxLayout()
         
         # Titre RCH
-        rch_title = QLabel("RCH")
-        rch_title.setAlignment(Qt.AlignCenter)
-        rch_title.setStyleSheet("font-size: 18px; font-weight: bold; margin: 10px;")
-        rch_layout.addWidget(rch_title)
+        #rch_title = QLabel("RCH")
+        #rch_title.setAlignment(Qt.AlignCenter)
+        #rch_title.setStyleSheet("font-size: 18px; font-weight: bold; margin: 10px;")
+        #rch_layout.addWidget(rch_title)
         
         # Grid pour les boutons RCH
         rch_grid = QGridLayout()
         
         # Configuration des boutons RCH
         rch_buttons = [
-            ("Identification", self.run_identification),
+            ("Ecran", self.run_identification),
             ("Code DANGER", self.run_code_danger),
             ("Bio", self.run_bio),
             ("Divers", self.run_divers),
