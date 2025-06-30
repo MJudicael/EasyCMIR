@@ -552,3 +552,5 @@
 2025-06-30 16:36:56;Distance;Debit de dose connu: 30.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.03 mSv/h à 30.0 mètres
 2025-06-30 17:13:13;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-30 17:13:13;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-07-01 01:05:17;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-07-01 01:05:17;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq

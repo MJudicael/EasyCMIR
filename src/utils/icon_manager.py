@@ -22,7 +22,7 @@ class IconManager:
             "Ecran": "ecran.png",
             "Code DANGER": "danger.png",
             "Bio": "biohazard.png",
-            "Divers": "loupe.png",
+            "Matériel": "loupe.png",
             "TMD": "tanker.png",
             "Intervention": "pompier.png"
             #Ne pas oublire de modifier le main_window pour ajouter les icônes correspondantes """

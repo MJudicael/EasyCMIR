@@ -17,7 +17,7 @@ from ..fonctions.unites_rad import UnitesRadDialog
 from ..fonctions.codedanger import CodeDangerDialog
 from ..fonctions.ecran import EcranDialog
 from ..fonctions.bio import BioDialog
-from ..fonctions.divers import DiversDialog
+from ..fonctions.gestion_matériel import BD_gestDialog
 from ..fonctions.tmd import TMDDialog
 from ..fonctions.intervention import InterventionDialog
 
@@ -108,7 +108,7 @@ class MainWindow(QMainWindow):
             ("Ecran", self.run_ecran),
             ("Code DANGER", self.run_code_danger),
             ("Bio", self.run_bio),
-            ("Divers", self.run_divers),
+            ("Matériel", self.run_BD_gest),
             ("TMD", self.run_tmd),
             ("Intervention", self.run_intervention)
         ]
@@ -216,8 +216,8 @@ class MainWindow(QMainWindow):
         dialog = BioDialog(self)
         dialog.exec()
 
-    def run_divers(self):
-        dialog = DiversDialog(self)
+    def run_BD_gest(self):
+        dialog = BD_gestDialog(self)
         dialog.exec()
 
     def run_tmd(self):
