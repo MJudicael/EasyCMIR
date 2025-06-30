@@ -1,0 +1,4 @@
+Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire
+30/06/2025;JUDI;Binôme 6;16:00;;0.0;
+30/06/2025;NICO;Binôme 6;16:00;;0.0;
+30/06/2025;SYSTEM;-;-;16:49;0;Fin de l'intervention;Intervention du 30/06/2025 16:46 terminée

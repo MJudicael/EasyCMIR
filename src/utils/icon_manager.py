@@ -19,13 +19,13 @@ class IconManager:
             "P Public": "perimetre_public.png",
             "TMR": "tmr.png",
             "Unités RAD": "units_rad.png",
-            "ecran": "ecran.png",
+            "Ecran": "ecran.png",
             "Code DANGER": "danger.png",
             "Bio": "biohazard.png",
             "Divers": "loupe.png",
             "TMD": "tanker.png",
-            "Intervention": "loupe.png"
-            #Ne pas oublire de modiffier le main_window pour ajouter les icônes correspondantes """
+            "Intervention": "pompier.png"
+            #Ne pas oublire de modifier le main_window pour ajouter les icônes correspondantes """
         }
         
         self.icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 

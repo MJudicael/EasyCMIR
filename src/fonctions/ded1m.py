@@ -1,7 +1,8 @@
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QGridLayout, QFormLayout,
-    QLabel, QPushButton, QComboBox, QMessageBox
+    QLabel, QPushButton, QComboBox, QMessageBox, QLineEdit
 )
+from PySide6.QtCore import Qt
 import os
 from src.utils.widgets import ClearingDoubleSpinBox
 from src.utils.database import save_to_history
@@ -55,12 +56,12 @@ except Exception as e:
     ISOTOPES = {}
     ISOTOPE_NAMES = []
 
-class Ded1mDialog(QDialog):
+class Ded1mDialog(QDialog):  # Renommé de Ded1mDialog à DED1MDialog
     """Dialog pour le calcul du débit de dose à 1m."""
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("DED 1m")
+        self.setWindowTitle("Calcul DED à 1m")
         self.setFixedSize(300, 220)
 
         self.layout = QVBoxLayout(self)

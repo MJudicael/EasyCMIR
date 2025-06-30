@@ -1,17 +1,16 @@
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel,
     QPushButton, QGroupBox, QLineEdit, QComboBox, 
-    QMessageBox, QSlider
+    QMessageBox, QSlider, QFormLayout
 )
 from PySide6.QtCore import Qt
 import os
 import math
 
-class ecranDialog(QDialog):
+class EcranDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Calcul d'écran de protection")
-        self.setMinimumWidth(400)
+        self.setWindowTitle("Calcul Écran")
         
         # Définition des coefficients d'atténuation (en cm^-1)
         self.mu_data = {

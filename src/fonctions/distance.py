@@ -1,7 +1,8 @@
 from PySide6.QtWidgets import (
     QDialog, QGridLayout, QLabel, QPushButton, 
-    QComboBox, QMessageBox
+    QComboBox, QMessageBox, QVBoxLayout, QFormLayout, QLineEdit
 )
+from PySide6.QtCore import Qt
 import matplotlib.pyplot as plt
 import numpy as np
 from ..utils.widgets import ClearingDoubleSpinBox
@@ -12,7 +13,10 @@ class DistanceDialog(QDialog):
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Distance")
+        self.setWindowTitle("Calcul Distance")
+        self.setup_ui()
+
+    def setup_ui(self):
         self.setFixedSize(500, 150)
         
         self.layout = QGridLayout(self)

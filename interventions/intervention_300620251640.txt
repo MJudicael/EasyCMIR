@@ -1,0 +1,2 @@
+Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire
+30/06/2025;SYSTEM;-;-;16:40;0;Fin de l'intervention;Intervention du 30/06/2025 16:40 terminée

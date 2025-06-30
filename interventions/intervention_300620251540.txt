@@ -1,0 +1,3 @@
+Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire
+30/06/2025;judi;Binôme 1;15:40;;0.0;
+30/06/2025;judi;Binôme 1;15:40;15:40;0.0;

@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel,
     QPushButton, QGroupBox, QDoubleSpinBox, QComboBox,
-    QDateEdit, QMessageBox, QGridLayout
+    QDateEdit, QMessageBox, QGridLayout, QFormLayout, QLineEdit
 )
 from PySide6.QtCore import Qt, QDate
 from datetime import datetime, timedelta
@@ -208,46 +208,20 @@ class DecroissanceDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Calcul de décroissance")
-        self.setMinimumWidth(400)
-        
-        # Layout principal
-        self.main_layout = QVBoxLayout(self)
-        
-        # Initialisation des variables
-        self.period_seconds = 0
-        self._time_data_for_plot = []
-        self._activity_data_for_plot = []
-        
-        # Création des widgets
+        self.main_layout = QVBoxLayout(self)  # Définir main_layout avant setup_ui
+        self.setup_ui()
+    
+    def setup_ui(self):
+        """Configure l'interface utilisateur"""
+        # Créer les widgets
         self.create_input_widgets()
-        self.create_period_widgets()
-        self.create_date_widgets()
         
-        # Bouton de calcul
-        calc_button = QPushButton("Calculer")
-        calc_button.clicked.connect(self.calculate_decay)
-        self.main_layout.addWidget(calc_button)
-        
-        # Groupe résultats
-        result_group = QGroupBox("Résultats")
-        result_layout = QVBoxLayout()
-        self.result_gbq_label = QLabel()
-        self.result_bq_label = QLabel()
-        result_layout.addWidget(self.result_gbq_label)
-        result_layout.addWidget(self.result_bq_label)
-        result_group.setLayout(result_layout)
-        self.main_layout.addWidget(result_group)
-        
-        # Bouton graphique
-        self.plot_button = QPushButton("Afficher le graphique")
-        self.plot_button.clicked.connect(self.show_decay_plot)
-        self.plot_button.setEnabled(False)
-        self.main_layout.addWidget(self.plot_button)
-
     def create_input_widgets(self):
-        input_group = QGroupBox("Activité initiale")
-        layout = QHBoxLayout()
+        """Crée les widgets de saisie"""
+        input_group = QGroupBox("Paramètres")
+        input_layout = QFormLayout()
         
+        # Activité initiale
         self.activity_input = QDoubleSpinBox()
         self.activity_input.setRange(0, 1e20)
         self.activity_input.setDecimals(3)
@@ -257,17 +231,12 @@ class DecroissanceDialog(QDialog):
         self.activity_unit.addItems(["Bq", "kBq", "MBq", "GBq", "TBq"])
         self.activity_unit.setCurrentText("Bq")
         
-        layout.addWidget(QLabel("Activité:"))
-        layout.addWidget(self.activity_input)
-        layout.addWidget(self.activity_unit)
+        input_layout.addRow(QLabel("Activité:"), self.activity_input)
+        input_layout.addRow(QLabel("Unité:"), self.activity_unit)
         
-        input_group.setLayout(layout)
-        self.main_layout.addWidget(input_group)
-
-    def create_period_widgets(self):
-        """Crée les widgets pour la sélection de la période."""
+        # Période
         period_group = QGroupBox("Période")
-        layout = QVBoxLayout()
+        period_layout = QVBoxLayout()
         
         # ComboBox pour les isotopes
         self.isotope_combo = QComboBox()
@@ -289,23 +258,19 @@ class DecroissanceDialog(QDialog):
         except Exception as e:
             QMessageBox.warning(self, "Erreur", f"Impossible de charger la liste des isotopes: {str(e)}")
     
-        layout.addWidget(self.isotope_combo)
+        period_layout.addWidget(self.isotope_combo)
         
         # Bouton période personnalisée
         self.custom_period_btn = QPushButton("Personnalisé")
         self.custom_period_btn.clicked.connect(self.show_custom_period)
-        layout.addWidget(self.custom_period_btn)
+        period_layout.addWidget(self.custom_period_btn)
         
-        period_group.setLayout(layout)
-        self.main_layout.addWidget(period_group)
+        period_group.setLayout(period_layout)
+        input_layout.addRow(period_group)
         
-        # Connexion du signal
-        self.isotope_combo.currentIndexChanged.connect(self.update_period)
-
-    def create_date_widgets(self):
-        """Crée les widgets pour la sélection de la date."""
+        # Date initiale
         date_group = QGroupBox("Date initiale")
-        layout = QHBoxLayout()
+        date_layout = QHBoxLayout()
         
         # Création du sélecteur de date
         self.date_input = QDateEdit()
@@ -316,11 +281,35 @@ class DecroissanceDialog(QDialog):
         default_date = QDate(2012, 5, 22)
         self.date_input.setDate(default_date)
         
-        layout.addWidget(QLabel("Date:"))
-        layout.addWidget(self.date_input)
+        date_layout.addWidget(QLabel("Date:"))
+        date_layout.addWidget(self.date_input)
         
-        date_group.setLayout(layout)
-        self.main_layout.addWidget(date_group)
+        date_group.setLayout(date_layout)
+        input_layout.addRow(date_group)
+        
+        input_group.setLayout(input_layout)
+        self.main_layout.addWidget(input_group)
+
+        # Bouton de calcul
+        calc_button = QPushButton("Calculer")
+        calc_button.clicked.connect(self.calculate_decay)
+        self.main_layout.addWidget(calc_button)
+        
+        # Groupe résultats
+        result_group = QGroupBox("Résultats")
+        result_layout = QVBoxLayout()
+        self.result_gbq_label = QLabel()
+        self.result_bq_label = QLabel()
+        result_layout.addWidget(self.result_gbq_label)
+        result_layout.addWidget(self.result_bq_label)
+        result_group.setLayout(result_layout)
+        self.main_layout.addWidget(result_group)
+        
+        # Bouton graphique
+        self.plot_button = QPushButton("Afficher le graphique")
+        self.plot_button.clicked.connect(self.show_decay_plot)
+        self.plot_button.setEnabled(False)
+        self.main_layout.addWidget(self.plot_button)
 
     def show_custom_period(self):
         """Affiche le dialog de période personnalisée."""

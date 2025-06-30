@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QFormLayout,
-    QLabel, QPushButton, QMessageBox
+    QLabel, QPushButton, QMessageBox, QLineEdit
 )
 from PySide6.QtCore import Qt
 from ..utils.widgets import ClearingDoubleSpinBox
@@ -11,7 +11,7 @@ class TMRDialog(QDialog):
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("TMR")
+        self.setWindowTitle("Calcul TMR")
         self.setFixedSize(300, 200)
 
         self.layout = QVBoxLayout(self)

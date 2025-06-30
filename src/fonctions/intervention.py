@@ -1,11 +1,20 @@
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QFileDialog,
     QGroupBox, QFormLayout, QLineEdit, QTextEdit, QTableWidget, QTableWidgetItem,
-    QTimeEdit, QDoubleSpinBox
+    QTimeEdit, QDoubleSpinBox, QComboBox, QScrollArea, QWidget, QMessageBox
 )
-from PySide6.QtCore import Qt, QDateTime, QTime
+from PySide6.QtCore import Qt, QDateTime, QTime, QTimer, Signal
+from PySide6.QtGui import QPixmap
 import os
 from datetime import datetime
+from ..constants import ICONS_DIR, INTERVENTIONS_DIR
+
+class ClickableLabel(QLabel):
+    """Label cliquable personnalisé"""
+    clicked = Signal()
+    
+    def mousePressEvent(self, event):
+        self.clicked.emit()
 
 class InterventionDialog(QDialog):
     """Dialog pour les procédures d'intervention."""
@@ -17,60 +26,105 @@ class InterventionDialog(QDialog):
         
         self.current_file = None
         self.layout = QVBoxLayout(self)
+        self.start_datetime = datetime.now()
+        
+        # Layout supérieur pour les deux colonnes
+        top_layout = QHBoxLayout()
+        
+        # Colonne 1 : Intervention et Gestion
+        left_column = QVBoxLayout()
+        
+        # Groupe Intervention
+        intervention_group = QGroupBox("Intervention")
+        intervention_layout = QVBoxLayout()
+        self.start_label = QLabel(f"Début : {self.start_datetime.strftime('%d/%m/%Y à %H:%M')}")
+        self.start_label.setAlignment(Qt.AlignCenter)
+        intervention_layout.addWidget(self.start_label)
+        intervention_group.setLayout(intervention_layout)
+        left_column.addWidget(intervention_group)
+        
+        # Groupe Gestion de l'intervention
+        self.create_file_buttons()
+        left_column.addWidget(self.file_group)
+        
+        # Colonne 2 : Formulaire d'entrée/sortie
+        right_column = QVBoxLayout()
+        self.create_entry_form()
+        right_column.addWidget(self.form_group)
+        
+        # Ajout des colonnes au layout supérieur
+        top_layout.addLayout(left_column)
+        top_layout.addLayout(right_column)
+        
+        # Ajout du layout supérieur au layout principal
+        self.layout.addLayout(top_layout)
+        
+        # Section Personnel engagé en bas
+        self.create_engaged_view()
+        self.layout.addWidget(self.engaged_group)
+        
+        # Initialisation
+        self.engaged_personnel = {}
+        self.next_agent_id = 1
+        
+        # Timer pour mise à jour du temps d'engagement
+        self.engagement_timer = QTimer()
+        self.engagement_timer.timeout.connect(self.update_engaged_view)
+        self.engagement_timer.start(30000)  # 30 secondes
         
         # Créer automatiquement une nouvelle intervention au démarrage
-        self.create_new_intervention()
-        
-        # Groupe des boutons de gestion de fichier
-        self.create_file_buttons()
-        
-        # Groupe du formulaire de saisie
-        self.create_entry_form()
-        
-        # Groupe de visualisation des agents engagés
-        self.create_engaged_view()
-        
-        # Ajout de l'historique après la vue des engagés
-        self.create_history_view()
-        
-        # Initialisation et chargement des agents engagés
-        self.engaged_agents = []
-        self.engaged_personnel = {}  # Dictionnaire des agents engagés avec ID unique
-        self.next_agent_id = 1  # Pour générer des IDs uniques
-        self.load_engaged_agents()
-        self.update_history_view()
+        #self.create_new_intervention()
 
     def create_file_buttons(self):
-        file_group = QGroupBox("Gestion de l'intervention")
-        file_layout = QHBoxLayout()
+        self.file_group = QGroupBox("Gestion de l'intervention")
+        file_layout = QVBoxLayout()
         
+        # Boutons dans un layout horizontal
+        buttons_layout = QHBoxLayout()
         new_btn = QPushButton("Nouvelle intervention")
         new_btn.clicked.connect(self.create_new_intervention)
         
         open_btn = QPushButton("Reprendre une intervention")
         open_btn.clicked.connect(self.open_intervention)
         
-        file_layout.addWidget(new_btn)
-        file_layout.addWidget(open_btn)
-        file_group.setLayout(file_layout)
-        self.layout.addWidget(file_group)
+        buttons_layout.addWidget(new_btn)
+        buttons_layout.addWidget(open_btn)
+        
+        # Ajout du label date/heure
+        self.datetime_label = QLabel()
+        self.update_datetime()
+        
+        # Timer pour mettre à jour la date/heure toutes les secondes
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_datetime)
+        self.timer.start(1000)  # Mise à jour toutes les secondes
+        
+        file_layout.addLayout(buttons_layout)
+        file_layout.addWidget(self.datetime_label)
+        self.file_group.setLayout(file_layout)
         
     def create_entry_form(self):
+        """Crée le formulaire d'entrée/sortie"""
         form_group = QGroupBox("Entrée/Sortie Personnel")
         form_layout = QFormLayout()
         
         # Champs de saisie
         self.name_input = QLineEdit()
-        self.team_input = QLineEdit()
+        self.team_input = QComboBox()
+        self.team_input.addItems([f"Binôme {i}" for i in range(1, 11)])
+        
         self.entry_time = QTimeEdit()
         self.entry_time.setTime(QTime.currentTime())
+        
         self.exit_time = QTimeEdit()
-        self.exit_time.setTime(QTime.currentTime())
-        self.exit_time.setSpecialValueText("Non définie")  # Texte quand vide
+        self.exit_time.setTime(QTime(0, 0))
+        self.exit_time.setDisplayFormat("HH:mm")
+        self.exit_time.setSpecialValueText(" ")
+        
         self.dose_input = QDoubleSpinBox()
         self.dose_input.setDecimals(2)
         self.dose_input.setSuffix(" µSv")
-        self.mission_input = QLineEdit()
+        
         self.comment_input = QTextEdit()
         self.comment_input.setMaximumHeight(60)
         
@@ -79,43 +133,46 @@ class InterventionDialog(QDialog):
         form_layout.addRow("Équipe:", self.team_input)
         form_layout.addRow("Heure d'entrée:", self.entry_time)
         
-        # Ajout d'un bouton pour effacer l'heure de sortie
-        clear_exit_btn = QPushButton("Pas d'heure de sortie")
-        clear_exit_btn.clicked.connect(lambda: self.exit_time.setTime(QTime(0, 0)))
-        
-        # Layout horizontal pour l'heure de sortie et son bouton
+        # Créer un layout horizontal pour l'heure de sortie et le bouton
         exit_layout = QHBoxLayout()
         exit_layout.addWidget(self.exit_time)
-        exit_layout.addWidget(clear_exit_btn)
         
+        exit_now_btn = QPushButton("Heure actuelle")
+        exit_now_btn.clicked.connect(self.set_current_exit_time)
+        exit_layout.addWidget(exit_now_btn)
+        
+        # Ajouter le layout à la place du widget simple
         form_layout.addRow("Heure de sortie:", exit_layout)
-        form_layout.addRow("Dose reçue:", self.dose_input)
-        form_layout.addRow("Mission:", self.mission_input)
+        
+        form_layout.addRow("Dose:", self.dose_input)
         form_layout.addRow("Commentaire:", self.comment_input)
         
-        # Bouton de validation
+        # Modifier le bouton de validation
         submit_btn = QPushButton("Enregistrer l'entrée/sortie")
-        submit_btn.clicked.connect(self.submit_entry)
+        submit_btn.clicked.connect(self.handle_entry)  # Nouvelle méthode unifiée
         form_layout.addRow(submit_btn)
         
         form_group.setLayout(form_layout)
-        self.layout.addWidget(form_group)
+        self.form_group = form_group
         
     def create_engaged_view(self):
-        view_group = QGroupBox("Personnel engagé")
-        view_layout = QVBoxLayout()
+        self.engaged_group = QGroupBox("Personnel engagé")
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
         
-        self.engaged_table = QTableWidget()
-        self.engaged_table.setColumnCount(4)
-        self.engaged_table.setHorizontalHeaderLabels(["Nom", "Équipe", "Heure d'entrée", "Mission"])
-        self.engaged_table.horizontalHeader().setStretchLastSection(True)
-        self.engaged_table.setSelectionBehavior(QTableWidget.SelectRows)
-        self.engaged_table.setSelectionMode(QTableWidget.SingleSelection)
-        self.engaged_table.itemDoubleClicked.connect(self.edit_engaged_agent)
+        # Définir une hauteur fixe pour le QScrollArea
+        scroll.setFixedHeight(200)
         
-        view_layout.addWidget(self.engaged_table)
-        view_group.setLayout(view_layout)
-        self.layout.addWidget(view_group)
+        container = QWidget()
+        self.engaged_layout = QHBoxLayout(container)
+        self.engaged_layout.setSpacing(5)
+        self.engaged_layout.setContentsMargins(5, 5, 5, 5)
+        
+        scroll.setWidget(container)
+        
+        layout = QVBoxLayout()
+        layout.addWidget(scroll)
+        self.engaged_group.setLayout(layout)
 
     def create_history_view(self):
         history_group = QGroupBox("Historique des entrées/sorties")
@@ -137,23 +194,55 @@ class InterventionDialog(QDialog):
         self.layout.addWidget(history_group)
 
     def create_new_intervention(self):
+        """Crée une nouvelle intervention après confirmation"""
+        if self.current_file:
+            reply = QMessageBox.question(
+                self,
+                "Nouvelle intervention",
+                "Voulez-vous créer une nouvelle intervention ?\nL'intervention en cours sera fermée.",
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.No
+            )
+            
+            if reply == QMessageBox.No:
+                return
+                
+            # Ajouter une entrée de fin pour l'intervention actuelle
+            end_entry = {
+                "date": datetime.now().strftime("%d/%m/%Y"),
+                "name": "SYSTEM",
+                "team": "-",
+                "entry": "-",
+                "exit": datetime.now().strftime("%H:%M"),
+                "dose": "0",
+                "mission": "Fin de l'intervention",
+                "comment": f"Intervention du {self.start_datetime.strftime('%d/%m/%Y %H:%M')} terminée"
+            }
+            
+            with open(self.current_file, 'a', encoding='utf-8') as f:
+                f.write(f"{';'.join(end_entry.values())}\n")
+        
+        # Réinitialiser les données
+        self.engaged_personnel.clear()
+        self.next_agent_id = 1
+        self.start_datetime = datetime.now()
+        self.start_label.setText(f"Début : {self.start_datetime.strftime('%d/%m/%Y à %H:%M')}")
+        
+        # Créer le nouveau fichier
         timestamp = datetime.now().strftime("%d%m%Y%H%M")
         filename = f"intervention_{timestamp}.txt"
+        self.current_file = os.path.join(INTERVENTIONS_DIR, filename)
         
-        root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-        interventions_dir = os.path.join(root_dir, "interventions")
-        os.makedirs(interventions_dir, exist_ok=True)
-        
-        self.current_file = os.path.join(interventions_dir, filename)
         with open(self.current_file, 'w', encoding='utf-8') as f:
-            f.write("Date;Nom;Équipe;Entrée;Sortie;Dose;Mission;Commentaire\n")
-            
-    def open_intervention(self):
-        root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-        interventions_dir = os.path.join(root_dir, "interventions")
+            f.write("Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire\n")
         
+        # Mettre à jour l'affichage
+        self.clear_form()
+        self.update_engaged_view()
+
+    def open_intervention(self):
         filename, _ = QFileDialog.getOpenFileName(
-            self, "Ouvrir une intervention", interventions_dir, "Fichiers texte (*.txt)"
+            self, "Ouvrir une intervention", INTERVENTIONS_DIR, "Fichiers texte (*.txt)"
         )
         
         if filename:
@@ -164,7 +253,7 @@ class InterventionDialog(QDialog):
         """Enregistre une nouvelle entrée"""
         if not self.current_file:
             return
-            
+        
         exit_time = self.exit_time.time()
         exit_str = "" if exit_time == QTime(0, 0) else exit_time.toString("HH:mm")
         
@@ -173,11 +262,10 @@ class InterventionDialog(QDialog):
             "id": self.next_agent_id,
             "date": datetime.now().strftime("%d/%m/%Y"),
             "name": self.name_input.text(),
-            "team": self.team_input.text(),
+            "team": self.team_input.currentText(),
             "entry": self.entry_time.time().toString("HH:mm"),
             "exit": exit_str,
             "dose": str(self.dose_input.value()),
-            "mission": self.mission_input.text(),
             "comment": self.comment_input.toPlainText().replace(";", ",")
         }
 
@@ -190,25 +278,40 @@ class InterventionDialog(QDialog):
         with open(self.current_file, 'a', encoding='utf-8') as f:
             values = [str(v) for v in entry_data.values()]
             f.write(f"{';'.join(values[1:])}\n")  # Exclure l'ID de l'historique
-        
+    
         self.update_engaged_view()
-        self.update_history_view()
         self.clear_form()
 
     def load_engaged_agents(self):
         """Charge uniquement les agents sans heure de sortie"""
-        self.engaged_agents = []
+        self.engaged_personnel.clear()  # Réinitialiser le dictionnaire
+        self.next_agent_id = 1  # Réinitialiser le compteur d'ID
+    
         if not self.current_file:
             return
-            
+        
         try:
             with open(self.current_file, 'r', encoding='utf-8') as f:
                 next(f)  # Skip header
                 for line in f:
                     data = line.strip().split(';')
-                    # Un agent est considéré comme engagé s'il n'a pas d'heure de sortie
-                    if len(data) >= 5 and data[4].strip() == "":
-                        self.engaged_agents.append(data)
+                    if len(data) >= 5 and not data[4].strip():  # Vérifie si pas d'heure de sortie
+                        # Création d'un dictionnaire pour l'agent
+                        agent_data = {
+                            "id": self.next_agent_id,
+                            "date": data[0],
+                            "name": data[1],
+                            "team": data[2],
+                            "entry": data[3],
+                            "exit": "",
+                            "dose": data[5] if len(data) > 5 else "0",
+                            "mission": data[6] if len(data) > 6 else "",
+                            "comment": data[7] if len(data) > 7 else ""
+                        }
+                        
+                        # Ajouter l'agent au dictionnaire des engagés
+                        self.engaged_personnel[self.next_agent_id] = agent_data
+                        self.next_agent_id += 1
         
             self.update_engaged_view()
         except Exception as e:
@@ -216,25 +319,68 @@ class InterventionDialog(QDialog):
 
     def update_engaged_view(self):
         """Met à jour l'affichage des agents engagés"""
-        self.engaged_table.setRowCount(len(self.engaged_personnel))
+        # Nettoyer l'ancien contenu
+        while self.engaged_layout.count():
+            item = self.engaged_layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
         
-        for row, (agent_id, agent) in enumerate(self.engaged_personnel.items()):
-            self.engaged_table.setItem(row, 0, QTableWidgetItem(agent["name"]))
-            self.engaged_table.setItem(row, 1, QTableWidgetItem(agent["team"]))
-            self.engaged_table.setItem(row, 2, QTableWidgetItem(agent["entry"]))
-            self.engaged_table.setItem(row, 3, QTableWidgetItem(agent["mission"]))
-            # Stocker l'ID de l'agent dans les données du premier item de la ligne
-            self.engaged_table.item(row, 0).setData(Qt.UserRole, agent_id)
-
+        # Ajouter un stretch au début pour centrer horizontalement
+        self.engaged_layout.addStretch()
+        
+        for agent_id, agent in self.engaged_personnel.items():
+            # Calcul du temps d'engagement
+            entry_time = datetime.strptime(agent["entry"], "%H:%M")
+            entry_datetime = datetime.combine(datetime.now().date(), entry_time.time())
+            elapsed = datetime.now() - entry_datetime
+            total_minutes = int(elapsed.total_seconds() // 60)
+            
+            # Création du widget agent
+            agent_widget = QWidget()
+            agent_layout = QVBoxLayout(agent_widget)
+            agent_layout.setSpacing(2)
+            agent_layout.setContentsMargins(5, 5, 5, 5)
+            
+            # Icône cliquable centrée
+            icon_label = ClickableLabel()
+            pixmap = self._get_icon().scaled(50, 50, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            icon_label.setPixmap(pixmap)
+            icon_label.setAlignment(Qt.AlignCenter)
+            icon_label.setFixedSize(70, 70)  # Fixer une taille pour garantir le centrage
+            
+            def make_callback(aid):
+                return lambda: self.select_agent(aid)
+            
+            icon_label.clicked.connect(make_callback(agent_id))
+            agent_layout.addWidget(icon_label, 0)  # Ajouter avec alignement centré
+            
+            # Labels d'information
+            for text in [
+                agent["name"],
+                agent["team"],
+                f"{total_minutes} min"
+            ]:
+                label = QLabel(text)
+                label.setAlignment(Qt.AlignCenter)
+                agent_layout.addWidget(label)
+            
+            agent_widget.setProperty("agent_id", agent_id)
+            agent_widget.setStyleSheet(self._get_widget_style(False))
+            
+            self.engaged_layout.addWidget(agent_widget)
+    
+        # Ajouter un stretch à la fin pour centrer horizontalement
+        self.engaged_layout.addStretch()
+    
     def clear_form(self):
+        """Réinitialise tous les champs du formulaire"""
         self.name_input.clear()
-        self.team_input.clear()
+        self.team_input.setCurrentIndex(0)  # Réinitialiser le QComboBox
         self.entry_time.setTime(QTime.currentTime())
-        self.exit_time.setTime(QTime.currentTime())
+        self.exit_time.setTime(QTime(0, 0))
         self.dose_input.setValue(0)
-        self.mission_input.clear()
         self.comment_input.clear()
-        
+
     def edit_engaged_agent(self, item):
         """Charge les données d'un agent engagé dans le formulaire"""
         row = item.row()
@@ -242,7 +388,11 @@ class InterventionDialog(QDialog):
         agent = self.engaged_personnel[agent_id]
         
         self.name_input.setText(agent["name"])
-        self.team_input.setText(agent["team"])
+        
+        index = self.team_input.findText(agent["team"])
+        if index >= 0:
+            self.team_input.setCurrentIndex(index)
+        
         self.entry_time.setTime(QTime.fromString(agent["entry"], "HH:mm"))
         self.mission_input.setText(agent["mission"])
         
@@ -257,41 +407,63 @@ class InterventionDialog(QDialog):
         """Met à jour un agent engagé"""
         if agent_id not in self.engaged_personnel:
             return
-            
+        
         exit_time = self.exit_time.time()
         exit_str = "" if exit_time == QTime(0, 0) else exit_time.toString("HH:mm")
         
-        # Si une heure de sortie est ajoutée
+        # Sauvegarder l'ancienne entrée
+        old_name = self.engaged_personnel[agent_id]["name"]
+        old_entry = self.engaged_personnel[agent_id]["entry"]
+        
+        # Mettre à jour les données
+        updated_data = {
+            "id": agent_id,
+            "date": self.engaged_personnel[agent_id]["date"],
+            "name": self.name_input.text(),
+            "team": self.team_input.currentText(),
+            "entry": self.entry_time.time().toString("HH:mm"),
+            "exit": exit_str,
+            "dose": str(self.dose_input.value()),
+            "comment": self.comment_input.toPlainText().replace(";", ",")
+        }
+        
+        # Supprimer l'agent si une heure de sortie est définie
         if exit_str:
-            # Ajouter à l'historique
-            entry_data = {
-                "date": datetime.now().strftime("%d/%m/%Y"),
-                "name": self.name_input.text(),
-                "team": self.team_input.text(),
-                "entry": self.entry_time.time().toString("HH:mm"),
-                "exit": exit_str,
-                "dose": str(self.dose_input.value()),
-                "mission": self.mission_input.text(),
-                "comment": self.comment_input.toPlainText().replace(";", ",")
-            }
-            
-            with open(self.current_file, 'a', encoding='utf-8') as f:
-                f.write(f"{';'.join(entry_data.values())}\n")
-            
-            # Retirer de la liste des agents engagés
             del self.engaged_personnel[agent_id]
         else:
-            # Mettre à jour les informations de l'agent engagé
-            self.engaged_personnel[agent_id].update({
-                "name": self.name_input.text(),
-                "team": self.team_input.text(),
-                "entry": self.entry_time.time().toString("HH:mm"),
-                "mission": self.mission_input.text(),
-            })
+            self.engaged_personnel[agent_id] = updated_data
         
+        # Mettre à jour le fichier et l'affichage
+        self.rewrite_history_file(old_name, old_entry, updated_data)
         self.update_engaged_view()
-        self.update_history_view()
         self.clear_form()
+
+    def rewrite_history_file(self, old_name, old_entry, updated_data):
+        """Réécrit le fichier historique en mettant à jour l'agent modifié"""
+        lines = []
+        updated = False
+        
+        # Lire toutes les lignes existantes
+        with open(self.current_file, 'r', encoding='utf-8') as f:
+            lines.append(next(f))  # Conserver l'en-tête
+            for line in f:
+                data = line.strip().split(';')
+                if (data[1] == old_name and data[3] == old_entry):
+                    # Remplacer la ligne de l'agent modifié
+                    values = [str(v) for v in updated_data.values()]
+                    lines.append(f"{';'.join(values[1:])}\n")
+                    updated = True
+                else:
+                    lines.append(line)
+        
+        # Si l'agent n'a pas été trouvé, ajouter la nouvelle entrée
+        if not updated:
+            values = [str(v) for v in updated_data.values()]
+            lines.append(f"{';'.join(values[1:])}\n")
+        
+        # Réécrire le fichier
+        with open(self.current_file, 'w', encoding='utf-8') as f:
+            f.writelines(lines)
 
     def update_history_view(self):
         if not self.current_file:
@@ -318,7 +490,11 @@ class InterventionDialog(QDialog):
         if row < len(history_data):
             data = history_data[row]
             self.name_input.setText(data[1])
-            self.team_input.setText(data[2])
+            
+            # Mettre à jour le QComboBox avec l'équipe de l'historique
+            index = self.team_input.findText(data[2])
+            if index >= 0:
+                self.team_input.setCurrentIndex(index)
             
             # Définir l'heure d'entrée
             entry_time = QTime.fromString(data[3], "HH:mm")
@@ -345,3 +521,132 @@ class InterventionDialog(QDialog):
                 self.comment_input.setPlainText(data[7])
             else:
                 self.comment_input.clear()
+    
+    # Nouvelle méthode unifiée
+    def handle_entry(self):
+        """Gère à la fois les nouvelles entrées et les mises à jour"""
+        # Vérifier si un agent est sélectionné
+        for i in range(self.engaged_layout.count()):
+            widget = self.engaged_layout.itemAt(i).widget()
+            if widget and isinstance(widget, QWidget) and widget.property("selected"):
+                # Mode mise à jour
+                agent_id = widget.property("agent_id")
+                self.update_agent(agent_id)
+                return
+    
+        # Si aucun agent n'est sélectionné, créer une nouvelle entrée
+        self.submit_entry()
+
+    def update_datetime(self):
+        """Met à jour l'affichage de la date et l'heure."""
+        current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        self.datetime_label.setText(f"Date et heure : {current_datetime}")
+        self.datetime_label.setAlignment(Qt.AlignCenter)
+
+    def show_history(self):
+        """Affiche l'historique dans une fenêtre popup."""
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Historique de l'intervention")
+        dialog.setMinimumSize(600, 400)
+        
+        layout = QVBoxLayout()
+        
+        # Création de la table d'historique
+        history_table = QTableWidget()
+        history_table.setColumnCount(7)
+        history_table.setHorizontalHeaderLabels(
+            ["Date", "Nom", "Équipe", "Entrée", "Sortie", "Dose", "Mission"]
+        )
+        history_table.horizontalHeader().setStretchLastSection(True)
+        layout.addWidget(history_table)
+        
+        # Chargement des données
+        self.load_history_data(history_table)
+        
+        dialog.setLayout(layout)
+        dialog.exec()
+
+    def select_agent(self, agent_id):
+        """Sélectionne un agent et charge ses données dans le formulaire"""
+        if agent_id in self.engaged_personnel:
+            agent = self.engaged_personnel[agent_id]
+            
+            # Charger les données dans le formulaire
+            self.name_input.setText(agent["name"])
+            self.team_input.setCurrentText(agent["team"])
+            self.entry_time.setTime(QTime.fromString(agent["entry"], "HH:mm"))
+            self.dose_input.setValue(float(agent["dose"]))
+            self.comment_input.setPlainText(agent.get("comment", ""))
+            self.exit_time.setTime(QTime(0, 0))  # Reset l'heure de sortie
+            
+            # Marquer l'agent comme sélectionné
+            for i in range(self.engaged_layout.count()):
+                widget = self.engaged_layout.itemAt(i).widget()
+                if widget and isinstance(widget, QWidget):
+                    selected = widget.property("agent_id") == agent_id
+                    widget.setProperty("selected", selected)
+                    widget.setStyleSheet(self._get_widget_style(selected))
+
+    def closeEvent(self, event):
+        """Gère la fermeture de la fenêtre"""
+        # Arrêter le timer
+        self.engagement_timer.stop()
+        
+        if not self.current_file:
+            event.accept()
+            return
+        
+        reply = QMessageBox.question(
+            self,
+            "Confirmation de fermeture",
+            "Voulez-vous terminer l'intervention ?",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+        
+        if reply == QMessageBox.Yes:
+            # Ajouter la fin d'intervention dans l'historique
+            end_entry = {
+                "date": datetime.now().strftime("%d/%m/%Y"),
+                "name": "SYSTEM",
+                "team": "-",
+                "entry": "-",
+                "exit": datetime.now().strftime("%H:%M"),
+                "dose": "0",
+                "mission": "Fin de l'intervention",
+                "comment": f"Intervention du {self.start_datetime.strftime('%d/%m/%Y %H:%M')} terminée"
+            }
+            
+            with open(self.current_file, 'a', encoding='utf-8') as f:
+                f.write(f"{';'.join(end_entry.values())}\n")
+            
+            # Accepter l'événement de fermeture
+            event.accept()
+        else:
+            # Ignorer l'événement de fermeture
+            event.ignore()
+
+    # Ajouter cette nouvelle méthode
+    def set_current_exit_time(self):
+        """Définit l'heure de sortie à l'heure actuelle"""
+        self.exit_time.setTime(QTime.currentTime())
+        
+    def _get_widget_style(self, selected):
+        """Retourne le style CSS selon l'état de sélection"""
+        return """
+            QWidget {
+                border: %s;
+                border-radius: 3px;
+                padding: 3px;
+                background-color: %s;
+                margin: 2px;
+                min-width: 100px;
+            }
+        """ % (
+            "2px solid #4a90e2" if selected else "1px solid #cccccc",
+            "#e3f2fd" if selected else "#f5f5f5"
+        )
+
+    def _get_icon(self):
+        """Retourne le pixmap de l'icône NRBC"""
+        return QPixmap(os.path.join(ICONS_DIR, "pompier.png"))

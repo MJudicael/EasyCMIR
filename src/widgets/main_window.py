@@ -3,7 +3,7 @@ from PySide6.QtWidgets import (
     QPushButton, QLabel, QMenu, QMenuBar, QToolButton
 )
 from PySide6.QtCore import Qt, QSize
-from ..utils.icon_manager import IconManager
+from src.utils.icon_manager import IconManager
 
 # Import des dialogues RAD
 from ..fonctions.decroissance import DecroissanceDialog
@@ -15,7 +15,7 @@ from ..fonctions.unites_rad import UnitesRadDialog
 
 # Import des dialogues RCH
 from ..fonctions.codedanger import CodeDangerDialog
-from ..fonctions.ecran import ecranDialog
+from ..fonctions.ecran import EcranDialog
 from ..fonctions.bio import BioDialog
 from ..fonctions.divers import DiversDialog
 from ..fonctions.tmd import TMDDialog
@@ -209,7 +209,7 @@ class MainWindow(QMainWindow):
         dialog.exec()
 
     def run_ecran(self):
-        dialog = ecranDialog(self)
+        dialog = EcranDialog(self)
         dialog.exec()
 
     def run_bio(self):
@@ -227,3 +227,9 @@ class MainWindow(QMainWindow):
     def run_intervention(self):
         dialog = InterventionDialog(self)
         dialog.exec()
+
+    def show_intervention_dialog(self):
+        """Ouvre la fenêtre d'intervention"""
+        dialog = InterventionDialog(self)
+        dialog.setWindowModality(Qt.NonModal)  # Permet l'interaction avec la fenêtre principale
+        dialog.show()  # Utiliser show() au lieu de exec() pour un dialogue non-modal

@@ -546,3 +546,9 @@
 2025-06-23 18:53:47;Perimetre public;DED 1m: 300.0 mSv/h;Perimetre: 346.41016151377545 m
 2025-06-23 20:11:48;Décroissance;Activité initiale: 450.0 MBq;Date initiale: 2012-05-22 00:00:00;Période: 81.0 heures;Activité actuelle: 0.00 GBq
 2025-06-23 20:11:52;Décroissance;Activité initiale: 450.0 MBq;Date initiale: 2025-05-22 00:00:00;Période: 81.0 heures;Activité actuelle: 0.00 GBq
+2025-06-30 16:36:28;Debit de dose 1 m;Isotope: Fluor-18;Activite: 30.0 GBq;Debit de dose: 3.8463 mSv/h;3846.3 uSv/h
+2025-06-30 16:36:35;Perimetre public;DED 1m: 3.0 µSv/h;Perimetre: 1.0954451150103321 m
+2025-06-30 16:36:35;Perimetre public;DED 1m: 30.0 µSv/h;Perimetre: 3.4641016151377544 m
+2025-06-30 16:36:56;Distance;Debit de dose connu: 30.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.03 mSv/h à 30.0 mètres
+2025-06-30 17:13:13;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-06-30 17:13:13;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq

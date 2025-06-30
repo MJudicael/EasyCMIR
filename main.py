@@ -7,8 +7,8 @@ root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(root_dir)
 
 from PySide6.QtWidgets import QApplication, QSplashScreen
-from PySide6.QtGui import QIcon, QPixmap
-from PySide6.QtCore import Qt
+from PySide6.QtGui import QIcon, QPixmap,Qt
+
 
 def main():
     """Point d'entrée principal de l'application"""
@@ -48,6 +48,7 @@ def main():
     window = MainWindow()
     window.show()
     
+
     splash.finish(window)
     return app.exec()
 
