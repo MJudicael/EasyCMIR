@@ -1,0 +1,3 @@
+Date;Nom;Équipe;Entrée;Sortie;Dose;Mission;Commentaire
+30/06/2025;mougin judicael;Binome 1 CMIR 71;11:55;;0.0;Reco;AD6
+30/06/2025;mougin judicael;Binome 1 CMIR 71;11:55;11:56;3.0;Reco;

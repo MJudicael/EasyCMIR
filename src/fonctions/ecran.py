@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 import os
 import math
 
-class IdentificationDialog(QDialog):
+class ecranDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Calcul d'écran de protection")

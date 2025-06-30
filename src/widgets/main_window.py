@@ -15,7 +15,7 @@ from ..fonctions.unites_rad import UnitesRadDialog
 
 # Import des dialogues RCH
 from ..fonctions.codedanger import CodeDangerDialog
-from ..fonctions.identification import IdentificationDialog
+from ..fonctions.ecran import ecranDialog
 from ..fonctions.bio import BioDialog
 from ..fonctions.divers import DiversDialog
 from ..fonctions.tmd import TMDDialog
@@ -105,7 +105,7 @@ class MainWindow(QMainWindow):
         
         # Configuration des boutons RCH
         rch_buttons = [
-            ("Ecran", self.run_identification),
+            ("Ecran", self.run_ecran),
             ("Code DANGER", self.run_code_danger),
             ("Bio", self.run_bio),
             ("Divers", self.run_divers),
@@ -208,8 +208,8 @@ class MainWindow(QMainWindow):
         dialog = CodeDangerDialog(self)
         dialog.exec()
 
-    def run_identification(self):
-        dialog = IdentificationDialog(self)
+    def run_ecran(self):
+        dialog = ecranDialog(self)
         dialog.exec()
 
     def run_bio(self):

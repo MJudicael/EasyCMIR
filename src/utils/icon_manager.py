@@ -12,16 +12,14 @@ PICTOGRAM_MAPPING = {
 class IconManager:
     def __init__(self):
         self.icon_mapping = {
-            # Boutons RAD
+            # Boutons
             "Décroissance": "decroissance.png",
             "Distance": "distance.png",
             "DED 1m": "ded1m.png",
             "P Public": "perimetre_public.png",
             "TMR": "tmr.png",
             "Unités RAD": "units_rad.png",
-            
-            # Boutons RCH
-            "Identification": "loupe.png",
+            "ecran": "ecran.png",
             "Code DANGER": "danger.png",
             "Bio": "biohazard.png",
             "Divers": "loupe.png",
