@@ -7,7 +7,8 @@ from PySide6.QtCore import Qt, QDateTime, QTime, QTimer, Signal
 from PySide6.QtGui import QPixmap
 import os
 from datetime import datetime
-from ..constants import ICONS_DIR, INTERVENTIONS_DIR
+from ..constants import ICONS_DIR
+from ..utils.config_manager import config_manager
 
 class ClickableLabel(QLabel):
     """Label cliquable personnalisé"""
@@ -165,8 +166,8 @@ class InterventionDialog(QDialog):
         
         container = QWidget()
         self.engaged_layout = QHBoxLayout(container)
-        self.engaged_layout.setSpacing(5)
-        self.engaged_layout.setContentsMargins(5, 5, 5, 5)
+        self.engaged_layout.setSpacing(8)  # Espacement plus important pour éviter le chevauchement des bordures
+        self.engaged_layout.setContentsMargins(5, 5, 5, 5)  # Marges du conteneur
         
         scroll.setWidget(container)
         
@@ -215,7 +216,6 @@ class InterventionDialog(QDialog):
                 "entry": "-",
                 "exit": datetime.now().strftime("%H:%M"),
                 "dose": "0",
-                "mission": "Fin de l'intervention",
                 "comment": f"Intervention du {self.start_datetime.strftime('%d/%m/%Y %H:%M')} terminée"
             }
             
@@ -231,7 +231,30 @@ class InterventionDialog(QDialog):
         # Créer le nouveau fichier
         timestamp = datetime.now().strftime("%d%m%Y%H%M")
         filename = f"intervention_{timestamp}.txt"
-        self.current_file = os.path.join(INTERVENTIONS_DIR, filename)
+        
+        # Obtenir le chemin configuré pour les interventions
+        interventions_path = config_manager.get_interventions_path()
+        if not interventions_path:
+            QMessageBox.critical(
+                self, 
+                "Erreur de configuration", 
+                "Le chemin du dossier d'interventions n'est pas configuré.\n"
+                "Veuillez configurer le chemin dans les paramètres."
+            )
+            return
+            
+        # Créer le dossier s'il n'existe pas
+        try:
+            os.makedirs(interventions_path, exist_ok=True)
+        except Exception as e:
+            QMessageBox.critical(
+                self, 
+                "Erreur de création du dossier", 
+                f"Impossible de créer le dossier d'interventions :\n{interventions_path}\n\nErreur : {str(e)}"
+            )
+            return
+            
+        self.current_file = os.path.join(interventions_path, filename)
         
         with open(self.current_file, 'w', encoding='utf-8') as f:
             f.write("Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire\n")
@@ -241,8 +264,30 @@ class InterventionDialog(QDialog):
         self.update_engaged_view()
 
     def open_intervention(self):
+        # Obtenir le chemin configuré pour les interventions
+        interventions_path = config_manager.get_interventions_path()
+        if not interventions_path:
+            QMessageBox.critical(
+                self, 
+                "Erreur de configuration", 
+                "Le chemin du dossier d'interventions n'est pas configuré.\n"
+                "Veuillez configurer le chemin dans les paramètres."
+            )
+            return
+            
+        # Créer le dossier s'il n'existe pas
+        try:
+            os.makedirs(interventions_path, exist_ok=True)
+        except Exception as e:
+            QMessageBox.critical(
+                self, 
+                "Erreur de création du dossier", 
+                f"Impossible de créer le dossier d'interventions :\n{interventions_path}\n\nErreur : {str(e)}"
+            )
+            return
+            
         filename, _ = QFileDialog.getOpenFileName(
-            self, "Ouvrir une intervention", INTERVENTIONS_DIR, "Fichiers texte (*.txt)"
+            self, "Ouvrir une intervention", interventions_path, "Fichiers texte (*.txt)"
         )
         
         if filename:
@@ -252,6 +297,20 @@ class InterventionDialog(QDialog):
     def submit_entry(self):
         """Enregistre une nouvelle entrée"""
         if not self.current_file:
+            QMessageBox.warning(
+                self,
+                "Aucune intervention active",
+                "Veuillez d'abord créer une nouvelle intervention ou reprendre une intervention existante."
+            )
+            return
+        
+        # Vérifier que le nom est renseigné
+        if not self.name_input.text().strip():
+            QMessageBox.warning(
+                self,
+                "Nom manquant",
+                "Veuillez saisir le nom et prénom de la personne."
+            )
             return
         
         exit_time = self.exit_time.time()
@@ -305,8 +364,7 @@ class InterventionDialog(QDialog):
                             "entry": data[3],
                             "exit": "",
                             "dose": data[5] if len(data) > 5 else "0",
-                            "mission": data[6] if len(data) > 6 else "",
-                            "comment": data[7] if len(data) > 7 else ""
+                            "comment": data[6] if len(data) > 6 else ""
                         }
                         
                         # Ajouter l'agent au dictionnaire des engagés
@@ -337,22 +395,29 @@ class InterventionDialog(QDialog):
             
             # Création du widget agent
             agent_widget = QWidget()
+            agent_widget.setFixedWidth(130)  # Largeur fixe pour uniformité
             agent_layout = QVBoxLayout(agent_widget)
-            agent_layout.setSpacing(2)
-            agent_layout.setContentsMargins(5, 5, 5, 5)
+            agent_layout.setSpacing(2)  # Espacement minimal entre les éléments
+            agent_layout.setContentsMargins(5, 5, 5, 5)  # Marges équilibrées
+            agent_layout.setAlignment(Qt.AlignCenter)  # Centrer le contenu du layout
             
             # Icône cliquable centrée
             icon_label = ClickableLabel()
-            pixmap = self._get_icon().scaled(50, 50, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            icon_label.setPixmap(pixmap)
+            try:
+                pixmap = self._get_icon().scaled(60, 60, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                icon_label.setPixmap(pixmap)
+            except:
+                # Si l'icône n'existe pas, utiliser un texte de remplacement
+                icon_label.setText("👤")
+                icon_label.setStyleSheet("font-size: 45px; color: #4a90e2;")
             icon_label.setAlignment(Qt.AlignCenter)
-            icon_label.setFixedSize(70, 70)  # Fixer une taille pour garantir le centrage
+            icon_label.setFixedSize(80, 80)  # Taille légèrement plus grande
             
             def make_callback(aid):
                 return lambda: self.select_agent(aid)
             
             icon_label.clicked.connect(make_callback(agent_id))
-            agent_layout.addWidget(icon_label, 0)  # Ajouter avec alignement centré
+            agent_layout.addWidget(icon_label, 0, Qt.AlignCenter)  # Centrer explicitement l'icône
             
             # Labels d'information
             for text in [
@@ -362,7 +427,24 @@ class InterventionDialog(QDialog):
             ]:
                 label = QLabel(text)
                 label.setAlignment(Qt.AlignCenter)
-                agent_layout.addWidget(label)
+                label.setWordWrap(True)  # Permettre le retour à la ligne si nécessaire
+                label.setFixedWidth(120)  # Largeur fixe pour forcer le centrage
+                
+                # Déterminer la couleur selon l'état de sélection
+                color = '#1565c0' if agent_widget.property('selected') else '#333333'
+                
+                label.setStyleSheet(f"""
+                    QLabel {{
+                        color: {color};
+                        font-weight: bold;
+                        text-align: center;
+                        background-color: transparent;
+                        padding: 0px;
+                        margin: 0px;
+                        qproperty-alignment: AlignCenter;
+                    }}
+                """)
+                agent_layout.addWidget(label, 0, Qt.AlignCenter)  # Centrer explicitement chaque label
             
             agent_widget.setProperty("agent_id", agent_id)
             agent_widget.setStyleSheet(self._get_widget_style(False))
@@ -394,7 +476,7 @@ class InterventionDialog(QDialog):
             self.team_input.setCurrentIndex(index)
         
         self.entry_time.setTime(QTime.fromString(agent["entry"], "HH:mm"))
-        self.mission_input.setText(agent["mission"])
+        self.comment_input.setPlainText(agent.get("comment", ""))
         
         if hasattr(self, 'update_btn'):
             self.update_btn.deleteLater()
@@ -513,12 +595,9 @@ class InterventionDialog(QDialog):
             except (ValueError, IndexError):
                 self.dose_input.setValue(0)
             
-            # Définir la mission
-            self.mission_input.setText(data[6] if len(data) > 6 else "")
-            
             # Définir le commentaire s'il existe
-            if len(data) > 7:
-                self.comment_input.setPlainText(data[7])
+            if len(data) > 6:
+                self.comment_input.setPlainText(data[6])
             else:
                 self.comment_input.clear()
     
@@ -613,7 +692,6 @@ class InterventionDialog(QDialog):
                 "entry": "-",
                 "exit": datetime.now().strftime("%H:%M"),
                 "dose": "0",
-                "mission": "Fin de l'intervention",
                 "comment": f"Intervention du {self.start_datetime.strftime('%d/%m/%Y %H:%M')} terminée"
             }
             
@@ -633,20 +711,32 @@ class InterventionDialog(QDialog):
         
     def _get_widget_style(self, selected):
         """Retourne le style CSS selon l'état de sélection"""
-        return """
-            QWidget {
-                border: %s;
-                border-radius: 3px;
-                padding: 3px;
-                background-color: %s;
-                margin: 2px;
-                min-width: 100px;
-            }
-        """ % (
-            "2px solid #4a90e2" if selected else "1px solid #cccccc",
-            "#e3f2fd" if selected else "#f5f5f5"
-        )
+        border_style = "3px solid #4a90e2" if selected else "2px solid #cccccc"
+        bg_color = "#e3f2fd" if selected else "#ffffff"
+        
+        return f"""
+            QWidget {{
+                border: {border_style};
+                border-radius: 8px;
+                padding: 5px;
+                background-color: {bg_color};
+                margin: 0px;
+                min-width: 130px;
+                max-width: 130px;
+                text-align: center;
+            }}
+            ClickableLabel {{
+                border: none;
+                background-color: transparent;
+                qproperty-alignment: AlignCenter;
+            }}
+        """
 
     def _get_icon(self):
         """Retourne le pixmap de l'icône NRBC"""
-        return QPixmap(os.path.join(ICONS_DIR, "pompier.png"))
+        icon_path = os.path.join(ICONS_DIR, "pompier.png")
+        if os.path.exists(icon_path):
+            return QPixmap(icon_path)
+        else:
+            # Retourner un pixmap vide si l'icône n'existe pas
+            return QPixmap()

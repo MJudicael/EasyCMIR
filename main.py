@@ -22,6 +22,13 @@ def main():
     # Import après QApplication
     from src.widgets.main_window import MainWindow
     from src.config import STYLE_FILE, ICON_FILE
+    from src.utils.config_manager import config_manager
+    
+    # Initialiser le gestionnaire de configuration
+    print(f"Configuration chargée:")
+    print(f"- Base de données: {config_manager.get_database_path()}")
+    print(f"- Fichier isotopes: {config_manager.get_isotopes_path()}")
+    print(f"- Dossier interventions: {config_manager.get_interventions_path()}")
 
     # Configuration de l'icône
     app.setWindowIcon(QIcon(ICON_FILE))

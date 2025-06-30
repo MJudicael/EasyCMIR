@@ -12,6 +12,7 @@ from math import log, exp
 import numpy as np
 from ..utils.database import save_to_history
 from ..utils.widgets import ClearingSpinBox
+from ..utils.config_manager import config_manager
 
 class DecroissanceCalculator:
     """Classe pour calculer la décroissance radioactive."""
@@ -40,11 +41,7 @@ class DecroissanceCalculator:
 
         # Récupération des données de l'isotope depuis le fichier
         try:
-            isotopes_file = os.path.join(
-                os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-                "data",
-                "isotopes.txt"
-            )
+            isotopes_file = config_manager.get_isotopes_path()
             with open(isotopes_file, "r", encoding='utf-8') as f:
                 for line in f:
                     if line.strip() and not line.startswith('#'):
@@ -208,7 +205,9 @@ class DecroissanceDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Calcul de décroissance")
+        self.setMinimumSize(500, 400)  # Largeur de 500px (400 + 100px) et hauteur de 400px
         self.main_layout = QVBoxLayout(self)  # Définir main_layout avant setup_ui
+        self.period_seconds = None  # Initialisation de l'attribut period_seconds
         self.setup_ui()
     
     def setup_ui(self):
@@ -243,11 +242,7 @@ class DecroissanceDialog(QDialog):
         self.isotope_combo.addItem("Sélectionner un isotope")
         
         # Chargement des isotopes depuis le fichier
-        isotopes_file = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-            "data",
-            "isotopes.txt"
-        )
+        isotopes_file = config_manager.get_isotopes_path()
         
         try:
             with open(isotopes_file, "r", encoding='utf-8') as f:
@@ -258,6 +253,9 @@ class DecroissanceDialog(QDialog):
         except Exception as e:
             QMessageBox.warning(self, "Erreur", f"Impossible de charger la liste des isotopes: {str(e)}")
     
+        # Connexion du signal pour mettre à jour la période
+        self.isotope_combo.currentIndexChanged.connect(self.update_period)
+        
         period_layout.addWidget(self.isotope_combo)
         
         # Bouton période personnalisée
@@ -316,19 +314,17 @@ class DecroissanceDialog(QDialog):
         dialog = CustomPeriodDialog(self)
         if dialog.exec() == QDialog.Accepted:
             self.period_seconds = dialog.get_period_seconds()
+            # Remet la combo sur "Sélectionner un isotope" pour indiquer qu'on utilise une période personnalisée
             self.isotope_combo.setCurrentIndex(0)
             
     def update_period(self, index):
         """Met à jour la période selon l'isotope sélectionné."""
         if index == 0:  # "Sélectionner un isotope"
+            self.period_seconds = None
             return
         
         isotope = self.isotope_combo.currentText()
-        isotopes_file = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-            "data",
-            "isotopes.txt"
-        )
+        isotopes_file = config_manager.get_isotopes_path()
         
         try:
             with open(isotopes_file, "r", encoding='utf-8') as f:
@@ -341,6 +337,7 @@ class DecroissanceDialog(QDialog):
                             break
         except Exception as e:
             QMessageBox.warning(self, "Erreur", f"Impossible de lire la période de l'isotope: {str(e)}")
+            self.period_seconds = None
 
     def calculate_decay(self):
         """Calcule la décroissance radioactive selon N(t) = N0 e^(-λt)"""
@@ -425,6 +422,10 @@ class DecroissanceDialog(QDialog):
     def show_decay_plot(self):
         """Affiche le graphique de décroissance avec les 10 périodes."""
         try:
+            if not self.period_seconds:
+                QMessageBox.warning(self, "Erreur", "Veuillez sélectionner un isotope ou définir une période personnalisée")
+                return
+                
             # Récupération des données initiales
             initial_activity = self.activity_input.value()
             unit_factors = {"Bq": 1, "kBq": 1e3, "MBq": 1e6, "GBq": 1e9, "TBq": 1e12}

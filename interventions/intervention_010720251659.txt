@@ -1,0 +1,4 @@
+Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire
+01/07/2025;JUDI;Binôme 1;16:20;;0.0;rec
+01/07/2025;nico;Binôme 1;16:01;;0.0;reco
+01/07/2025;SYSTEM;-;-;16:59;0;Fin de l'intervention;Intervention du 01/07/2025 16:59 terminée

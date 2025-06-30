@@ -11,9 +11,9 @@ def load_isotopes():
     """Charge les isotopes depuis le fichier texte."""
     isotopes = {}
     try:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        root_dir = os.path.dirname(os.path.dirname(current_dir))
-        isotopes_path = os.path.join(root_dir, "data", "isotopes.txt")
+        # Utiliser le gestionnaire de configuration pour obtenir le chemin
+        from ..utils.config_manager import config_manager
+        isotopes_path = config_manager.get_isotopes_path()
         
         with open(isotopes_path, 'r', encoding='utf-8') as file:
             for line in file:

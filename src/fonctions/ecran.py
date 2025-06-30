@@ -6,11 +6,13 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 import os
 import math
+from ..utils.config_manager import config_manager
 
 class EcranDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Calcul Écran")
+        self.setMinimumSize(500, 400)
         
         # Définition des coefficients d'atténuation (en cm^-1)
         self.mu_data = {
@@ -27,11 +29,7 @@ class EcranDialog(QDialog):
 
     def load_isotopes(self):
         """Charge les données des isotopes depuis le fichier."""
-        isotopes_file = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-            "data",
-            "isotopes.txt"
-        )
+        isotopes_file = config_manager.get_isotopes_path()
         
         try:
             with open(isotopes_file, 'r', encoding='utf-8') as f:

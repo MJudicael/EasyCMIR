@@ -1,0 +1,8 @@
+{
+    "paths": {
+        "database": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/materiel.db",
+        "isotopes": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/isotopes.txt",
+        "interventions": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/interventions"
+    }
+
+}
