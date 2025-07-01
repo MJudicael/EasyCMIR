@@ -18,6 +18,7 @@ from ..fonctions.codedanger import CodeDangerDialog
 from ..fonctions.ecran import EcranDialog
 from ..fonctions.bio import BioDialog
 from ..fonctions.gestion_matériel import BD_gestDialog
+from ..fonctions.gestion_matériel import BD_gestDialog
 from ..fonctions.tmd import TMDDialog
 from ..fonctions.intervention import InterventionDialog
 
@@ -170,6 +171,8 @@ class MainWindow(QMainWindow):
         dialog = BioDialog(self)
         dialog.exec()
 
+    def run_BD_gest(self):
+        dialog = BD_gestDialog(self)
     def run_BD_gest(self):
         dialog = BD_gestDialog(self)
         dialog.exec()

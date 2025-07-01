@@ -22,7 +22,11 @@ class IconManager:
             "Ecran": "ecran.png",
             "Code DANGER": "danger.png",
             "Bio": "biohazard.png",
+<<<<<<< HEAD
             "Matériel": "inventaire.png",
+=======
+            "Matériel": "loupe.png",
+>>>>>>> 2d14b2ada327fb76425c5087fabe5c2505599a59
             "TMD": "tanker.png",
             "Intervention": "pompier.png"
             #Ne pas oublire de modifier le main_window pour ajouter les icônes correspondantes """

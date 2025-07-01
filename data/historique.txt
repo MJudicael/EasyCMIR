@@ -552,25 +552,3 @@
 2025-06-30 16:36:56;Distance;Debit de dose connu: 30.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.03 mSv/h à 30.0 mètres
 2025-06-30 17:13:13;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-30 17:13:13;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
-2025-07-01 01:05:17;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
-2025-07-01 01:05:17;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
-2025-07-01 10:06:49;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 23.0 GBq;Debit de dose: 7.4864 mSv/h;7486.4 uSv/h
-2025-07-01 10:07:01;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
-2025-07-01 10:07:01;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
-2025-07-01 12:35:56;Distance;Debit de dose connu: 300.0 mSv/h à 10.0 mètres;Debit de dose calcule: 12.0 mSv/h à 50.0 mètres
-2025-07-01 12:36:09;Distance;Debit de dose connu: 3.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.0 mSv/h à 50.0 mètres
-2025-07-01 16:09:00;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.34 GBq
-2025-07-01 16:16:52;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.34 GBq
-2025-07-01 16:17:06;Perimetre public;DED 1m: 6.0 µSv/h;Perimetre: 1.5491933384829668 m
-2025-07-01 16:17:06;Perimetre public;DED 1m: 60.0 µSv/h;Perimetre: 4.898979485566356 m
-2025-07-01 16:17:19;TMR;Ded contact: 30.0 µSv/h;Ded 1m: 10.0 µSv/h;IT: 1.0;Etiquette: II
-2025-07-01 16:17:29;Distance;Debit de dose connu: 3.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.03 mSv/h à 10.0 mètres
-2025-07-01 16:17:37;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
-2025-07-01 16:17:37;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
-2025-07-01 16:34:00;Distance;Debit de dose connu: 10.0 µSv/h à 1.0 mètres;Debit de dose calcule: 0.1 µSv/h à 10.0 mètres
-2025-07-01 17:11:14;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.34 GBq
-2025-07-01 17:14:07;Distance;Debit de dose connu: 2.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.02 mSv/h à 10.0 mètres
-2025-07-01 20:05:23;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.34 GBq
-2025-07-02 00:07:00;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 6504.0 heures;Activité actuelle: 0.00 GBq
-2025-07-02 00:10:24;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
-2025-07-02 00:10:24;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
