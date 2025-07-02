@@ -14,7 +14,6 @@ from ..fonctions.tmr import TMRDialog
 from ..fonctions.unites_rad import UnitesRadDialog
 
 # Import des dialogues RCH
-from ..fonctions.codedanger import CodeDangerDialog
 from ..fonctions.ecran import EcranDialog
 from ..fonctions.CRP import CRPDialog
 from ..fonctions.gestion_matériel import BD_gestDialog
@@ -67,11 +66,7 @@ class MainWindow(QMainWindow):
             # 3ème ligne 
             ("TMR", self.run_tmr, 2, 0),
             ("Activité", self.run_activite_origin, 2, 1),
-            ("Code DANGER", self.run_code_danger, 2, 2),
-            # 4ème ligne 
-            ("Intervention", self.run_intervention, 3, 0),
-            ("Gestion RH", self.run_crp, 3, 1),
-            ("Matériel", self.run_BD_gest, 3, 2)
+            ("Intervention", self.run_intervention, 2, 2)
         ]
         
         for text, slot, row, col in all_buttons:
@@ -92,6 +87,25 @@ class MainWindow(QMainWindow):
 
     def create_menu(self):
         menubar = self.menuBar()
+        
+        # Menu Gestion
+        gestion_menu = menubar.addMenu("Gestion")
+        
+        # Action Gestion RH avec raccourci clavier et icône
+        rh_action = gestion_menu.addAction("Gestion RH")
+        rh_action.setShortcut("Ctrl+R")
+        rh_icon = self.icon_manager.get_icon("Gestion RH")
+        if rh_icon:
+            rh_action.setIcon(rh_icon)
+        rh_action.triggered.connect(self.run_crp)
+        
+        # Action Matériel avec raccourci clavier et icône
+        materiel_action = gestion_menu.addAction("Matériel")
+        materiel_action.setShortcut("Ctrl+M")
+        materiel_icon = self.icon_manager.get_icon("Matériel")
+        if materiel_icon:
+            materiel_action.setIcon(materiel_icon)
+        materiel_action.triggered.connect(self.run_BD_gest)
         
         # Menu Aide
         help_menu = menubar.addMenu("Aide")
@@ -139,11 +153,6 @@ class MainWindow(QMainWindow):
         dialog = ConfigurationDialog(self)
         dialog.exec()
 
-    def run_code_danger(self):
-        """Lance la fenêtre Code Danger."""
-        dialog = CodeDangerDialog(self)
-        dialog.exec()
-
     def run_ecran(self):
         dialog = EcranDialog(self)
         dialog.exec()
@@ -152,8 +161,6 @@ class MainWindow(QMainWindow):
         dialog = CRPDialog(self)
         dialog.exec()
 
-    def run_BD_gest(self):
-        dialog = BD_gestDialog(self)
     def run_BD_gest(self):
         dialog = BD_gestDialog(self)
         dialog.exec()
