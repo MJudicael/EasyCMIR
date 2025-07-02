@@ -1,0 +1,28 @@
+{
+  "historique": [
+    {
+      "id": 1703001234567.123,
+      "timestamp": "2024-12-19T10:30:00.000Z",
+      "date_lisible": "19/12/2024 11:30:00",
+      "action": "ajouter",
+      "materiel_id": "DEMO-001",
+      "utilisateur": "Web Interface",
+      "details": {
+        "ancien": null,
+        "nouveau": {
+          "id": "DEMO-001",
+          "type": "Détecteur",
+          "usage": "Mesure radiologique",
+          "modele": "RadEye PRD",
+          "marque": "Thermo Fisher",
+          "numero_serie": "ABC123456",
+          "quantite": 1,
+          "statut": "En service",
+          "lieu": "CIS Principal",
+          "affectation": "VLHR-01"
+        }
+      }
+    }
+  ],
+  "derniere_mise_a_jour": "2024-12-19T10:30:00.000Z"
+}
