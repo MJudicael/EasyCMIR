@@ -552,3 +552,15 @@
 2025-06-30 16:36:56;Distance;Debit de dose connu: 30.0 mSv/h à 1.0 mètres;Debit de dose calcule: 0.03 mSv/h à 30.0 mètres
 2025-06-30 17:13:13;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-06-30 17:13:13;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-07-02 18:32:38;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-07-02 18:32:38;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-07-02 18:32:53;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 46165.2 heures;Activité actuelle: 5.34 GBq
+2025-07-02 18:33:06;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2012-05-22 00:00:00;Période: 161.0 heures;Activité actuelle: 0.00 GBq
+2025-07-02 18:33:21;Décroissance;Activité initiale: 30.0 GBq;Date initiale: 2025-05-22 00:00:00;Période: 161.0 heures;Activité actuelle: 0.40 GBq
+2025-07-02 20:03:02;Debit de dose 1 m;Isotope: Cobalt-60;Activite: 84.0 MBq;Debit de dose: 0.0273 mSv/h;27.3 uSv/h
+2025-07-02 20:03:14;Debit de dose 1 m;Isotope: Technétium-99m;Activite: 84.0 MBq;Debit de dose: 0.0014 mSv/h;1.4 uSv/h
+2025-07-02 20:04:25;Distance;Debit de dose connu: 12.5 mSv/h à 23.0 mètres;Debit de dose calcule: 6612.5 mSv/h à 1.0 mètres
+2025-07-02 20:04:40;Distance;Debit de dose connu: 12.5 mSv/h à 2.0 mètres;Debit de dose calcule: 50.0 mSv/h à 1.0 mètres
+2025-07-02 20:04:54;Distance;Debit de dose connu: 12.5 µSv/h à 2.0 mètres;Debit de dose calcule: 50.0 µSv/h à 1.0 mètres
+2025-07-02 20:05:42;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-07-02 20:05:42;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq

@@ -1,5 +1,0 @@
-Date;Nom;Équipe;Entrée;Sortie;Dose;Mission;Commentaire
-30/06/2025;Mougin judicael;Bin 1;11:43;;0.0;Reconnaissance;
-30/06/2025;;;11:44;11:44;0.0;;
-30/06/2025;Nicolas Julien;BIN 1;11:44;;0.0;Reco;AD6 
-01/07/2025;SYSTEM;-;-;16:35;0;Fin de l'intervention;Intervention du 01/07/2025 16:34 terminée

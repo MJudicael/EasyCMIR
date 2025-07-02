@@ -1,7 +1,0 @@
-Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire
-30/06/2025;judi;Binôme 1;15:16;;0.0;
-30/06/2025;nio;Binôme 1;15:16;;0.0;
-30/06/2025;frfr;Binôme 2;15:16;;0.0;
-30/06/2025;ert;Binôme 2;15:16;;0.0;
-30/06/2025;gégé;Binôme 3;15:16;;0.0;SAS
-30/06/2025;nico;Binôme 1;15:16;;0.0;

@@ -1,2 +1,0 @@
-Date;Nom;Équipe;Entrée;Sortie;Dose;Mission;Commentaire
-30/06/2025;g;Binôme 1;14:29;;0.0;g;

@@ -19,7 +19,7 @@ from ..fonctions.ecran import EcranDialog
 from ..fonctions.CRP import CRPDialog
 from ..fonctions.gestion_matériel import BD_gestDialog
 from ..fonctions.gestion_matériel import BD_gestDialog
-from ..fonctions.tmd import TMDDialog
+from ..fonctions.activite_origin import ActiviteOriginDialog
 from ..fonctions.intervention import InterventionDialog
 
 # Import des dialogues du menu Aide
@@ -56,21 +56,21 @@ class MainWindow(QMainWindow):
         
         # Tous les boutons dans une seule liste
         all_buttons = [
-            # 1ère ligne : Décroissance, DED 1m, P Public
+            # 1ère ligne 
             ("Décroissance", self.run_decroissance, 0, 0),
             ("DED 1m", self.run_ded1m, 0, 1),
             ("P Public", self.run_p_public, 0, 2),
-            # 2ème ligne : Distance, Ecran, Unités RAD
+            # 2ème ligne 
             ("Distance", self.run_distance, 1, 0),
             ("Ecran", self.run_ecran, 1, 1),
             ("Unités RAD", self.run_unites_rad, 1, 2),
-            # 3ème ligne : TMR, TMD, Intervention
+            # 3ème ligne 
             ("TMR", self.run_tmr, 2, 0),
-            ("TMD", self.run_tmd, 2, 1),
-            ("Intervention", self.run_intervention, 2, 2),
-            # 4ème ligne : Code DANGER, CRP, Matériel
-            ("Code DANGER", self.run_code_danger, 3, 0),
-            ("CRP", self.run_crp, 3, 1),
+            ("Activité", self.run_activite_origin, 2, 1),
+            ("Code DANGER", self.run_code_danger, 2, 2),
+            # 4ème ligne 
+            ("Intervention", self.run_intervention, 3, 0),
+            ("Gestion RH", self.run_crp, 3, 1),
             ("Matériel", self.run_BD_gest, 3, 2)
         ]
         
@@ -177,8 +177,8 @@ class MainWindow(QMainWindow):
         dialog = BD_gestDialog(self)
         dialog.exec()
 
-    def run_tmd(self):
-        dialog = TMDDialog(self)
+    def run_activite_origin(self):
+        dialog = ActiviteOriginDialog(self)
         dialog.exec()
 
     def run_intervention(self):

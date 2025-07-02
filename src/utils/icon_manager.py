@@ -21,9 +21,9 @@ class IconManager:
             "Unités RAD": "units_rad.png",
             "Ecran": "ecran.png",
             "Code DANGER": "danger.png",
-            "CRP": "CRP.png",
+            "Gestion RH": "CRP.png",
             "Matériel": "inventaire.png",
-            "TMD": "tanker.png",
+            "Activité": "activite_origin.png",
             "Intervention": "pompier.png"
             #Ne pas oublire de modifier le main_window pour ajouter les icônes correspondantes """
         }

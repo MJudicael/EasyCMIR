@@ -1,3 +1,0 @@
-Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire
-30/06/2025;JUDI;Binôme 1;16:08;;0.0;
-30/06/2025;SYSTEM;-;-;16:09;0;Fin de l'intervention;Intervention du 30/06/2025 16:08 terminée

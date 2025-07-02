@@ -1,4 +1,0 @@
-Date;Nom;Équipe;Entrée;Sortie;Dose;Mission;Commentaire
-30/06/2025;Mougin Judicaël;Binôme 1;14:45;;0.0;reco;
-30/06/2025;Mougin Siméon;Binôme 1;14:45;;0.0;reco;
-30/06/2025;Mougin Arthur;Binôme 2;14:45;;0.0;reco;

@@ -1,9 +1,9 @@
 {
     "paths": {
-        "database": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/materiel.db",
+        "database": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/Sauvegarde de BD/materiel.db",
         "isotopes": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/isotopes.txt",
         "interventions": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/interventions",
-        "rh_database": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/RH.db"
+        "rh_database": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/Sauvegarde de BD/RH.db"
     },
     "general": {
         "language": "Français",

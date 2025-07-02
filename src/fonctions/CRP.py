@@ -23,7 +23,7 @@ class CRPDialog(QDialog):
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Gestion Cellules de Radioprotection")
+        self.setWindowTitle("Gestion des ressources humaines")
         self.setMinimumSize(1200, 800)
         
         # Enregistrement de la police Calibri
