@@ -143,6 +143,26 @@ class ConfigurationDialog(QDialog):
         interventions_group.setLayout(interventions_layout)
         layout.addWidget(interventions_group)
         
+        # Groupe Base RH
+        rh_group = QGroupBox("Base de données RH")
+        rh_layout = QFormLayout()
+        
+        # Chemin de la base RH
+        rh_path_layout = QHBoxLayout()
+        self.rh_path_edit = QLineEdit()
+        # Chemin depuis la configuration
+        self.rh_path_edit.setText(config_manager.get_rh_database_path())
+        
+        rh_browse_btn = QPushButton("Parcourir...")
+        rh_browse_btn.clicked.connect(self.browse_rh_path)
+        
+        rh_path_layout.addWidget(self.rh_path_edit)
+        rh_path_layout.addWidget(rh_browse_btn)
+        
+        rh_layout.addRow("Chemin de la base de données RH:", rh_path_layout)
+        rh_group.setLayout(rh_layout)
+        layout.addWidget(rh_group)
+        
         # Bouton pour réinitialiser aux valeurs par défaut
         reset_btn = QPushButton("Réinitialiser aux chemins par défaut")
         reset_btn.clicked.connect(self.reset_default_paths)
@@ -185,6 +205,17 @@ class ConfigurationDialog(QDialog):
         if dir_path:
             self.interventions_path_edit.setText(dir_path)
     
+    def browse_rh_path(self):
+        """Ouvre un dialogue pour choisir la base de données RH"""
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Sélectionner la base de données RH",
+            self.rh_path_edit.text(),
+            "Fichiers de base de données (*.db *.sqlite *.sqlite3);;Tous les fichiers (*)"
+        )
+        if file_path:
+            self.rh_path_edit.setText(file_path)
+    
     def reset_default_paths(self):
         """Remet les chemins par défaut"""
         # Chemins par défaut
@@ -192,10 +223,12 @@ class ConfigurationDialog(QDialog):
         default_db_path = os.path.join(project_root, "data", "materiel.db")
         default_isotopes_path = os.path.join(project_root, "data", "isotopes.txt")
         default_interventions_path = os.path.join(project_root, "interventions")
+        default_rh_path = os.path.join(project_root, "data", "RH.db")
         
         self.db_path_edit.setText(default_db_path)
         self.isotopes_path_edit.setText(default_isotopes_path)
         self.interventions_path_edit.setText(default_interventions_path)
+        self.rh_path_edit.setText(default_rh_path)
         
         QMessageBox.information(self, "Configuration", "Chemins réinitialisés aux valeurs par défaut!")
     
@@ -224,6 +257,7 @@ class ConfigurationDialog(QDialog):
         config_manager.set_database_path(self.db_path_edit.text().strip())
         config_manager.set_isotopes_path(self.isotopes_path_edit.text().strip())
         config_manager.set_interventions_path(self.interventions_path_edit.text().strip())
+        config_manager.set_rh_database_path(self.rh_path_edit.text().strip())
         
         # Sauvegarder dans le fichier
         config_manager.save_config()
@@ -260,6 +294,12 @@ class ConfigurationDialog(QDialog):
                     return False
             else:
                 return False
+        
+        # Vérification de la base de données RH
+        rh_path = self.rh_path_edit.text().strip()
+        if rh_path and not os.path.exists(os.path.dirname(rh_path)):
+            QMessageBox.warning(self, "Erreur", f"Le dossier parent de la base RH n'existe pas:\n{os.path.dirname(rh_path)}")
+            return False
         
         return True
     

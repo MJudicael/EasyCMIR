@@ -21,7 +21,7 @@ class IconManager:
             "Unités RAD": "units_rad.png",
             "Ecran": "ecran.png",
             "Code DANGER": "danger.png",
-            "Bio": "biohazard.png",
+            "CRP": "CRP.png",
             "Matériel": "inventaire.png",
             "TMD": "tanker.png",
             "Intervention": "pompier.png"

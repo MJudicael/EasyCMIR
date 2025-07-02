@@ -2,7 +2,29 @@
     "paths": {
         "database": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/materiel.db",
         "isotopes": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/isotopes.txt",
-        "interventions": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/interventions"
+        "interventions": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/interventions",
+        "rh_database": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/RH.db"
+    },
+    "general": {
+        "language": "Français",
+        "check_updates": true,
+        "restore_windows": false,
+        "auto_save": true,
+        "save_interval": 5
+    },
+    "display": {
+        "theme": "Clair",
+        "icon_size": 32,
+        "graph_quality": "Normale",
+        "show_grid": true,
+        "show_legend": true
+    },
+    "calculations": {
+        "decimal_places": 3,
+        "scientific_notation": true,
+        "activity_unit": "MBq",
+        "dose_unit": "µSv/h",
+        "distance_unit": "m",
+        "default_distance": 100
     }
-
 }

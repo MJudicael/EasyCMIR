@@ -16,7 +16,7 @@ from ..fonctions.unites_rad import UnitesRadDialog
 # Import des dialogues RCH
 from ..fonctions.codedanger import CodeDangerDialog
 from ..fonctions.ecran import EcranDialog
-from ..fonctions.bio import BioDialog
+from ..fonctions.CRP import CRPDialog
 from ..fonctions.gestion_matériel import BD_gestDialog
 from ..fonctions.gestion_matériel import BD_gestDialog
 from ..fonctions.tmd import TMDDialog
@@ -68,9 +68,9 @@ class MainWindow(QMainWindow):
             ("TMR", self.run_tmr, 2, 0),
             ("TMD", self.run_tmd, 2, 1),
             ("Intervention", self.run_intervention, 2, 2),
-            # 4ème ligne : Code DANGER, Bio, Matériel
+            # 4ème ligne : Code DANGER, CRP, Matériel
             ("Code DANGER", self.run_code_danger, 3, 0),
-            ("Bio", self.run_bio, 3, 1),
+            ("CRP", self.run_crp, 3, 1),
             ("Matériel", self.run_BD_gest, 3, 2)
         ]
         
@@ -167,8 +167,8 @@ class MainWindow(QMainWindow):
         dialog = EcranDialog(self)
         dialog.exec()
 
-    def run_bio(self):
-        dialog = BioDialog(self)
+    def run_crp(self):
+        dialog = CRPDialog(self)
         dialog.exec()
 
     def run_BD_gest(self):

@@ -14,7 +14,8 @@ class ConfigManager:
             "paths": {
                 "database": os.path.join(self.config_dir, "materiel.db"),
                 "isotopes": os.path.join(self.config_dir, "isotopes.txt"),
-                "interventions": os.path.join(os.path.dirname(self.config_dir), "interventions")
+                "interventions": os.path.join(os.path.dirname(self.config_dir), "interventions"),
+                "rh_database": os.path.join(self.config_dir, "RH.db")
             },
             "general": {
                 "language": "Français",
@@ -100,6 +101,10 @@ class ConfigManager:
         """Récupère le chemin du dossier des interventions"""
         return self.get_value("paths", "interventions", self.default_config["paths"]["interventions"])
     
+    def get_rh_database_path(self):
+        """Récupère le chemin de la base de données RH"""
+        return self.get_value("paths", "rh_database", self.default_config["paths"]["rh_database"])
+    
     def set_database_path(self, path):
         """Définit le chemin de la base de données"""
         self.set_value("paths", "database", path)
@@ -111,6 +116,10 @@ class ConfigManager:
     def set_interventions_path(self, path):
         """Définit le chemin du dossier des interventions"""
         self.set_value("paths", "interventions", path)
+    
+    def set_rh_database_path(self, path):
+        """Définit le chemin de la base de données RH"""
+        self.set_value("paths", "rh_database", path)
     
     def _merge_configs(self, default, loaded):
         """Fusionne la configuration chargée avec la configuration par défaut"""
