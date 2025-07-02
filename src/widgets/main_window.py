@@ -93,25 +93,6 @@ class MainWindow(QMainWindow):
     def create_menu(self):
         menubar = self.menuBar()
         
-        # Menu Fichier
-        file_menu = menubar.addMenu("Fichier")
-        actions = [
-            ("Décroissance", self.run_decroissance),
-            ("Débit de dose 1m", self.run_ded1m),
-            ("Périmètre public", self.run_p_public),
-            ("TMR", self.run_tmr),
-            ("Distance", self.run_distance),
-            ("Unités RAD", self.run_unites_rad)
-        ]
-        
-        for text, slot in actions:
-            action = file_menu.addAction(text)
-            action.triggered.connect(slot)
-            
-        file_menu.addSeparator()
-        exit_action = file_menu.addAction("Exit")
-        exit_action.triggered.connect(self.close)
-        
         # Menu Aide
         help_menu = menubar.addMenu("Aide")
         about_action = help_menu.addAction("A propos...")

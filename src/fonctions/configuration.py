@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel,
-    QPushButton, QGroupBox, QTabWidget, QWidget,
+    QPushButton, QGroupBox, QWidget,
     QLineEdit, QMessageBox, QFileDialog, QFormLayout
 )
 from PySide6.QtCore import Qt
@@ -21,18 +21,9 @@ class ConfigurationDialog(QDialog):
         """Configure l'interface utilisateur"""
         layout = QVBoxLayout(self)
         
-        # Création des onglets
-        tab_widget = QTabWidget()
-        
-        # Onglet Général (vide pour usage futur)
-        general_tab = self.create_general_tab()
-        tab_widget.addTab(general_tab, "Général")
-        
-        # Onglet Chemins
-        paths_tab = self.create_paths_tab()
-        tab_widget.addTab(paths_tab, "Chemins")
-        
-        layout.addWidget(tab_widget)
+        # Contenu des chemins directement dans la fenêtre
+        paths_content = self.create_paths_content()
+        layout.addWidget(paths_content)
         
         # Boutons
         buttons_layout = QHBoxLayout()
@@ -63,23 +54,8 @@ class ConfigurationDialog(QDialog):
         
         layout.addLayout(buttons_layout)
     
-    def create_general_tab(self):
-        """Crée l'onglet des paramètres généraux (vide pour usage futur)"""
-        widget = QWidget()
-        layout = QVBoxLayout(widget)
-        
-        # Onglet vide avec un message d'information
-        info_label = QLabel("Cet onglet est réservé pour de futurs paramètres généraux.")
-        info_label.setAlignment(Qt.AlignCenter)
-        info_label.setStyleSheet("color: gray; font-style: italic; padding: 50px;")
-        
-        layout.addWidget(info_label)
-        layout.addStretch()
-        
-        return widget
-    
-    def create_paths_tab(self):
-        """Crée l'onglet des chemins des fichiers"""
+    def create_paths_content(self):
+        """Crée le contenu des chemins des fichiers"""
         widget = QWidget()
         layout = QVBoxLayout(widget)
         
@@ -245,15 +221,12 @@ class ConfigurationDialog(QDialog):
     
     def load_current_config(self):
         """Charge la configuration actuelle dans l'interface"""
-        # L'onglet Général est vide, pas de configuration à charger
-        # Les chemins sont déjà chargés dans create_paths_tab()
+        # Les chemins sont déjà chargés dans create_paths_content()
         pass
     
     def save_current_config(self):
         """Sauvegarde la configuration actuelle depuis l'interface"""
-        # L'onglet Général est vide, pas de configuration à sauvegarder
-        
-        # Onglet Chemins
+        # Sauvegarde des chemins
         config_manager.set_database_path(self.db_path_edit.text().strip())
         config_manager.set_isotopes_path(self.isotopes_path_edit.text().strip())
         config_manager.set_interventions_path(self.interventions_path_edit.text().strip())
