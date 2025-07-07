@@ -78,6 +78,34 @@ class CRPDialog(QDialog):
         except:
             return 'Helvetica-Bold' if bold else 'Helvetica'
     
+    def add_logo_to_pdf(self, canvas, width, height):
+        """Ajoute le logo SDIS71 en haut à gauche du PDF."""
+        try:
+            # Chemin vers le logo
+            logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 
+                                   'resources', 'images', 'LOGOSDIS71.png')
+            
+            if os.path.exists(logo_path):
+                # Définir les dimensions du logo (proportions logo d'entreprise)
+                logo_width = 3 * 28.35  # 3 cm en points
+                logo_height = 2 * 28.35  # 2 cm en points
+                
+                # Position en haut à gauche
+                x_position = 1 * 28.35  # 1 cm du bord gauche
+                y_position = height - 3 * 28.35  # 3 cm du haut
+                
+                # Insérer le logo
+                canvas.drawImage(logo_path, x_position, y_position, 
+                               width=logo_width, height=logo_height, 
+                               preserveAspectRatio=True)
+                
+                return True
+        except Exception as e:
+            print(f"Erreur lors de l'ajout du logo: {e}")
+            return False
+        
+        return False
+    
     def create_icon_button(self, text, icon_name, tooltip_text):
         """Crée un bouton avec icône et tooltip dans le style de gestion_matériel."""
         button = QPushButton(text)
@@ -884,6 +912,9 @@ class CRPDialog(QDialog):
         c = canvas.Canvas(filename, pagesize=A4)
         width, height = A4
         
+        # Ajouter le logo SDIS71 en haut à gauche
+        self.add_logo_to_pdf(c, width, height)
+        
         # Récupération des données
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
@@ -906,12 +937,12 @@ class CRPDialog(QDialog):
         
         conn.close()
         
-        # En-tête
+        # En-tête (décalé à droite pour laisser place au logo)
         c.setFont(self.get_font_name(bold=True), 16)
-        c.drawString(2*cm, height-2*cm, f"FICHE INDIVIDUELLE DE RADIOPROTECTION")
+        c.drawString(5*cm, height-2*cm, f"FICHE INDIVIDUELLE DE RADIOPROTECTION")
         
         c.setFont(self.get_font_name(bold=True), 14)
-        c.drawString(2*cm, height-3*cm, f"{agent[1]} {agent[0]}")
+        c.drawString(5*cm, height-3*cm, f"{agent[1]} {agent[0]}")
         
         # Informations personnelles
         c.setFont(self.get_font_name(), 12)
@@ -950,6 +981,8 @@ class CRPDialog(QDialog):
         for expo in expositions:
             if y_pos < 2*cm:  # Nouvelle page si nécessaire
                 c.showPage()
+                # Ajouter le logo sur la nouvelle page
+                self.add_logo_to_pdf(c, width, height)
                 y_pos = height - 2*cm
             
             c.drawString(2*cm, y_pos, expo[0])
@@ -969,6 +1002,9 @@ class CRPDialog(QDialog):
         c = canvas.Canvas(filename, pagesize=A4)
         width, height = A4
         
+        # Ajouter le logo SDIS71 en haut à gauche
+        self.add_logo_to_pdf(c, width, height)
+        
         # Récupération des données
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
@@ -986,12 +1022,12 @@ class CRPDialog(QDialog):
         agents_data = cursor.fetchall()
         conn.close()
         
-        # En-tête
+        # En-tête (décalé à droite pour laisser place au logo)
         c.setFont(self.get_font_name(bold=True), 16)
-        c.drawString(2*cm, height-2*cm, "RAPPORT COLLECTIF DE RADIOPROTECTION")
+        c.drawString(5*cm, height-2*cm, "RAPPORT COLLECTIF DE RADIOPROTECTION")
         
         c.setFont(self.get_font_name(), 12)
-        c.drawString(2*cm, height-3*cm, f"Période: du {date_debut.toString('dd/MM/yyyy')} au {date_fin.toString('dd/MM/yyyy')}")
+        c.drawString(5*cm, height-3*cm, f"Période: du {date_debut.toString('dd/MM/yyyy')} au {date_fin.toString('dd/MM/yyyy')}")
         
         # Tableau
         y_pos = height - 4.5*cm
@@ -1010,6 +1046,8 @@ class CRPDialog(QDialog):
         for agent in agents_data:
             if y_pos < 2*cm:
                 c.showPage()
+                # Ajouter le logo sur la nouvelle page
+                self.add_logo_to_pdf(c, width, height)
                 y_pos = height - 2*cm
             
             c.drawString(2*cm, y_pos, agent[0])
@@ -1031,6 +1069,9 @@ class CRPDialog(QDialog):
         
         c = canvas.Canvas(filename, pagesize=A4)
         width, height = A4
+        
+        # Ajouter le logo SDIS71 en haut à gauche
+        self.add_logo_to_pdf(c, width, height)
         
         # Définition de l'ordre hiérarchique des grades
         grade_order = {
@@ -1075,13 +1116,13 @@ class CRPDialog(QDialog):
             if niveau in levels:
                 levels[niveau]["agents"].append(agent)
         
-        # En-tête
+        # En-tête (décalé à droite pour laisser place au logo)
         c.setFont(self.get_font_name(bold=True), 18)
-        c.drawString(2*cm, height-2*cm, "LISTE D'APTITUDE OPÉRATIONNELLE")
-        c.drawString(2*cm, height-2.8*cm, "SPÉCIALISTE RAD")
+        c.drawString(5*cm, height-2*cm, "LISTE D'APTITUDE OPÉRATIONNELLE")
+        c.drawString(5*cm, height-2.8*cm, "SPÉCIALISTE RAD")
         
         c.setFont(self.get_font_name(), 12)
-        c.drawString(2*cm, height-3.5*cm, f"Établie le {QDate.currentDate().toString('dd/MM/yyyy')} par le Lieutenant MOUGIN Judicaël")
+        c.drawString(5*cm, height-3.5*cm, f"Établie le {QDate.currentDate().toString('dd/MM/yyyy')} par le Lieutenant MOUGIN Judicaël")
         
         y_pos = height - 5*cm
         
@@ -1095,6 +1136,8 @@ class CRPDialog(QDialog):
             # Vérifier l'espace disponible
             if y_pos < 4*cm:
                 c.showPage()
+                # Ajouter le logo sur la nouvelle page
+                self.add_logo_to_pdf(c, width, height)
                 y_pos = height - 2*cm
             
             # Titre du niveau
@@ -1115,6 +1158,8 @@ class CRPDialog(QDialog):
             for agent in level_data["agents"]:
                 if y_pos < 2*cm:
                     c.showPage()
+                    # Ajouter le logo sur la nouvelle page
+                    self.add_logo_to_pdf(c, width, height)
                     y_pos = height - 2*cm
                 
                 nom, prenom, grade, niveau, affectation = agent

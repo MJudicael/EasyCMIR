@@ -59,23 +59,23 @@ class ConfigurationDialog(QDialog):
         widget = QWidget()
         layout = QVBoxLayout(widget)
         
-        # Groupe Base de données matériel
-        db_group = QGroupBox("Base de données matériel")
+        # Groupe Base de données matériel SQLite
+        db_group = QGroupBox("Base de données matériel (SQLite)")
         db_layout = QFormLayout()
         
-        # Chemin de la base de données
+        # Chemin du fichier SQLite
         db_path_layout = QHBoxLayout()
         self.db_path_edit = QLineEdit()
         # Chemin depuis la configuration
         self.db_path_edit.setText(config_manager.get_database_path())
         
         db_browse_btn = QPushButton("Parcourir...")
-        db_browse_btn.clicked.connect(self.browse_database_path)
+        db_browse_btn.clicked.connect(self.browse_materiel_db_path)
         
         db_path_layout.addWidget(self.db_path_edit)
         db_path_layout.addWidget(db_browse_btn)
         
-        db_layout.addRow("Chemin de la base de données:", db_path_layout)
+        db_layout.addRow("Chemin du fichier materiel.db:", db_path_layout)
         db_group.setLayout(db_layout)
         layout.addWidget(db_group)
         
@@ -149,13 +149,13 @@ class ConfigurationDialog(QDialog):
         
         return widget
     
-    def browse_database_path(self):
-        """Ouvre un dialogue pour choisir le fichier de base de données"""
+    def browse_materiel_db_path(self):
+        """Ouvre un dialogue pour choisir le fichier materiel.db"""
         file_path, _ = QFileDialog.getOpenFileName(
             self,
-            "Sélectionner la base de données matériel",
+            "Sélectionner le fichier materiel.db",
             self.db_path_edit.text(),
-            "Fichiers de base de données (*.db *.sqlite *.sqlite3);;Tous les fichiers (*)"
+            "Fichiers SQLite (*.db *.sqlite *.sqlite3);;Tous les fichiers (*)"
         )
         if file_path:
             self.db_path_edit.setText(file_path)
@@ -237,11 +237,61 @@ class ConfigurationDialog(QDialog):
     
     def validate_paths(self):
         """Valide que les chemins spécifiés sont corrects"""
-        # Vérification de la base de données
+        # Vérification du fichier de base de données SQLite
         db_path = self.db_path_edit.text().strip()
         if db_path and not os.path.exists(os.path.dirname(db_path)):
-            QMessageBox.warning(self, "Erreur", f"Le dossier parent de la base de données n'existe pas:\n{os.path.dirname(db_path)}")
+            QMessageBox.warning(self, "Erreur", f"Le dossier parent du fichier materiel.db n'existe pas:\n{os.path.dirname(db_path)}")
             return False
+        
+        # Si le fichier de base n'existe pas, proposer de le créer
+        if db_path and not os.path.exists(db_path):
+            reply = QMessageBox.question(
+                self, 
+                "Fichier inexistant", 
+                f"Le fichier materiel.db n'existe pas:\n{db_path}\n\nVoulez-vous créer une base de données vide?",
+                QMessageBox.Yes | QMessageBox.No
+            )
+            if reply == QMessageBox.Yes:
+                try:
+                    # Créer une base de données SQLite vide avec la structure de base
+                    import sqlite3
+                    os.makedirs(os.path.dirname(db_path), exist_ok=True)
+                    
+                    conn = sqlite3.connect(db_path)
+                    cursor = conn.cursor()
+                    
+                    # Créer la table materiel
+                    cursor.execute('''
+                        CREATE TABLE IF NOT EXISTS materiel (
+                            id TEXT PRIMARY KEY,
+                            nom TEXT NOT NULL,
+                            quantite INTEGER DEFAULT 0,
+                            unite TEXT,
+                            emplacement TEXT,
+                            statut TEXT DEFAULT 'Disponible'
+                        )
+                    ''')
+                    
+                    # Créer la table caracteristiques
+                    cursor.execute('''
+                        CREATE TABLE IF NOT EXISTS caracteristiques (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            materiel_id TEXT,
+                            nom TEXT,
+                            valeur TEXT,
+                            FOREIGN KEY (materiel_id) REFERENCES materiel (id)
+                        )
+                    ''')
+                    
+                    conn.commit()
+                    conn.close()
+                    
+                    QMessageBox.information(self, "Succès", f"Base de données materiel.db créée avec succès:\n{db_path}")
+                except Exception as e:
+                    QMessageBox.critical(self, "Erreur", f"Impossible de créer la base de données:\n{str(e)}")
+                    return False
+            else:
+                return False
         
         # Vérification du fichier isotopes
         isotopes_path = self.isotopes_path_edit.text().strip()

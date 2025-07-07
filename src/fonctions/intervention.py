@@ -6,9 +6,112 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt, QDateTime, QTime, QTimer, Signal
 from PySide6.QtGui import QPixmap
 import os
+import json
 from datetime import datetime
 from ..constants import ICONS_DIR
 from ..utils.config_manager import config_manager
+
+def get_intervention_state_file():
+    """Retourne le chemin du fichier d'état de l'intervention"""
+    interventions_path, _ = get_safe_interventions_path()
+    if interventions_path:
+        return os.path.join(interventions_path, "intervention_state.json")
+    return None
+
+def save_intervention_state(current_file, start_datetime, engaged_personnel, next_agent_id):
+    """Sauvegarde l'état de l'intervention en cours"""
+    state_file = get_intervention_state_file()
+    if not state_file:
+        return False
+    
+    try:
+        state = {
+            "current_file": current_file,
+            "start_datetime": start_datetime.isoformat() if start_datetime else None,
+            "engaged_personnel": engaged_personnel,
+            "next_agent_id": next_agent_id,
+            "saved_at": datetime.now().isoformat()
+        }
+        
+        with open(state_file, 'w', encoding='utf-8') as f:
+            json.dump(state, f, indent=2, ensure_ascii=False)
+        return True
+    except Exception:
+        return False
+
+def load_intervention_state():
+    """Charge l'état de l'intervention sauvegardé"""
+    state_file = get_intervention_state_file()
+    if not state_file or not os.path.exists(state_file):
+        return None
+    
+    try:
+        with open(state_file, 'r', encoding='utf-8') as f:
+            state = json.load(f)
+        
+        # Vérifier que le fichier d'intervention existe encore
+        if state.get("current_file") and os.path.exists(state["current_file"]):
+            # Convertir la date
+            if state.get("start_datetime"):
+                state["start_datetime"] = datetime.fromisoformat(state["start_datetime"])
+            return state
+        else:
+            # Supprimer le fichier d'état si l'intervention n'existe plus
+            clear_intervention_state()
+            return None
+    except Exception:
+        return None
+
+def clear_intervention_state():
+    """Supprime le fichier d'état de l'intervention"""
+    state_file = get_intervention_state_file()
+    if state_file and os.path.exists(state_file):
+        try:
+            os.remove(state_file)
+        except Exception:
+            pass
+
+def get_safe_interventions_path():
+    """Retourne un chemin sûr pour les interventions avec fallback"""
+    # Essayer d'abord le chemin configuré
+    interventions_path = config_manager.get_interventions_path()
+    
+    if interventions_path:
+        try:
+            # Tester si on peut créer/écrire dans ce dossier
+            os.makedirs(interventions_path, exist_ok=True)
+            test_file = os.path.join(interventions_path, 'test_write.tmp')
+            with open(test_file, 'w') as f:
+                f.write('test')
+            os.remove(test_file)
+            return interventions_path, "configured"
+        except (PermissionError, OSError):
+            pass
+    
+    # Fallback vers Documents/EasyCMIR/Interventions
+    fallback_path = os.path.join(os.path.expanduser("~/Documents"), "EasyCMIR", "Interventions")
+    try:
+        os.makedirs(fallback_path, exist_ok=True)
+        # Tester l'écriture
+        test_file = os.path.join(fallback_path, 'test_write.tmp')
+        with open(test_file, 'w') as f:
+            f.write('test')
+        os.remove(test_file)
+        return fallback_path, "documents"
+    except (PermissionError, OSError):
+        pass
+    
+    # Dernier fallback vers le dossier temporaire
+    import tempfile
+    temp_path = os.path.join(tempfile.gettempdir(), "EasyCMIR_Interventions")
+    try:
+        os.makedirs(temp_path, exist_ok=True)
+        return temp_path, "temporary"
+    except (PermissionError, OSError):
+        pass
+    
+    # Si tout échoue, retourner None
+    return None, None
 
 class ClickableLabel(QLabel):
     """Label cliquable personnalisé"""
@@ -73,8 +176,13 @@ class InterventionDialog(QDialog):
         self.engagement_timer.timeout.connect(self.update_engaged_view)
         self.engagement_timer.start(30000)  # 30 secondes
         
-        # Créer automatiquement une nouvelle intervention au démarrage
-        #self.create_new_intervention()
+        # Timer pour sauvegarder l'état périodiquement
+        self.state_timer = QTimer()
+        self.state_timer.timeout.connect(self.save_current_state)
+        self.state_timer.start(60000)  # 1 minute
+        
+        # Charger l'intervention en cours si elle existe
+        self.restore_intervention_state()
 
     def create_file_buttons(self):
         self.file_group = QGroupBox("Gestion de l'intervention")
@@ -88,8 +196,13 @@ class InterventionDialog(QDialog):
         open_btn = QPushButton("Reprendre une intervention")
         open_btn.clicked.connect(self.open_intervention)
         
+        terminate_btn = QPushButton("Terminer définitivement")
+        terminate_btn.clicked.connect(self.terminate_current_intervention)
+        terminate_btn.setStyleSheet("QPushButton { color: red; font-weight: bold; }")
+        
         buttons_layout.addWidget(new_btn)
         buttons_layout.addWidget(open_btn)
+        buttons_layout.addWidget(terminate_btn)
         
         # Ajout du label date/heure
         self.datetime_label = QLabel()
@@ -219,8 +332,15 @@ class InterventionDialog(QDialog):
                 "comment": f"Intervention du {self.start_datetime.strftime('%d/%m/%Y %H:%M')} terminée"
             }
             
-            with open(self.current_file, 'a', encoding='utf-8') as f:
-                f.write(f"{';'.join(end_entry.values())}\n")
+            try:
+                with open(self.current_file, 'a', encoding='utf-8') as f:
+                    f.write(f"{';'.join(end_entry.values())}\n")
+            except (PermissionError, OSError) as e:
+                QMessageBox.warning(
+                    self,
+                    "Erreur de fermeture",
+                    f"Impossible de finaliser l'intervention précédente :\n{str(e)}"
+                )
         
         # Réinitialiser les données
         self.engaged_personnel.clear()
@@ -232,67 +352,137 @@ class InterventionDialog(QDialog):
         timestamp = datetime.now().strftime("%d%m%Y%H%M")
         filename = f"intervention_{timestamp}.txt"
         
-        # Obtenir le chemin configuré pour les interventions
-        interventions_path = config_manager.get_interventions_path()
+        # Obtenir le chemin configuré pour les interventions avec fallback sécurisé
+        interventions_path, path_type = get_safe_interventions_path()
         if not interventions_path:
             QMessageBox.critical(
                 self, 
-                "Erreur de configuration", 
-                "Le chemin du dossier d'interventions n'est pas configuré.\n"
-                "Veuillez configurer le chemin dans les paramètres."
+                "Erreur d'accès aux dossiers", 
+                "Impossible de trouver un dossier accessible pour les interventions.\n"
+                "Vérifiez vos droits d'accès ou contactez l'administrateur système."
             )
             return
-            
-        # Créer le dossier s'il n'existe pas
-        try:
-            os.makedirs(interventions_path, exist_ok=True)
-        except Exception as e:
-            QMessageBox.critical(
-                self, 
-                "Erreur de création du dossier", 
-                f"Impossible de créer le dossier d'interventions :\n{interventions_path}\n\nErreur : {str(e)}"
+        
+        # Informer l'utilisateur si on utilise un chemin de fallback
+        if path_type == "documents":
+            QMessageBox.information(
+                self,
+                "Dossier d'intervention",
+                f"Le dossier configuré n'est pas accessible.\n"
+                f"Les interventions seront sauvegardées dans :\n{interventions_path}"
             )
-            return
+        elif path_type == "temporary":
+            QMessageBox.warning(
+                self,
+                "Dossier temporaire utilisé",
+                f"Attention : Le dossier temporaire est utilisé pour les interventions.\n"
+                f"Les fichiers pourraient être supprimés au redémarrage.\n"
+                f"Dossier utilisé : {interventions_path}"
+            )
             
         self.current_file = os.path.join(interventions_path, filename)
         
-        with open(self.current_file, 'w', encoding='utf-8') as f:
-            f.write("Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire\n")
+        # Tenter de créer le fichier
+        try:
+            with open(self.current_file, 'w', encoding='utf-8') as f:
+                f.write("Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire\n")
+        except PermissionError:
+            QMessageBox.critical(
+                self,
+                "Erreur d'écriture",
+                f"Impossible de créer le fichier d'intervention :\n{self.current_file}\n\n"
+                "Vérifiez que vous avez les droits d'écriture dans ce dossier."
+            )
+            return
+        except Exception as e:
+            QMessageBox.critical(
+                self,
+                "Erreur",
+                f"Erreur lors de la création du fichier :\n{str(e)}"
+            )
+            return
         
         # Mettre à jour l'affichage
         self.clear_form()
         self.update_engaged_view()
+        
+        # Sauvegarder l'état
+        self.save_current_state()
+        
+        # Afficher le chemin du fichier créé
+        if path_type == "configured":
+            status_msg = f"Nouvelle intervention créée : {filename}"
+        else:
+            status_msg = f"Nouvelle intervention créée : {filename}\nDossier : {interventions_path}"
+        
+        QMessageBox.information(
+            self,
+            "Intervention créée",
+            status_msg
+        )
 
     def open_intervention(self):
-        # Obtenir le chemin configuré pour les interventions
-        interventions_path = config_manager.get_interventions_path()
+        # Obtenir le chemin configuré pour les interventions avec fallback sécurisé
+        interventions_path, path_type = get_safe_interventions_path()
         if not interventions_path:
             QMessageBox.critical(
                 self, 
-                "Erreur de configuration", 
-                "Le chemin du dossier d'interventions n'est pas configuré.\n"
-                "Veuillez configurer le chemin dans les paramètres."
+                "Erreur d'accès aux dossiers", 
+                "Impossible de trouver un dossier accessible pour les interventions.\n"
+                "Vérifiez vos droits d'accès ou contactez l'administrateur système."
             )
             return
             
-        # Créer le dossier s'il n'existe pas
-        try:
-            os.makedirs(interventions_path, exist_ok=True)
-        except Exception as e:
-            QMessageBox.critical(
-                self, 
-                "Erreur de création du dossier", 
-                f"Impossible de créer le dossier d'interventions :\n{interventions_path}\n\nErreur : {str(e)}"
+        # Informer l'utilisateur si on utilise un chemin de fallback
+        if path_type == "documents":
+            QMessageBox.information(
+                self,
+                "Dossier d'intervention",
+                f"Le dossier configuré n'est pas accessible.\n"
+                f"Recherche dans le dossier de fallback :\n{interventions_path}"
             )
-            return
+        elif path_type == "temporary":
+            QMessageBox.warning(
+                self,
+                "Dossier temporaire utilisé",
+                f"Attention : Recherche dans le dossier temporaire.\n"
+                f"Dossier utilisé : {interventions_path}"
+            )
             
         filename, _ = QFileDialog.getOpenFileName(
             self, "Ouvrir une intervention", interventions_path, "Fichiers texte (*.txt)"
         )
         
         if filename:
-            self.current_file = filename
-            self.load_engaged_agents()
+            try:
+                # Vérifier que le fichier est accessible en lecture
+                with open(filename, 'r', encoding='utf-8') as f:
+                    pass  # Test de lecture
+                self.current_file = filename
+                self.load_engaged_agents()
+                
+                # Sauvegarder l'état
+                self.save_current_state()
+                
+                QMessageBox.information(
+                    self,
+                    "Intervention ouverte",
+                    f"Intervention chargée avec succès :\n{os.path.basename(filename)}"
+                )
+            except PermissionError:
+                QMessageBox.critical(
+                    self,
+                    "Erreur d'accès au fichier",
+                    f"Accès refusé au fichier :\n{filename}\n\n"
+                    "Vérifiez que vous avez les droits de lecture sur ce fichier."
+                )
+            except Exception as e:
+                QMessageBox.critical(
+                    self,
+                    "Erreur d'ouverture",
+                    f"Impossible d'ouvrir le fichier :\n{filename}\n\n"
+                    f"Erreur : {str(e)}"
+                )
             
     def submit_entry(self):
         """Enregistre une nouvelle entrée"""
@@ -333,13 +523,32 @@ class InterventionDialog(QDialog):
             self.engaged_personnel[self.next_agent_id] = entry_data
             self.next_agent_id += 1
             
-        # Écriture dans le fichier historique
-        with open(self.current_file, 'a', encoding='utf-8') as f:
-            values = [str(v) for v in entry_data.values()]
-            f.write(f"{';'.join(values[1:])}\n")  # Exclure l'ID de l'historique
+        # Écriture dans le fichier historique avec gestion d'erreurs
+        try:
+            with open(self.current_file, 'a', encoding='utf-8') as f:
+                values = [str(v) for v in entry_data.values()]
+                f.write(f"{';'.join(values[1:])}\n")  # Exclure l'ID de l'historique
+        except PermissionError:
+            QMessageBox.critical(
+                self,
+                "Erreur d'écriture",
+                f"Impossible d'écrire dans le fichier d'intervention :\n{self.current_file}\n\n"
+                "Vérifiez que vous avez les droits d'écriture ou que le fichier n'est pas ouvert ailleurs."
+            )
+            return
+        except Exception as e:
+            QMessageBox.critical(
+                self,
+                "Erreur",
+                f"Erreur lors de l'écriture dans le fichier :\n{str(e)}"
+            )
+            return
     
         self.update_engaged_view()
         self.clear_form()
+        
+        # Sauvegarder l'état après chaque entrée
+        self.save_current_state()
 
     def load_engaged_agents(self):
         """Charge uniquement les agents sans heure de sortie"""
@@ -372,8 +581,19 @@ class InterventionDialog(QDialog):
                         self.next_agent_id += 1
         
             self.update_engaged_view()
+        except PermissionError:
+            QMessageBox.critical(
+                self,
+                "Erreur d'accès au fichier",
+                f"Impossible de lire le fichier d'intervention :\n{self.current_file}\n\n"
+                "Vérifiez que vous avez les droits de lecture sur ce fichier."
+            )
         except Exception as e:
-            print(f"Erreur lors du chargement des agents: {str(e)}")
+            QMessageBox.critical(
+                self,
+                "Erreur de chargement",
+                f"Erreur lors du chargement des agents engagés :\n{str(e)}"
+            )
 
     def update_engaged_view(self):
         """Met à jour l'affichage des agents engagés"""
@@ -667,42 +887,25 @@ class InterventionDialog(QDialog):
                     widget.setStyleSheet(self._get_widget_style(selected))
 
     def closeEvent(self, event):
-        """Gère la fermeture de la fenêtre"""
-        # Arrêter le timer
+        """Gère la fermeture de la fenêtre sans terminer l'intervention"""
+        # Arrêter les timers
         self.engagement_timer.stop()
+        self.state_timer.stop()
         
-        if not self.current_file:
-            event.accept()
-            return
-        
-        reply = QMessageBox.question(
-            self,
-            "Confirmation de fermeture",
-            "Voulez-vous terminer l'intervention ?",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No
-        )
-        
-        if reply == QMessageBox.Yes:
-            # Ajouter la fin d'intervention dans l'historique
-            end_entry = {
-                "date": datetime.now().strftime("%d/%m/%Y"),
-                "name": "SYSTEM",
-                "team": "-",
-                "entry": "-",
-                "exit": datetime.now().strftime("%H:%M"),
-                "dose": "0",
-                "comment": f"Intervention du {self.start_datetime.strftime('%d/%m/%Y %H:%M')} terminée"
-            }
+        # Sauvegarder l'état avant de fermer
+        if self.current_file:
+            self.save_current_state()
             
-            with open(self.current_file, 'a', encoding='utf-8') as f:
-                f.write(f"{';'.join(end_entry.values())}\n")
-            
-            # Accepter l'événement de fermeture
-            event.accept()
-        else:
-            # Ignorer l'événement de fermeture
-            event.ignore()
+            QMessageBox.information(
+                self,
+                "Intervention en pause",
+                "L'intervention en cours a été sauvegardée.\n"
+                "Elle reprendra automatiquement lors de la prochaine ouverture.\n\n"
+                "Pour terminer définitivement l'intervention, utilisez le bouton rouge 'Terminer définitivement'."
+            )
+        
+        # Accepter l'événement de fermeture sans confirmation
+        event.accept()
 
     # Ajouter cette nouvelle méthode
     def set_current_exit_time(self):
@@ -740,3 +943,82 @@ class InterventionDialog(QDialog):
         else:
             # Retourner un pixmap vide si l'icône n'existe pas
             return QPixmap()
+    
+    def save_current_state(self):
+        """Sauvegarde l'état actuel de l'intervention"""
+        if self.current_file:
+            save_intervention_state(
+                self.current_file,
+                self.start_datetime,
+                self.engaged_personnel,
+                self.next_agent_id
+            )
+    
+    def restore_intervention_state(self):
+        """Restaure l'état de l'intervention sauvegardé"""
+        state = load_intervention_state()
+        if state:
+            self.current_file = state.get("current_file")
+            self.start_datetime = state.get("start_datetime", datetime.now())
+            self.engaged_personnel = state.get("engaged_personnel", {})
+            self.next_agent_id = state.get("next_agent_id", 1)
+            
+            # Convertir les IDs en entiers (JSON les sauvegarde en strings)
+            if self.engaged_personnel:
+                converted_personnel = {}
+                for agent_id, agent_data in self.engaged_personnel.items():
+                    # S'assurer que agent_id est un entier
+                    int_id = int(agent_id) if isinstance(agent_id, str) else agent_id
+                    converted_personnel[int_id] = agent_data
+                self.engaged_personnel = converted_personnel
+            
+            # Mettre à jour l'affichage
+            self.start_label.setText(f"Début : {self.start_datetime.strftime('%d/%m/%Y à %H:%M')}")
+            self.update_engaged_view()
+    
+    def terminate_current_intervention(self):
+        """Termine définitivement l'intervention en cours"""
+        if not self.current_file:
+            return True
+        
+        reply = QMessageBox.question(
+            self,
+            "Terminer l'intervention",
+            "Voulez-vous vraiment terminer l'intervention en cours ?\n"
+            "Cette action est définitive et l'intervention ne pourra plus être reprise.",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+        
+        if reply == QMessageBox.Yes:
+            # Ajouter la fin d'intervention dans l'historique
+            end_entry = {
+                "date": datetime.now().strftime("%d/%m/%Y"),
+                "name": "SYSTEM",
+                "team": "-",
+                "entry": "-",
+                "exit": datetime.now().strftime("%H:%M"),
+                "dose": "0",
+                "comment": f"Intervention du {self.start_datetime.strftime('%d/%m/%Y %H:%M')} terminée définitivement"
+            }
+            
+            try:
+                with open(self.current_file, 'a', encoding='utf-8') as f:
+                    f.write(f"{';'.join(end_entry.values())}\n")
+            except (PermissionError, OSError):
+                pass  # Ignorer les erreurs d'écriture lors de la fermeture
+            
+            # Supprimer l'état sauvegardé
+            clear_intervention_state()
+            
+            # Réinitialiser l'interface
+            self.current_file = None
+            self.engaged_personnel.clear()
+            self.next_agent_id = 1
+            self.start_datetime = datetime.now()
+            self.start_label.setText(f"Début : {self.start_datetime.strftime('%d/%m/%Y à %H:%M')}")
+            self.update_engaged_view()
+            
+            return True
+        
+        return False

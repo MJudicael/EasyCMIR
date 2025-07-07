@@ -1,0 +1,4 @@
+Date;Nom;Équipe;Entrée;Sortie;Dose;Commentaire
+05/07/2025;JUDI;Binôme 1;13:00;;0.0;RECO
+05/07/2025;Arnaud;Binôme 1;13:00;;0.0;
+05/07/2025;SYSTEM;-;-;14:04;0;Intervention du 05/07/2025 13:57 terminée définitivement

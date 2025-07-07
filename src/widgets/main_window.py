@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QGridLayout,
-    QPushButton, QLabel, QMenu, QMenuBar, QToolButton
+    QPushButton, QLabel, QMenu, QMenuBar, QToolButton, QMessageBox
 )
 from PySide6.QtCore import Qt, QSize
 from src.utils.icon_manager import IconManager
@@ -16,8 +16,7 @@ from ..fonctions.unites_rad import UnitesRadDialog
 # Import des dialogues RCH
 from ..fonctions.ecran import EcranDialog
 from ..fonctions.CRP import CRPDialog
-from ..fonctions.gestion_matériel import BD_gestDialog
-from ..fonctions.gestion_matériel import BD_gestDialog
+from ..fonctions.gestion_matériel import open_gestion_materiel
 from ..fonctions.activite_origin import ActiviteOriginDialog
 from ..fonctions.intervention import InterventionDialog
 
@@ -162,8 +161,7 @@ class MainWindow(QMainWindow):
         dialog.exec()
 
     def run_BD_gest(self):
-        dialog = BD_gestDialog(self)
-        dialog.exec()
+        open_gestion_materiel(self)
 
     def run_activite_origin(self):
         dialog = ActiviteOriginDialog(self)
@@ -178,3 +176,81 @@ class MainWindow(QMainWindow):
         dialog = InterventionDialog(self)
         dialog.setWindowModality(Qt.NonModal)  # Permet l'interaction avec la fenêtre principale
         dialog.show()  # Utiliser show() au lieu de exec() pour un dialogue non-modal
+    
+    def closeEvent(self, event):
+        """Gère la fermeture de l'application principale"""
+        # Vérifier s'il y a une intervention en cours
+        from ..fonctions.intervention import load_intervention_state, clear_intervention_state
+        
+        intervention_state = load_intervention_state()
+        
+        if intervention_state and intervention_state.get("current_file"):
+            # Il y a une intervention en cours
+            reply = QMessageBox.question(
+                self,
+                "Fermeture de l'application",
+                "Une intervention est en cours.\n\n"
+                "Que voulez-vous faire ?\n\n"
+                "• Fermer sans terminer : L'intervention reprendra au prochain démarrage\n"
+                "• Terminer l'intervention : L'intervention sera définitivement terminée\n"
+                "• Annuler : Continuer à utiliser l'application",
+                QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
+                QMessageBox.Cancel
+            )
+            
+            if reply == QMessageBox.Cancel:
+                # Annuler la fermeture
+                event.ignore()
+                return
+            elif reply == QMessageBox.Discard:
+                # Terminer l'intervention avant de fermer
+                from datetime import datetime
+                import os
+                
+                try:
+                    # Ajouter une entrée de fin dans le fichier d'intervention
+                    current_file = intervention_state.get("current_file")
+                    start_datetime = intervention_state.get("start_datetime")
+                    
+                    if isinstance(start_datetime, str):
+                        from datetime import datetime
+                        start_datetime = datetime.fromisoformat(start_datetime)
+                    
+                    end_entry = {
+                        "date": datetime.now().strftime("%d/%m/%Y"),
+                        "name": "SYSTEM",
+                        "team": "-",
+                        "entry": "-",
+                        "exit": datetime.now().strftime("%H:%M"),
+                        "dose": "0",
+                        "comment": f"Intervention du {start_datetime.strftime('%d/%m/%Y %H:%M')} terminée à la fermeture de l'application"
+                    }
+                    
+                    if current_file and os.path.exists(current_file):
+                        with open(current_file, 'a', encoding='utf-8') as f:
+                            f.write(f"{';'.join(end_entry.values())}\n")
+                except Exception:
+                    pass  # Ignorer les erreurs lors de la fermeture
+                
+                # Supprimer l'état sauvegardé
+                clear_intervention_state()
+                
+                # Continuer la fermeture
+                event.accept()
+            else:  # Save
+                # Fermer sans terminer l'intervention (elle reprendra au prochain démarrage)
+                event.accept()
+        else:
+            # Pas d'intervention en cours, demander confirmation simple
+            reply = QMessageBox.question(
+                self,
+                "Fermeture de l'application",
+                "Voulez-vous vraiment fermer EasyCMIR ?",
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.No
+            )
+            
+            if reply == QMessageBox.Yes:
+                event.accept()
+            else:
+                event.ignore()

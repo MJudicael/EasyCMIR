@@ -566,3 +566,5 @@
 2025-07-02 20:05:42;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
 2025-07-02 22:59:59;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
 2025-07-02 22:59:59;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq
+2025-07-04 11:05:05;Conversion Debit de Dose;De: 0.0 mSv/h;Vers: 0 µSv/h
+2025-07-04 11:05:05;Conversion Activite;De: 0.0 GBq;Vers: 0 Bq

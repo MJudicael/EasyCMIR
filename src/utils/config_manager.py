@@ -13,6 +13,7 @@ class ConfigManager:
         self.default_config = {
             "paths": {
                 "database": os.path.join(self.config_dir, "materiel.db"),
+                "materiel_json_path": os.path.join(os.path.dirname(self.config_dir), "web_standalone", "materiel.json"),
                 "isotopes": os.path.join(self.config_dir, "isotopes.txt"),
                 "interventions": os.path.join(os.path.dirname(self.config_dir), "interventions"),
                 "rh_database": os.path.join(self.config_dir, "RH.db")
@@ -105,6 +106,10 @@ class ConfigManager:
         """Récupère le chemin de la base de données RH"""
         return self.get_value("paths", "rh_database", self.default_config["paths"]["rh_database"])
     
+    def get_materiel_json_path(self):
+        """Récupère le chemin du fichier materiel.json"""
+        return self.get_value("paths", "materiel_json_path", self.default_config["paths"]["materiel_json_path"])
+    
     def set_database_path(self, path):
         """Définit le chemin de la base de données"""
         self.set_value("paths", "database", path)
@@ -120,6 +125,10 @@ class ConfigManager:
     def set_rh_database_path(self, path):
         """Définit le chemin de la base de données RH"""
         self.set_value("paths", "rh_database", path)
+    
+    def set_materiel_json_path(self, path):
+        """Définit le chemin du fichier materiel.json"""
+        self.set_value("paths", "materiel_json_path", path)
     
     def _merge_configs(self, default, loaded):
         """Fusionne la configuration chargée avec la configuration par défaut"""

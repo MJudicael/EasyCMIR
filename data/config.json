@@ -1,6 +1,7 @@
 {
     "paths": {
         "database": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/materiel.db",
+        "materiel_json_path": "C:/Users/jmougin/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/web_standalone/materiel.json",
         "isotopes": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/isotopes.txt",
         "interventions": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/interventions",
         "rh_database": "C:/Users/judic/OneDrive/Personnel/Mes scripts personnels/Python/Travail/EasyCMIR/EasyCMIR-1/data/RH.db"
