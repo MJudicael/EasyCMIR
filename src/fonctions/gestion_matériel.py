@@ -29,8 +29,11 @@ from reportlab.lib.pagesizes import letter, landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib import colors
+from reportlab.lib.units import inch
 from ..utils.config_manager import config_manager
 from ..constants import ICONS_DIR
+from ..widgets.login_dialog import require_authentication
+import json
 
 
 # ====================================================================
@@ -1033,6 +1036,12 @@ class GestionMaterielWindow(QMainWindow):
     
     def __init__(self, parent=None):
         super().__init__(parent)
+        
+        # Vérifier l'authentification avant d'ouvrir le module
+        if not require_authentication("Gestion Matériel", parent):
+            self.close()
+            return
+        
         self.setWindowTitle("🔧 Gestionnaire de Matériel - EasyCMIR")
         self.setGeometry(100, 100, 1400, 800)
         

@@ -4,6 +4,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QSize
 from src.utils.icon_manager import IconManager
+from ..utils.auth_manager import auth_manager
 
 # Import des dialogues RAD
 from ..fonctions.decroissance import DecroissanceDialog
@@ -15,7 +16,7 @@ from ..fonctions.unites_rad import UnitesRadDialog
 
 # Import des dialogues RCH
 from ..fonctions.ecran import EcranDialog
-from ..fonctions.CRP import CRPDialog
+from ..fonctions.RH import RHDialog
 from ..fonctions.gestion_matériel import open_gestion_materiel
 from ..fonctions.activite_origin import ActiviteOriginDialog
 from ..fonctions.intervention import InterventionDialog
@@ -96,7 +97,7 @@ class MainWindow(QMainWindow):
         rh_icon = self.icon_manager.get_icon("Gestion RH")
         if rh_icon:
             rh_action.setIcon(rh_icon)
-        rh_action.triggered.connect(self.run_crp)
+        rh_action.triggered.connect(self.run_rh)
         
         # Action Matériel avec raccourci clavier et icône
         materiel_action = gestion_menu.addAction("Matériel")
@@ -115,6 +116,12 @@ class MainWindow(QMainWindow):
         help_menu.addSeparator()
         config_action = help_menu.addAction("Configuration")
         config_action.triggered.connect(self.run_configuration)
+        
+        # Menu Utilisateur (si connecté)
+        if auth_manager.is_authenticated():
+            user_menu = menubar.addMenu(f"👤 {auth_manager.get_current_user()['username']}")
+            logout_action = user_menu.addAction("🚪 Se déconnecter")
+            logout_action.triggered.connect(self.logout)
 
     def run_decroissance(self):
         dialog = DecroissanceDialog(self)
@@ -156,8 +163,8 @@ class MainWindow(QMainWindow):
         dialog = EcranDialog(self)
         dialog.exec()
 
-    def run_crp(self):
-        dialog = CRPDialog(self)
+    def run_rh(self):
+        dialog = RHDialog(self)
         dialog.exec()
 
     def run_BD_gest(self):
@@ -242,15 +249,36 @@ class MainWindow(QMainWindow):
                 event.accept()
         else:
             # Pas d'intervention en cours, demander confirmation simple
-            reply = QMessageBox.question(
-                self,
-                "Fermeture de l'application",
-                "Voulez-vous vraiment fermer EasyCMIR ?",
-                QMessageBox.Yes | QMessageBox.No,
-                QMessageBox.No
-            )
+            msg_box = QMessageBox(self)
+            msg_box.setWindowTitle("Fermeture de l'application")
+            msg_box.setText("Voulez-vous vraiment fermer EasyCMIR ?")
+            msg_box.setIcon(QMessageBox.Icon.Question)
             
-            if reply == QMessageBox.Yes:
+            # Boutons en français
+            btn_oui = msg_box.addButton("Oui", QMessageBox.ButtonRole.YesRole)
+            btn_non = msg_box.addButton("Non", QMessageBox.ButtonRole.NoRole)
+            msg_box.setDefaultButton(btn_non)  # Non par défaut
+            
+            msg_box.exec()
+            
+            if msg_box.clickedButton() == btn_oui:
                 event.accept()
             else:
                 event.ignore()
+    
+    def logout(self):
+        """Déconnecte l'utilisateur actuel"""
+        reply = QMessageBox.question(
+            self,
+            "Déconnexion",
+            "Voulez-vous vraiment vous déconnecter ?",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+        
+        if reply == QMessageBox.Yes:
+            auth_manager.logout()
+            QMessageBox.information(self, "Déconnexion", "Vous avez été déconnecté avec succès.")
+            # Recréer le menu pour retirer le menu utilisateur
+            self.menuBar().clear()
+            self.create_menu()

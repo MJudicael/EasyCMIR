@@ -20,7 +20,7 @@ class IconManager:
             "TMR": "tmr.png",
             "Unités RAD": "units_rad.png",
             "Ecran": "ecran.png",
-            "Gestion RH": "CRP.png",
+            "Gestion RH": "RH.png",
             "Matériel": "inventaire.png",
             "Activité": "activite_origin.png",
             "Intervention": "pompier.png"

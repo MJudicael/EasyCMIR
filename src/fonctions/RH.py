@@ -13,16 +13,23 @@ import os
 from datetime import datetime, date
 from ..utils.config_manager import config_manager
 from ..constants import ICONS_DIR
+from ..widgets.login_dialog import require_authentication
 import json
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import platform
 
-class CRPDialog(QDialog):
-    """Dialog pour la gestion des Cellules de Radioprotection."""
+class RHDialog(QDialog):
+    """Dialog pour la gestion des Ressources Humaines."""
     
     def __init__(self, parent=None):
         super().__init__(parent)
+        
+        # Vérifier l'authentification avant d'ouvrir le module
+        if not require_authentication("Gestion RH", parent):
+            self.reject()
+            return
+        
         self.setWindowTitle("Gestion des ressources humaines")
         self.setMinimumSize(1200, 800)
         

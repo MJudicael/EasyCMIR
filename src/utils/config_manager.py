@@ -16,7 +16,8 @@ class ConfigManager:
                 "materiel_json_path": os.path.join(os.path.dirname(self.config_dir), "web_standalone", "materiel.json"),
                 "isotopes": os.path.join(self.config_dir, "isotopes.txt"),
                 "interventions": os.path.join(os.path.dirname(self.config_dir), "interventions"),
-                "rh_database": os.path.join(self.config_dir, "RH.db")
+                "rh_database": os.path.join(self.config_dir, "RH.db"),
+                "auth_database": os.path.join(self.config_dir, "users.db")
             },
             "general": {
                 "language": "Français",
@@ -110,6 +111,10 @@ class ConfigManager:
         """Récupère le chemin du fichier materiel.json"""
         return self.get_value("paths", "materiel_json_path", self.default_config["paths"]["materiel_json_path"])
     
+    def get_auth_database_path(self):
+        """Récupère le chemin de la base de données d'authentification"""
+        return self.get_value("paths", "auth_database", self.default_config["paths"]["auth_database"])
+
     def set_database_path(self, path):
         """Définit le chemin de la base de données"""
         self.set_value("paths", "database", path)
@@ -130,6 +135,10 @@ class ConfigManager:
         """Définit le chemin du fichier materiel.json"""
         self.set_value("paths", "materiel_json_path", path)
     
+    def set_auth_database_path(self, path):
+        """Définit le chemin de la base de données d'authentification"""
+        self.set_value("paths", "auth_database", path)
+
     def _merge_configs(self, default, loaded):
         """Fusionne la configuration chargée avec la configuration par défaut"""
         merged = default.copy()
